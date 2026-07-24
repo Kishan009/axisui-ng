@@ -1,0 +1,96 @@
+---
+title: AuthForm
+category: blocks
+description: Login / signup card composing ax-input + ax-button. Emit-only, with header/footer slots.
+status: stable
+since: 0.2
+---
+
+# AuthForm
+
+`<ax-auth-form>` is a login/signup card composed from [ax-input](/docs/components/forms/input/) and
+[ax-button](/docs/components/buttons/button/). It is **emit-only**: after a required-field guard it emits
+`(authSubmit)` with the credentials — no validation library and no network. Pass `[error]` to
+surface a failure in a `role="alert"` region. Header and footer content are projected via attribute
+slots.
+
+## Import
+
+```ts
+import { AxAuthFormComponent, type AuthMode, type AuthSubmit } from '@axisui-ng/blocks';
+```
+
+## Usage
+
+```html
+<ax-auth-form
+  mode="signup"
+  [pending]="saving"
+  [error]="authError"
+  (authSubmit)="register($event)"
+>
+  <h2 slot="header" class="text-lg font-semibold">Create your account</h2>
+  <p slot="footer" class="text-xs text-muted-foreground">
+    By continuing you agree to the terms.
+  </p>
+</ax-auth-form>
+```
+
+```ts
+register(payload: AuthSubmit) {
+  // { email, password, name? } — wire to your auth API
+}
+```
+
+## Inputs
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `mode` | `AuthMode` (`'login' \| 'signup'`) | `'login'` | Signup adds a Name field and uses `autocomplete="new-password"`. |
+| `submitLabel` | `string` | `''` | Button label; empty → `'Sign in'` (login) or `'Create account'` (signup). |
+| `pending` | `boolean` | `false` | Disables the submit button and blocks emit (e.g. request in flight). |
+| `ariaLabel` | `string` | `''` | Form `aria-label`; empty → `'Sign in'` (login) or `'Sign up'` (signup). |
+| `error` | `string \| null` | `null` | When set, rendered in a `role="alert"` region below the fields. |
+
+### `AuthSubmit` (output payload)
+
+| Field | Type | Required | Notes |
+|---|---|---|---|
+| `email` | `string` | yes | Trimmed; required to emit. |
+| `password` | `string` | yes | Required to emit (not trimmed). |
+| `name` | `string` | no | Present only in signup mode; trimmed; required to emit when `mode="signup"`. |
+
+## Outputs
+
+| Output | Payload | Notes |
+|---|---|---|
+| `authSubmit` | `AuthSubmit` | Fired after the required-field guard on form submit or CTA click. Suppressed while `pending`, or when email/password (and name in signup) are empty. |
+
+## Slots
+
+| Slot | Selector | Notes |
+|---|---|---|
+| Header | `[slot=header]` | Projected at the top of the form (e.g. title). |
+| Footer | `[slot=footer]` | Projected below the submit button (e.g. OAuth link, legal copy). |
+
+Mark projected nodes with `slot="header"` or `slot="footer"`:
+
+```html
+<h2 slot="header">Welcome back</h2>
+<p slot="footer">Forgot password?</p>
+```
+
+## Accessibility
+
+Each field is an implicit `<label>` wrapping its `ax-input` (accessible name from the label text).
+Fields set `name` and `autocomplete` for password managers and mobile keyboards (`email`,
+`current-password` vs `new-password` by mode, `name` in signup). The form has an `aria-label`
+(explicit or mode default). Errors use `role="alert"`. Submit is a `ax-button`.
+
+## Storybook
+
+Interactive examples live in Storybook under **Blocks / AuthForm**. Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `auth-form` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/blocks/src/lib/auth-form/)

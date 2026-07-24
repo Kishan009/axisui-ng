@@ -1,0 +1,55 @@
+---
+title: Statistic
+category: data
+description: A labeled metric with optional prefix/suffix, locale formatting, and a trend indicator.
+status: stable
+since: 0.2
+---
+
+# Statistic
+
+`<ax-statistic>` displays a labeled metric with optional prefix/suffix, locale-aware number
+formatting, and a trend indicator.
+
+## Import
+
+```ts
+import { AxStatisticComponent } from '@axisui-ng/data';
+```
+
+## Usage
+
+```html
+<ax-statistic label="Revenue" [value]="48230" prefix="$" [trend]="12.5" />
+
+<ax-statistic
+  label="Conversion"
+  [value]="0.182"
+  [formatOptions]="{ style: 'percent', maximumFractionDigits: 1 }"
+/>
+```
+
+## Inputs
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `label` | `string` | `''` | Caption above the value. |
+| `value` | `number \| string` | `0` | The metric; numbers are formatted via `Intl.NumberFormat`. |
+| `prefix` | `string` | `''` | Text before the value (e.g. `$`). |
+| `suffix` | `string` | `''` | Text after the value (e.g. `ms`). |
+| `locale` | `string \| undefined` | `undefined` | BCP-47 locale for formatting. |
+| `formatOptions` | `Intl.NumberFormatOptions \| null` | `null` | Passed to `Intl.NumberFormat` for numeric values. |
+| `trend` | `number \| null` | `null` | Percent change; positive → up/success, negative → down/destructive; `null` hides the row. |
+
+## Accessibility
+
+The label and value read together as a single labeled figure. The trend row has an `aria-label` of
+`up|down {magnitude}` and the arrow icon is `aria-hidden`, so direction isn't conveyed by color alone.
+
+## Storybook
+
+Interactive examples live in Storybook under **Data / Statistic**. Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `statistic` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/data/src/lib/statistic/)

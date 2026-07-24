@@ -1,0 +1,75 @@
+---
+title: ColorPicker
+category: forms
+description: OKLCH-space color picker — perceptual L/C/H sliders, gamut-aware, with theme-token snapping. Outputs oklch, hex, or rgb.
+status: stable
+since: 0.2
+---
+
+# ColorPicker
+
+`<ax-color-picker>` edits color in **OKLCH** — a perceptually uniform space — with
+Lightness / Chroma / Hue sliders (plus optional alpha). It is **gamut-aware**: a
+color outside the sRGB gamut is mapped to the boundary by reducing chroma (L and
+H preserved) and flagged with an indicator. It also snaps to your theme's design
+tokens. Implements `ControlValueAccessor`.
+
+It is an inline panel — drop it inside your own [`ax-popover`](/docs/components/overlays/popover)
+for a trigger-based picker.
+
+## Import
+
+```ts
+import { AxColorPickerComponent } from '@axisui-ng/forms';
+```
+
+## Usage
+
+```html
+<ax-color-picker [(value)]="brand" ariaLabel="Brand color" />
+
+<!-- hex output, with an alpha slider -->
+<ax-color-picker [(value)]="fill" format="hex" [alpha]="true" />
+
+<!-- custom palette instead of the theme tokens -->
+<ax-color-picker [(value)]="c" [tokens]="myTokens" />
+```
+
+## Inputs & models
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `value` | `model<string>` | `''` | Two-way + CVA; serialized per `format`. |
+| `format` | `'oklch' \| 'hex' \| 'rgb'` | `'oklch'` | Output/copy format; the text field parses any of the three. |
+| `alpha` | `boolean` | `false` | Adds an alpha slider and includes alpha in output. (Bare attribute works.) |
+| `showTokens` | `boolean` | `true` | Show the token palette + snap button. (Bare attribute works.) |
+| `tokens` | `{ name: string; value: string }[]` | `[]` | Custom palette; when empty, reads the theme `--color-*` tokens at runtime. |
+| `disabled` | `boolean` | `false` | Also via `setDisabledState`. (Bare attribute works.) |
+| `ariaLabel` | `string` | `''` | Group label (falls back to `'Color picker'`). |
+
+## Gamut
+
+OKLCH can express colors outside sRGB. The emitted color is always
+sRGB-renderable: when needed, chroma is reduced to the gamut boundary while
+Lightness and Hue are preserved. The "out of gamut — clamped" hint appears while
+the chosen color exceeds the gamut.
+
+## Tokens
+
+The token palette is built from the library's `--color-*` design tokens (read at
+runtime). Click a swatch to apply it, or **Snap to token** to jump to the nearest
+token by perceptual distance (OKLab ΔE).
+
+## Accessibility
+
+The picker is a labelled `role="group"`. Each channel is a native range slider
+with an `aria-label` (full keyboard support). Token swatches are buttons labelled
+by token name. The gamut hint is a `role="status"`.
+
+## Storybook
+
+Interactive examples live in Storybook under **Forms / ColorPicker**. Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `color-picker` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/forms/src/lib/color/)

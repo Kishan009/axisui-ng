@@ -1,0 +1,10 @@
+/* Blue — productivity, SaaS */
+
+@import "../tokens.css";
+
+:root {
+  --color-primary:              oklch(0.55 0.22 250);
+  --color-primary-foreground:   oklch(0.99 0 0);
+  --color-primary-hover:        oklch(0.50 0.22 250);
+  --color-ring:                 oklch(0.55 0.22 250);
+}

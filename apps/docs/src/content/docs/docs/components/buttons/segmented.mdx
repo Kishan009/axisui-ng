@@ -1,0 +1,97 @@
+---
+title: Segmented
+category: buttons
+description: Single-select segmented control (iOS-style) — data-driven, radiogroup semantics.
+status: stable
+since: 0.1
+---
+
+# Segmented
+
+`<ax-segmented>` is a single-select control rendered as a connected row of segments. Unlike
+[`ToggleGroup`](/docs/components/buttons/toggle-group), it is **always single-select**,
+**data-driven** via an `options` array, and follows the WAI-ARIA **radiogroup** pattern:
+one segment is always tabbable, and arrow keys move *and* select, skipping disabled segments.
+
+> Use **Segmented** for a small, mutually-exclusive choice with an always-selected value
+> (view switchers, ranges). Use **ToggleGroup** when you project custom toggle children or
+> need multi-select.
+
+## Import
+
+```ts
+import { AxSegmentedComponent, type SegmentedOption } from '@axisui-ng/buttons';
+```
+
+## Usage
+
+```html
+<ax-segmented
+  [options]="[
+    { label: 'Day', value: 'd' },
+    { label: 'Week', value: 'w' },
+    { label: 'Month', value: 'm' },
+  ]"
+  [(value)]="range"
+  ariaLabel="Date range"
+/>
+
+<!-- with a disabled segment -->
+<ax-segmented
+  [options]="[
+    { label: 'Left', value: 'l' },
+    { label: 'Center', value: 'c', disabled: true },
+    { label: 'Right', value: 'r' },
+  ]"
+  [(value)]="align"
+  ariaLabel="Alignment"
+/>
+```
+
+## Variants & sizes
+
+| Option | Values | Default | Notes |
+|---|---|---|---|
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Track text size and segment padding. |
+
+```html
+<ax-segmented
+  size="sm"
+  [options]="[{ label: 'Day', value: 'd' }, { label: 'Week', value: 'w' }]"
+  [(value)]="range"
+  ariaLabel="Date range"
+/>
+```
+
+## Inputs
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `options` | `readonly SegmentedOption[]` | `[]` | `{ label: string; value: string; disabled?: boolean }`. |
+| `value` | `model<string \| null>` | `null` | Two-way selected value. |
+| `size` | `SegmentedSize` | `'md'` | Padding + text size. |
+| `disabled` | `boolean` | `false` | Disables the whole control. |
+| `ariaLabel` | `string \| null` | `null` | **Required for a11y** — labels the radiogroup. |
+
+## Keyboard
+
+| Key | Action |
+|---|---|
+| `→` / `↓` | Select next enabled segment (wraps) |
+| `←` / `↑` | Select previous enabled segment (wraps) |
+| `Home` / `End` | Select first / last enabled segment |
+
+## Accessibility
+
+- Host is `role="radiogroup"` (label it with `ariaLabel`).
+- Each segment is a `<button role="radio">` with `aria-checked`.
+- Roving tabindex: only the selected segment (or the first enabled one) is in the tab order.
+- Disabled segments are skipped by keyboard navigation and are not focusable.
+
+## Storybook
+
+Interactive examples live in Storybook under **Buttons / Segmented**. Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `segmented` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/buttons/src/lib/segmented/)

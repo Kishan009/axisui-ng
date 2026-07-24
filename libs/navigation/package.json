@@ -1,0 +1,22 @@
+{
+  "name": "@axisui-ng/navigation",
+  "version": "0.0.1",
+  "description": "Navigation components for @axisui-ng/angular. Standalone, signal-first.",
+  "license": "MIT",
+  "private": false,
+  "publishConfig": { "access": "public" },
+  "sideEffects": false,
+  "peerDependencies": {
+    "@angular/core": "^20.0.0",
+    "@angular/common": "^20.0.0",
+    "@angular/router": "^20.0.0",
+    "@angular/cdk": "^20.0.0",
+    "@axisui-ng/icons": "^0.0.1",
+    "@axisui-ng/overlays": "^0.0.1"
+  },
+  "dependencies": {
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^2.5.5"
+  }
+}

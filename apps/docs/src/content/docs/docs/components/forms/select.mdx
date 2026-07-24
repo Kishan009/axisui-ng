@@ -1,0 +1,82 @@
+---
+title: Select
+category: forms
+description: Token-styled single-select listbox — same field chrome as Input, custom overlay panel.
+status: stable
+since: 0.1
+---
+
+# Select
+
+`<ax-select>` is a single-value listbox with the same field chrome as Input (`inputVariants`) and a
+token-styled overlay panel (rounded corners, border, shadow — matching Combobox). Native `<select>`
+popups cannot follow the design system, so Select uses a custom trigger + CDK panel instead.
+
+For type-to-filter, multi-select, or async options, use
+[Combobox](/docs/components/forms/combobox/).
+
+## Import
+
+```ts
+import { AxSelectComponent, type AxSelectOption } from '@axisui-ng/forms';
+```
+
+## Usage
+
+```html
+<ax-select
+  [(value)]="country"
+  [options]="[
+    { label: 'United States', value: 'us' },
+    { label: 'India', value: 'in' },
+    { label: 'Germany', value: 'de' },
+  ]"
+  placeholder="Select a country"
+/>
+
+<ax-form-field label="Country" forId="country">
+  <ax-select id="country" [(value)]="country" [options]="countries" />
+</ax-form-field>
+```
+
+## Variants & sizes
+
+| Option | Values | Default | Notes |
+|---|---|---|---|
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Control height via shared `inputVariants`. |
+
+```html
+<ax-select size="sm" [options]="options" placeholder="Small" />
+<ax-select size="md" [options]="options" placeholder="Medium" />
+<ax-select size="lg" [options]="options" placeholder="Large" />
+```
+
+## Inputs & models
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `value` | `model<string \| null>` | `null` | Selected option value (`[(value)]`); also CVA. |
+| `options` | `AxSelectOption[]` (required) | — | `{ value: string; label: string; disabled?: boolean }[]`. |
+| `id` | `string \| null` | `null` | Trigger button id — match a FormField `forId`. |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Trigger height. |
+| `placeholder` | `string` | `''` | Shown when nothing is selected. |
+| `required` | `boolean` | `false` | Sets `aria-required`. |
+| `disabled` | `boolean` | `false` | Disabled (also via CVA `setDisabledState`). |
+| `invalid` | `boolean` | `false` | Error styling + `aria-invalid` (OR’d with FormField wiring). |
+| `ariaLabel` | `string \| null` | `null` | Accessible label when there’s no FormField label. |
+| `describedBy` | `string \| null` | `null` | `aria-describedby`; explicit value wins over FormField auto-wiring. |
+
+## Accessibility
+
+Trigger is `role="combobox"` with `aria-haspopup="listbox"`, `aria-expanded`, and
+`aria-activedescendant` while open. Keyboard: ArrowDown/Up/Enter/Space open and navigate; Enter/Space
+select; Escape closes. Provide a label via FormField `forId` + `id`, or `ariaLabel`. Inside a
+FormField, `aria-describedby` / `aria-invalid` are auto-wired unless overridden.
+
+## Storybook
+
+Interactive examples live in Storybook under **Forms / Select**. Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `select` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/forms/src/lib/select/)

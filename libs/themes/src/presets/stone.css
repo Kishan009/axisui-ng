@@ -1,0 +1,10 @@
+/* Stone — warm gray, editorial */
+
+@import "../tokens.css";
+
+:root {
+  --color-primary:              oklch(0.45 0.02 75);
+  --color-primary-foreground:   oklch(0.99 0 0);
+  --color-ring:                 oklch(0.45 0.02 75);
+  --color-muted:                oklch(0.96 0.005 75);
+}

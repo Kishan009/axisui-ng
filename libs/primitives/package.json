@@ -1,0 +1,17 @@
+{
+  "name": "@axisui-ng/primitives",
+  "version": "0.0.1",
+  "description": "Layout primitives (Box, Stack, Cluster, Grid) for @axisui-ng/angular. Standalone directives, signal-first.",
+  "license": "MIT",
+  "private": false,
+  "publishConfig": { "access": "public" },
+  "sideEffects": false,
+  "peerDependencies": {
+    "@angular/core": "^20.0.0"
+  },
+  "dependencies": {
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^2.5.5"
+  }
+}

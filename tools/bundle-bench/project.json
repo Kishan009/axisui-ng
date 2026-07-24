@@ -1,0 +1,22 @@
+{
+  "name": "bundle-bench",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "tools/bundle-bench",
+  "tags": ["type:tooling"],
+  "targets": {
+    "check": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["^build"],
+      "options": { "command": "node tools/bundle-bench/bench.mjs check" }
+    },
+    "update": {
+      "executor": "nx:run-commands",
+      "options": { "command": "node tools/bundle-bench/bench.mjs update" }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": { "command": "node --test tools/bundle-bench/bench.test.mjs" }
+    }
+  }
+}

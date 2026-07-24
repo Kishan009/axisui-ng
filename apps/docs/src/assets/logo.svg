@@ -1,0 +1,11 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="AxisUI">
+  <title>AxisUI</title>
+  <path d="M32 8 L53.6 20.5 L32 33 L10.4 20.5 Z" fill="#E23A2E"/>
+  <path d="M32 33 L53.6 20.5 L53.6 45.5 L32 58 Z" fill="#2C9C9C"/>
+  <path d="M10.4 20.5 L32 33 L32 58 L10.4 45.5 Z" fill="#3A4657"/>
+  <g stroke="#0E141C" stroke-opacity="0.28" stroke-width="1" stroke-linejoin="round">
+    <path d="M32 8 L53.6 20.5 L32 33 L10.4 20.5 Z"/>
+    <path d="M32 33 L53.6 20.5 L53.6 45.5 L32 58 Z"/>
+    <path d="M10.4 20.5 L32 33 L32 58 L10.4 45.5 Z"/>
+  </g>
+</svg>

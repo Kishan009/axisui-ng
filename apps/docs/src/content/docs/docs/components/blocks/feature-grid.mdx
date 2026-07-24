@@ -1,0 +1,73 @@
+---
+title: FeatureGrid
+category: blocks
+description: A responsive grid of icon + title + description feature cards.
+status: stable
+since: 0.2
+---
+
+# FeatureGrid
+
+`<ax-feature-grid>` renders a responsive grid of feature cards from a `[features]` array. Each card
+shows a [ax-icon](/docs/components/icons/), title, and description. Token-classed cards re-theme with the
+active preset. Project an optional heading into the default slot above the grid.
+
+## Import
+
+```ts
+import { AxFeatureGridComponent, type FeatureItem } from '@axisui-ng/blocks';
+```
+
+## Usage
+
+```ts
+features: FeatureItem[] = [
+  { icon: 'check', title: 'Signals-first', description: 'Zoneless-ready, OnPush everywhere.' },
+  { icon: 'star', title: 'OKLCH tokens', description: 'Perceptual color, preset-reactive.' },
+  { icon: 'check', title: 'Accessible', description: 'jest-axe tested in 3 modes.' },
+];
+```
+
+```html
+<ax-feature-grid [features]="features" ariaLabel="Features">
+  <h2 class="mb-6 text-lg font-semibold">Why this library</h2>
+</ax-feature-grid>
+```
+
+## Inputs
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `features` | `FeatureItem[]` | `[]` | One card per item; tracked by `title`. |
+| `columns` | `number` | `0` | Fixed column count `1`–`4`. `0` uses responsive auto (`sm:grid-cols-2 lg:grid-cols-3`). |
+| `ariaLabel` | `string` | `''` | Host `aria-label` on `role="group"`; empty omits the attribute. |
+
+### `FeatureItem`
+
+| Field | Type | Required | Notes |
+|---|---|---|---|
+| `icon` | `AxIconName` | yes | Passed to `<ax-icon [name]>` (`@axisui-ng/icons`). |
+| `title` | `string` | yes | Card heading (also the `@for` track key). |
+| `description` | `string` | yes | Supporting copy under the title. |
+
+`columns` maps to Tailwind grid classes: `1` → `grid-cols-1`; `2` → `sm:grid-cols-2`; `3` →
+`sm:grid-cols-2 lg:grid-cols-3`; `4` → `sm:grid-cols-2 lg:grid-cols-4`.
+
+## Slots
+
+| Slot | Selector | Notes |
+|---|---|---|
+| Default | `<ng-content />` | Optional projected content (typically a heading) rendered above the feature cards. |
+
+## Accessibility
+
+Host is `role="group"`. Set `ariaLabel` so the group has an accessible name. Decorative icons are
+`aria-hidden="true"`; the title and description carry the meaning.
+
+## Storybook
+
+Interactive examples live in Storybook under **Blocks / FeatureGrid**. Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `feature-grid` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/blocks/src/lib/feature-grid/)

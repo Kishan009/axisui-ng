@@ -1,0 +1,54 @@
+---
+title: Separator
+category: misc
+description: A thin visual rule between content; decorative by default, optionally semantic.
+status: stable
+since: 0.1
+---
+
+# Separator
+
+`<ax-separator>` is a thin rule between content — the host element *is* the rule (empty template).
+It's decorative by default (`role="none"`); set `[decorative]="false"` to expose it as a semantic
+separator.
+
+## Import
+
+```ts
+import { AxSeparatorComponent } from '@axisui-ng/misc';
+```
+
+## Usage
+
+```html
+<p>Section one</p>
+<ax-separator />
+<p>Section two</p>
+
+<!-- vertical, semantic -->
+<div class="flex items-center gap-3">
+  <span>Edit</span>
+  <ax-separator orientation="vertical" [decorative]="false" />
+  <span>Delete</span>
+</div>
+```
+
+## Inputs
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Rule direction. |
+| `decorative` | `boolean` | `true` | `true` → `role="none"`; `false` → `role="separator"` + `aria-orientation`. |
+
+## Accessibility
+
+When decorative, it's hidden from assistive tech. When semantic (`decorative=false`), it exposes
+`role="separator"` with the matching `aria-orientation`.
+
+## Storybook
+
+Interactive examples live in Storybook under **Misc / Separator**. Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `separator` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/misc/src/lib/separator/)

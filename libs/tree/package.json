@@ -1,0 +1,20 @@
+{
+  "name": "@axisui-ng/tree",
+  "version": "0.0.1",
+  "description": "Tree / TreeView for @axisui-ng/angular. Signals-first, a11y-by-default, virtual-scroll-ready.",
+  "license": "MIT",
+  "private": false,
+  "publishConfig": { "access": "public" },
+  "sideEffects": false,
+  "peerDependencies": {
+    "@angular/core": "^20.0.0",
+    "@angular/common": "^20.0.0",
+    "@axisui-ng/icons": "^0.0.1",
+    "@axisui-ng/cdk": "^0.0.1"
+  },
+  "dependencies": {
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^2.5.5"
+  }
+}

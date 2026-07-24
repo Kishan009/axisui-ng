@@ -1,0 +1,15 @@
+/* Banking preset — Trust Blue, compact, regulated by default */
+
+@import "../tokens.css";
+
+:root {
+  --color-primary:              oklch(0.45 0.18 250);
+  --color-primary-foreground:   oklch(0.99 0 0);
+  --color-ring:                 oklch(0.45 0.18 250);
+  --radius-default:             0.375rem;
+  --radius-button:              0.375rem;
+  --radius-card:                0.5rem;
+  --space-padding:              0.5rem;
+  --height-row:                 2rem;
+  --motion-duration:            120ms;
+}

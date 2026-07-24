@@ -1,0 +1,35 @@
+{
+  "name": "storybook",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/storybook",
+  "tags": ["scope:tooling", "type:app"],
+  "targets": {
+    "storybook-css": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tailwindcss -i apps/storybook/styles.src.css -o apps/storybook/static/preview.css"
+      }
+    },
+    "storybook": {
+      "executor": "@storybook/angular:start-storybook",
+      "options": {
+        "configDir": "apps/storybook/.storybook",
+        "browserTarget": "demo:build",
+        "compodoc": false,
+        "port": 4400
+      }
+    },
+    "build-storybook": {
+      "executor": "@storybook/angular:build-storybook",
+      "outputs": ["{projectRoot}/storybook-static"],
+      "options": {
+        "configDir": "apps/storybook/.storybook",
+        "browserTarget": "demo:build",
+        "compodoc": false,
+        "outputDir": "apps/storybook/storybook-static"
+      },
+      "dependsOn": ["storybook-css"]
+    }
+  }
+}

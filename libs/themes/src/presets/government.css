@@ -1,0 +1,15 @@
+/* Government preset — Navy + Heritage Red, authoritative, MIT (free) */
+
+@import "../tokens.css";
+
+:root {
+  --color-primary:              oklch(0.30 0.15 250);
+  --color-primary-foreground:   oklch(0.99 0 0);
+  --color-destructive:          oklch(0.45 0.20 25);
+  --color-ring:                 oklch(0.30 0.15 250);
+  --radius-default:             0.25rem;
+  --radius-button:              0.25rem;
+  --radius-card:                0.375rem;
+  --height-row:                 2.5rem;
+  --motion-duration:            150ms;
+}

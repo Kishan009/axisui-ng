@@ -1,0 +1,50 @@
+---
+title: Grid
+category: primitives
+description: CSS Grid layout primitive with configurable columns, gap, and auto-fit min column width.
+status: stable
+since: 0.1
+---
+
+# Grid
+
+`[axGrid]` is a CSS Grid layout primitive: configurable columns, gap, and an auto-fit mode driven by
+`minColWidth`. For simple 1–12 responsive grids, plain Tailwind grid utilities are also fine.
+
+## Import
+
+```ts
+import { AxGridDirective } from '@axisui-ng/primitives';
+```
+
+## Usage
+
+```html
+<!-- fixed 3 columns -->
+<div axGrid [cols]="3" gap="4">…</div>
+
+<!-- responsive auto-fill: as many columns as fit at >= 240px -->
+<div axGrid cols="auto-fill" minColWidth="240px" gap="4">…</div>
+```
+
+## Inputs
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `cols` | `1 \| 2 \| 3 \| 4 \| 5 \| 6 \| 12 \| 'auto-fill' \| 'auto-fit'` | `1` | Fixed column count, or `auto-fill` / `auto-fit` with `minColWidth`. |
+| `gap` | `'0' \| '1' \| '2' \| '3' \| '4' \| '5' \| '6' \| '8' \| '10' \| '12' \| '16'` | `'4'` | Spacing token (both axes). |
+| `rowGap` | `'0' \| '1' \| '2' \| '3' \| '4' \| '5' \| '6' \| '8' \| '10' \| '12' \| '16' \| null` | `null` | Override row gap. |
+| `colGap` | `'0' \| '1' \| '2' \| '3' \| '4' \| '5' \| '6' \| '8' \| '10' \| '12' \| '16' \| null` | `null` | Override column gap. |
+| `minColWidth` | `string` | `'240px'` | Minimum column width when `cols` is `auto-fill` or `auto-fit`. |
+
+## Accessibility
+
+Presentational only — it adds no roles or semantics.
+
+## Storybook
+
+Interactive examples live in Storybook under **Primitives / Grid**. Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `grid` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/primitives/src/lib/grid/)

@@ -1,0 +1,55 @@
+---
+title: Collapsible
+category: data
+description: A single CSS-only disclosure — a projected trigger toggles a content region.
+status: stable
+since: 0.2
+---
+
+# Collapsible
+
+`<ax-collapsible>` is a single disclosure: a projected `[axCollapsibleTrigger]` toggles a content
+region. It's CSS-only. For multiple coordinated sections, use
+[Accordion](/docs/components/data/accordion/) instead.
+
+## Import
+
+```ts
+import { AxCollapsibleComponent, AxCollapsibleTriggerDirective } from '@axisui-ng/data';
+```
+
+## Usage
+
+```html
+<ax-collapsible [(open)]="showDetails">
+  <button axCollapsibleTrigger>Details</button>
+  <div>Extended content shown when open.</div>
+</ax-collapsible>
+```
+
+## Inputs & models
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `open` | `model<boolean>` | `false` | Two-way open state. |
+
+## Slots / marker directives
+
+| Marker | Kind | Notes |
+|---|---|---|
+| `axCollapsibleTrigger` | Directive (`AxCollapsibleTriggerDirective`) | Toggles open state; sets `aria-expanded` and `aria-controls`. Project a real focusable control (e.g. `<button>`). |
+
+Unmarked projected content (after the trigger) is the expandable body.
+
+## Accessibility
+
+The trigger gets `aria-expanded` and `aria-controls` pointing at a `role="region"` content panel.
+Closed panels are `inert`. Project a real focusable control (e.g. a `<button>`) as the trigger.
+
+## Storybook
+
+Interactive examples live in Storybook under **Data / Collapsible**. Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `collapsible` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/data/src/lib/collapsible/)

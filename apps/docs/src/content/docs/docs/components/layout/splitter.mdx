@@ -1,0 +1,101 @@
+---
+title: Splitter
+category: layout
+description: Drag-resizable, keyboard-accessible split panes — horizontal or vertical, collapsible, with optional size persistence and nesting.
+status: stable
+since: 0.2
+---
+
+# Splitter
+
+`<ax-splitter>` lays out resizable panes along one axis. Each `<ax-splitter-panel>`
+is sized by a percentage; a draggable gutter sits between adjacent panels. Sizes
+are kept as percentages that always sum to 100, so the layout is fluid.
+
+## Import
+
+```ts
+import {
+  AxSplitterComponent,
+  AxSplitterPanelComponent,
+  AxSplitterHandleComponent,
+} from '@axisui-ng/layout';
+```
+
+## Usage
+
+```html
+<ax-splitter ariaLabel="Editor layout">
+  <ax-splitter-panel [size]="30" [minSize]="15">Sidebar</ax-splitter-panel>
+  <ax-splitter-panel [size]="70">Content</ax-splitter-panel>
+</ax-splitter>
+
+<!-- vertical -->
+<ax-splitter orientation="vertical">
+  <ax-splitter-panel [size]="60">Editor</ax-splitter-panel>
+  <ax-splitter-panel [size]="40">Terminal</ax-splitter-panel>
+</ax-splitter>
+
+<!-- explicit handles (place your own gutter) -->
+<ax-splitter [autoGutters]="false">
+  <ax-splitter-panel [size]="50">Left</ax-splitter-panel>
+  <ax-splitter-handle />
+  <ax-splitter-panel [size]="50">Right</ax-splitter-panel>
+</ax-splitter>
+```
+
+## `ax-splitter` inputs
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Axis the panels are laid out along. |
+| `autoGutters` | `boolean` | `true` | `true` auto-renders a gutter between panels; `false` → place `<ax-splitter-handle>` yourself. |
+| `gutterSize` | `number` (px) | `4` | Handle thickness. |
+| `step` | `number` (%) | `10` | Arrow-key nudge per press. |
+| `storeKey` | `string` | `''` | When set, sizes persist to `localStorage` and restore on load. |
+| `ariaLabel` | `string` | `''` | Group label, also used on the handles. |
+| `sizes` | `model<number[]>` | `[]` | Optional two-way controlled sizes (percentages). |
+
+## `ax-splitter-panel` inputs
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `size` | `number \| undefined` (%) | `undefined` | Initial size; omitted panels share the remainder equally. |
+| `minSize` | `number` (%) | `0` | Lower clamp. |
+| `maxSize` | `number` (%) | `100` | Upper clamp. |
+| `collapsible` | `boolean` | `false` | Enables collapse via double-click / Enter on the gutter. |
+| `collapsedSize` | `number` (%) | `0` | Size when collapsed. |
+
+## `ax-splitter-handle` inputs
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `boundary` | `number \| null` | `null` | Boundary index when a panel renders the handle (auto mode). `null` → resolve by order among explicit handles. |
+
+## Collapsing
+
+A `collapsible` panel toggles between its current size and `collapsedSize` when you
+double-click its gutter (or press Enter on the focused handle). Dragging a
+collapsible panel below its `minSize` snaps it closed on release. Expanding restores
+the size the panel had before it collapsed.
+
+## Nesting
+
+A `ax-splitter` inside a `ax-splitter-panel` measures its own host, so a vertical
+splitter nested in a horizontal one (IDE-style layouts) works without extra wiring.
+
+## Accessibility
+
+Each gutter is a `role="separator"` with `tabindex="0"`, `aria-orientation`
+(a horizontal splitter has *vertical* separators), and `aria-valuenow/min/max`
+reflecting the leading panel's percentage and clamp range. Arrow keys resize by
+`step`%, Home/End jump to the panel's min/max, and Enter toggles a collapsible
+neighbor.
+
+## Storybook
+
+Interactive examples live in Storybook under **Layout / Splitter**. Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `splitter` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/layout/src/lib/splitter/)

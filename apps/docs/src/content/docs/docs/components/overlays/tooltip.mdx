@@ -1,0 +1,51 @@
+---
+title: Tooltip
+category: overlays
+description: Text label shown on hover/focus, applied as a directive to any element.
+status: stable
+since: 0.1
+---
+
+# Tooltip
+
+`[axTooltip]` shows a small text label on hover or focus. Apply the directive to any host element and
+pass the label string; an internal `ax-tooltip-panel` (`role="tooltip"`) is attached via a CDK
+connected overlay. Empty text disables the tooltip.
+
+## Import
+
+```ts
+import { AxTooltipDirective } from '@axisui-ng/overlays';
+```
+
+## Usage
+
+```html
+<ax-icon-button [axTooltip]="'Copy to clipboard'" axTooltipPlacement="top" ariaLabel="Copy">
+  <ax-icon name="copy" />
+</ax-icon-button>
+```
+
+## Inputs
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `axTooltip` | `string` | `''` | Tooltip text. Empty string disables showing. |
+| `axTooltipPlacement` | `PlacementInput` | `'top'` | `'top' \| 'bottom' \| 'start' \| 'end'`, or `side-align`. |
+| `showDelay` | `number` | `300` | Delay before showing (ms); `0` shows immediately. |
+| `hideDelay` | `number` | `100` | Delay before hiding (ms); `0` hides immediately. |
+| `disabled` | `boolean` | `false` | Force-disable the tooltip. |
+
+## Accessibility
+
+While visible, the host gets `aria-describedby` pointing at the tooltip panel. The panel uses
+`role="tooltip"`. Tooltips appear on hover and focus; Escape hides. The host still needs its own
+accessible name (for example `ariaLabel` on an icon button) — the tooltip is supplementary.
+
+## Storybook
+
+Interactive examples live in Storybook under **Overlays / Tooltip**. Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `tooltip` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/overlays/src/lib/tooltip/)

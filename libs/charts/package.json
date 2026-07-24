@@ -1,0 +1,13 @@
+{
+  "name": "@axisui-ng/charts",
+  "version": "0.0.1",
+  "description": "Dependency-free SVG charts for @axisui-ng/angular (line/area/bar/scatter/pie, gauge, heatmap, sparkline).",
+  "license": "MIT",
+  "private": false,
+  "publishConfig": { "access": "public" },
+  "sideEffects": false,
+  "peerDependencies": {
+    "@angular/core": "^20.0.0",
+    "@angular/common": "^20.0.0"
+  }
+}

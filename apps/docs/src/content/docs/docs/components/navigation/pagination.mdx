@@ -1,0 +1,73 @@
+---
+title: Pagination
+category: navigation
+description: First/prev, numbered pages with ellipsis, and next/last — with a router adapter.
+status: stable
+since: 0.1
+---
+
+# Pagination
+
+`<ax-pagination>` renders first/prev, numbered pages with ellipsis, and next/last controls. Bind
+`[(page)]` and provide the `total` item count. Optionally apply `axRouterPagination` to sync the page
+with a URL query param.
+
+## Import
+
+```ts
+import {
+  AxPaginationComponent,
+  AxRouterPaginationDirective,
+} from '@axisui-ng/navigation';
+```
+
+## Usage
+
+```html
+<ax-pagination
+  [(page)]="page"
+  [total]="240"
+  [pageSize]="20"
+  [siblingCount]="1"
+  (pageChange)="load($event)"
+/>
+
+<!-- sync page to ?page= (or a custom param name) -->
+<ax-pagination axRouterPagination [total]="240" />
+<ax-pagination axRouterPagination="p" [total]="240" />
+```
+
+## Inputs & models
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `page` | `model<number>` | `1` | Current 1-based page (two-way). |
+| `total` | `number` (required) | — | Total item count. |
+| `pageSize` | `number` | `10` | Items per page (drives the page count). |
+| `siblingCount` | `number` | `1` | Page numbers shown either side of the current page. |
+
+## Outputs
+
+| Output | Payload | Notes |
+|---|---|---|
+| `pageChange` | `number` | Emitted when the user navigates to a different page. |
+
+## `axRouterPagination` inputs
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `axRouterPagination` | `string` | `'page'` | Query param name. Apply the directive on `<ax-pagination>`; omit the value to use `'page'`. |
+
+## Accessibility
+
+Host is `role="navigation"` with `aria-label="Pagination"`. Page buttons use `aria-label` / `aria-current="page"`;
+first/prev/next/last have accessible names. Buttons at the ends disable when there is nowhere to go.
+Ellipsis tokens are decorative (`aria-hidden`).
+
+## Storybook
+
+Interactive examples live in Storybook under **Navigation / Pagination**. Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `pagination` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/navigation/src/lib/pagination/)

@@ -1,0 +1,58 @@
+---
+title: Checkbox
+category: forms
+description: Boolean toggle backed by a native checkbox, with a two-way checked model.
+status: stable
+since: 0.1
+---
+
+# Checkbox
+
+`<ax-checkbox>` is a boolean toggle. It implements `ControlValueAccessor` over a native
+`<input type="checkbox">`, so it submits correctly in forms and binds two-way via `[(checked)]`,
+`[(ngModel)]`, or reactive forms. Use Checkbox for “yes/no I agree” options; prefer
+[Switch](/docs/components/forms/switch/) for on/off feature toggles.
+
+## Import
+
+```ts
+import { AxCheckboxComponent } from '@axisui-ng/forms';
+```
+
+## Usage
+
+```html
+<ax-checkbox [(checked)]="agree" ariaLabel="I agree to the terms">
+  I agree to the terms
+</ax-checkbox>
+
+<!-- indeterminate parent (consumer clears on next toggle) -->
+<ax-checkbox [(checked)]="allSelected" [indeterminate]="someSelected" ariaLabel="Select all" />
+```
+
+## Inputs & models
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `checked` | `model<boolean>` | `false` | Two-way checked state (`[(checked)]`); also CVA. |
+| `indeterminate` | `boolean` | `false` | Mixed state — visual + `aria-checked="mixed"`; takes precedence over `checked`. Consumer owns clearing it. |
+| `disabled` | `boolean` | `false` | Disabled (also via CVA `setDisabledState`). |
+| `ariaLabel` | `string \| null` | `null` | Accessible label when there’s no visible projected label. |
+| `describedBy` | `string \| null` | `null` | `aria-describedby`. |
+
+## Slots
+
+Default content is projected as the visible label next to the control (inside the wrapping `<label>`).
+
+## Accessibility
+
+Backed by a native checkbox, so keyboard (Space) and form semantics work for free. Provide either
+projected label text or `ariaLabel`. When `indeterminate` is set, `aria-checked` is `"mixed"`.
+
+## Storybook
+
+Interactive examples live in Storybook under **Forms / Checkbox**. Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `checkbox` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/forms/src/lib/checkbox/)

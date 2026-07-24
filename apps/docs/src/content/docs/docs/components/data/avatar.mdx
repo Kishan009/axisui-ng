@@ -1,0 +1,75 @@
+---
+title: Avatar
+category: data
+description: Image with an initials/icon fallback chain, plus an overlapping AvatarGroup with +N collapse.
+status: stable
+since: 0.1
+---
+
+# Avatar
+
+`<ax-avatar>` renders a user image with a graceful fallback chain: `src` → `initials` → a generic user
+icon. Stack several into a `<ax-avatar-group>` for an overlapping row; set `max` to collapse extras into
+a `+N` chip.
+
+## Import
+
+```ts
+import { AxAvatarComponent, AxAvatarGroupComponent } from '@axisui-ng/data';
+```
+
+## Usage
+
+```html
+<ax-avatar src="/users/ada.jpg" alt="Ada Lovelace" initials="AL" size="md" />
+
+<ax-avatar-group [max]="3" size="md">
+  <ax-avatar initials="AL" />
+  <ax-avatar initials="GH" />
+  <ax-avatar initials="MC" />
+  <ax-avatar initials="AB" />
+  <ax-avatar initials="CD" />
+</ax-avatar-group>
+```
+
+## Variants & sizes
+
+| Option | Values | Default | Notes |
+|---|---|---|---|
+| `size` (`ax-avatar`) | `'sm' \| 'md' \| 'lg'` | `'md'` | Avatar diameter (8 / 10 / 12). |
+| `size` (`ax-avatar-group`) | `'sm' \| 'md' \| 'lg'` | `'md'` | Remainder chip size — match projected avatars. |
+
+```html
+<ax-avatar initials="SM" size="sm" />
+<ax-avatar initials="MD" size="md" />
+<ax-avatar initials="LG" size="lg" />
+```
+
+## `ax-avatar` inputs
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `src` | `string \| null` | `null` | Image URL; falls back to initials, then icon on error. |
+| `alt` | `string` | `''` | Alt text for the image. |
+| `initials` | `string \| null` | `null` | Shown when `src` is missing or fails. |
+| `size` | `AvatarSize` | `'md'` | Avatar diameter. |
+
+## `ax-avatar-group` inputs
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `max` | `number` | `0` | Max visible avatars before collapsing the rest into a `+N` chip. `0` = no limit. |
+| `size` | `AvatarSize` | `'md'` | Size of the remainder chip; match projected avatars. |
+
+## Accessibility
+
+When `src` is set, provide `alt`. Initials and the fallback icon are decorative (`aria-hidden` on
+initials). The group remainder chip exposes `aria-label="{n} more"`.
+
+## Storybook
+
+Interactive examples live in Storybook under **Data / Avatar**. Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `avatar` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/data/src/lib/avatar/)

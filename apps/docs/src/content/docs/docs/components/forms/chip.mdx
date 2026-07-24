@@ -1,0 +1,63 @@
+---
+title: Chip
+category: forms
+description: Small token displaying content with an optional remove button.
+status: stable
+since: 0.2
+---
+
+# Chip
+
+`<ax-chip>` is a small token that displays projected content with an optional remove (`×`) button.
+It's the shared building block for [Tag input](/docs/components/forms/tag-input) and the
+[Combobox chips / MultiSelect](/docs/components/forms/combobox) trigger, and is usable on its own.
+
+The remove button calls `stopPropagation()` before emitting `(remove)`, so a chip placed inside a
+clickable container (e.g. a combobox trigger) never toggles it.
+
+## Import
+
+```ts
+import { AxChipComponent } from '@axisui-ng/forms';
+```
+
+## Usage
+
+```html
+<ax-chip>Read-only</ax-chip>
+
+<ax-chip removable [removeAriaLabel]="'Remove ' + tag" (remove)="drop(tag)">{{ tag }}</ax-chip>
+```
+
+## Inputs
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `removable` | `boolean` | `false` | Shows the `×` button. (Bare attribute works: `<ax-chip removable>`.) |
+| `disabled` | `boolean` | `false` | Dims the token, disables removal. |
+| `removeAriaLabel` | `string` | `'Remove'` | Accessible label for the `×` button — pass `Remove {label}`. |
+
+## Outputs
+
+| Output | Payload | Notes |
+|---|---|---|
+| `remove` | `void` | Emitted when the `×` button is activated (propagation stopped). |
+
+## Slots
+
+| Slot | Notes |
+|---|---|
+| Default (`<ng-content>`) | Chip label / content. Truncated when long. |
+
+## Accessibility
+
+The remove control is a native `<button>` with `aria-label` from `removeAriaLabel`. Provide a
+descriptive label (e.g. `Remove {tag}`) when chips appear in a list.
+
+## Storybook
+
+Interactive examples live in Storybook under **Forms / Chip**. Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `chip` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/forms/src/lib/chip/)

@@ -1,0 +1,108 @@
+---
+title: Command
+category: navigation
+description: A searchable command list (palette), inline or as a modal ⌘K dialog.
+status: stable
+since: 0.1
+---
+
+# Command
+
+`<ax-command>` is a searchable command list (palette body) driven by an `items` array with subsequence
+matching on `label` / `keywords`. Use it inline, or wrap it in `<ax-command-dialog>` for the modal ⌘K
+variant (a `<ax-command>` inside a dialog).
+
+## Import
+
+```ts
+import {
+  AxCommandComponent,
+  AxCommandDialogComponent,
+  type CommandItem,
+  type CommandKeyBindings,
+} from '@axisui-ng/navigation';
+```
+
+## Usage
+
+```ts
+commands: CommandItem[] = [
+  { id: 'new-file', label: 'New File', icon: 'file', group: '⌘N' },
+  { id: 'settings', label: 'Open Settings', icon: 'settings', keywords: ['prefs'] },
+  { id: 'download', label: 'Download', icon: 'download', disabled: true },
+];
+```
+
+```html
+<!-- modal ⌘K palette -->
+<ax-command-dialog [(open)]="open" [items]="commands" (select)="run($event)" />
+
+<!-- inline palette -->
+<ax-command
+  [items]="commands"
+  placeholder="Search…"
+  (select)="run($event)"
+  (close)="open = false"
+/>
+```
+
+`CommandItem` is `{ id, label, group?, keywords?, icon?, disabled? }`.
+
+## `ax-command` inputs
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `items` | `CommandItem[]` (required) | — | The searchable commands. |
+| `placeholder` | `string` | `'Type a command…'` | Search field placeholder. |
+| `emptyText` | `string` | `'No results.'` | Shown when nothing matches. |
+| `keyBindings` | `Partial<CommandKeyBindings>` | `{}` | Override any subset of keyboard bindings (`KeyboardEvent.key` strings). |
+| `pageSize` | `number` | `5` | How many enabled options PageUp/PageDown jump by. |
+
+## `ax-command` outputs
+
+| Output | Payload | Notes |
+|---|---|---|
+| `select` | `CommandItem` | Emitted when an item is chosen. |
+| `close` | `void` | Emitted when the close binding (Escape by default) is pressed; does not stop propagation so a wrapping dialog can still close. |
+
+## `ax-command-dialog` inputs & models
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `open` | `model<boolean>` | `false` | Two-way open state. |
+| `items` | `CommandItem[]` (required) | — | The searchable commands. |
+| `placeholder` | `string` | `'Type a command…'` | Forwarded to the inner `<ax-command>`. |
+
+## `ax-command-dialog` outputs
+
+| Output | Payload | Notes |
+|---|---|---|
+| `select` | `CommandItem` | Chosen command; the dialog then sets `open` to `false`. |
+
+## Keyboard
+
+Defaults (override via `keyBindings`):
+
+| Action | Default key |
+|---|---|
+| Next / previous | `ArrowDown` / `ArrowUp` |
+| Page down / up | `PageDown` / `PageUp` |
+| First / last | `Home` / `End` |
+| Select | `Enter` |
+| Close | `Escape` |
+
+Disabled options are skipped; navigation never wraps.
+
+## Accessibility
+
+The search field is a `combobox` (`aria-autocomplete="list"`, `aria-controls`, `aria-activedescendant`)
+over a `listbox` of options. A polite live region announces result counts. The dialog variant uses an
+sr-only title (“Command palette”) and traps focus while open via the underlying dialog.
+
+## Storybook
+
+Interactive examples live in Storybook under **Navigation / Command**. Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `command` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/navigation/src/lib/command/)

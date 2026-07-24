@@ -1,0 +1,50 @@
+---
+title: AspectRatio
+category: primitives
+description: Constrains its host to a fixed width-to-height ratio via the CSS aspect-ratio property.
+status: stable
+since: 0.2
+---
+
+# AspectRatio
+
+`[axAspectRatio]` constrains its host to a fixed width-to-height ratio. It sets the modern
+`aspect-ratio` CSS property (via `Renderer2`, SSR-safe), so any ratio works.
+
+## Import
+
+```ts
+import { AxAspectRatioDirective } from '@axisui-ng/primitives';
+```
+
+## Usage
+
+```html
+<!-- 16:9 video wrapper (the default) -->
+<div [axAspectRatio]="16 / 9">
+  <iframe src="…"></iframe>
+</div>
+
+<!-- square -->
+<div [axAspectRatio]="1">
+  <img src="/cover.jpg" alt="Cover" />
+</div>
+```
+
+## Inputs
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `axAspectRatio` | `number` | `16 / 9` | Width ÷ height ratio (selector and input share this name). |
+
+## Accessibility
+
+Presentational only; provide proper `alt`/labels on the media inside it.
+
+## Storybook
+
+Interactive examples live in Storybook under **Primitives / AspectRatio**. Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `aspect-ratio` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/primitives/src/lib/aspect-ratio/)

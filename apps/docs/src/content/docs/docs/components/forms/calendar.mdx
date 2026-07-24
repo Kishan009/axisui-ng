@@ -1,0 +1,67 @@
+---
+title: Calendar
+category: forms
+description: Inline date calendar with single / range / multiple selection and full keyboard nav.
+status: stable
+since: 0.2
+tier: pro
+---
+
+# Calendar
+
+`<ax-calendar>` is an inline date calendar supporting single, range, and multiple selection, with
+min/max bounds, custom disabled-date predicates, and full keyboard navigation. It's a **Pro**
+component and self-gates with a `PRO` watermark until a valid license is provided.
+
+## Import
+
+```ts
+import {
+  AxCalendarComponent,
+  type CalendarMode,
+  type CalendarValue,
+  type DateRange,
+  type WeekDay,
+} from '@axisui-ng/forms';
+```
+
+## Usage
+
+```html
+<ax-calendar [(value)]="date" mode="single" [min]="today" />
+
+<!-- range selection, week starts Monday -->
+<ax-calendar [(value)]="range" mode="range" [weekStartsOn]="1" />
+```
+
+```ts
+date: CalendarValue = null; // Date when mode="single"
+range: CalendarValue = { start: null, end: null }; // DateRange when mode="range"
+```
+
+## Inputs & models
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `value` | `model<CalendarValue>` | `null` | `Date` (single), `DateRange` `{ start, end }` (range), or `Date[]` (multiple). |
+| `mode` | `CalendarMode` (`'single' \| 'range' \| 'multiple'`) | `'single'` | Selection behaviour. |
+| `min` | `Date \| null` | `null` | Inclusive lower bound. |
+| `max` | `Date \| null` | `null` | Inclusive upper bound. |
+| `disabledDates` | `((d: Date) => boolean) \| null` | `null` | Extra per-day disable predicate. |
+| `weekStartsOn` | `WeekDay` (`0–6`) | `0` | First weekday (`0` = Sunday). |
+| `locale` | `string \| undefined` | `undefined` | BCP-47 locale for month/day names (browser default when unset). |
+
+## Accessibility
+
+A `role="grid"` of day cells with a roving tabindex: arrows move by day, **PageUp** / **PageDown** by
+month, **Home** / **End** to row ends, **Enter** / **Space** select. Disabled days are skipped.
+Previous/next month buttons are labelled.
+
+
+## Storybook
+
+Interactive examples live in Storybook under **Pro / Calendar**. Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `calendar` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/forms/src/lib/calendar/)

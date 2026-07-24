@@ -1,0 +1,133 @@
+---
+title: DropdownMenu
+category: overlays
+description: Anchored menu of actions, checkbox/radio items, labels, and separators.
+status: stable
+since: 0.1
+---
+
+# DropdownMenu
+
+`<ax-dropdown-menu>` is an anchored menu opened from a trigger that wears `[axMenuTriggerFor]`.
+Project menu-item family components into the menu. The same surface can be opened as a context menu
+with `[axContextMenuTriggerFor]` — see [ContextMenu](/docs/components/overlays/context-menu/).
+
+## Import
+
+```ts
+import {
+  AxDropdownMenuComponent,
+  AxMenuTriggerDirective,
+  AxMenuItemComponent,
+  AxMenuCheckboxItemComponent,
+  AxMenuRadioGroupComponent,
+  AxMenuRadioItemComponent,
+  AxMenuLabelComponent,
+  AxMenuSeparatorComponent,
+} from '@axisui-ng/overlays';
+```
+
+## Usage
+
+```html
+<ax-button [axMenuTriggerFor]="menu">Options</ax-button>
+
+<ax-dropdown-menu #menu>
+  <ax-menu-label>Account</ax-menu-label>
+  <ax-menu-item (select)="profile()">Profile</ax-menu-item>
+  <ax-menu-item [disabled]="true">Billing</ax-menu-item>
+  <ax-menu-separator />
+  <ax-menu-checkbox-item [(checked)]="compact">Compact mode</ax-menu-checkbox-item>
+  <ax-menu-radio-group [(value)]="theme">
+    <ax-menu-radio-item value="light">Light</ax-menu-radio-item>
+    <ax-menu-radio-item value="dark">Dark</ax-menu-radio-item>
+  </ax-menu-radio-group>
+</ax-dropdown-menu>
+```
+
+### Nested submenu
+
+Pass a `TemplateRef` to `[submenu]` on `ax-menu-item`. The template should contain another
+`<ax-dropdown-menu>` of items:
+
+```html
+<ax-dropdown-menu #menu>
+  <ax-menu-item [submenu]="shareTpl">Share</ax-menu-item>
+</ax-dropdown-menu>
+
+<ng-template #shareTpl>
+  <ax-dropdown-menu>
+    <ax-menu-item>Email link</ax-menu-item>
+    <ax-menu-item>Copy link</ax-menu-item>
+  </ax-dropdown-menu>
+</ng-template>
+```
+
+## Components
+
+### `ax-dropdown-menu`
+
+| Input / output | Type | Default | Notes |
+|---|---|---|---|
+| `open` | `model<boolean>` | `false` | Open state (driven by the trigger). |
+| `closed` | `output<void>` | — | Emitted when `close()` runs (e.g. after selecting a leaf item). |
+
+### `[axMenuTriggerFor]`
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `axMenuTriggerFor` | `AxDropdownMenuComponent` (required) | — | Menu instance to open. |
+| `placement` | `PlacementInput` | `'bottom-start'` | Placement relative to the trigger. |
+
+Sets `aria-haspopup="menu"` and `aria-expanded`. Outside-click closes; focus returns to the trigger.
+
+### `ax-menu-item`
+
+| Input / output | Type | Default | Notes |
+|---|---|---|---|
+| `disabled` | `boolean` | `false` | Non-interactive; skipped by keyboard nav. |
+| `submenu` | `TemplateRef<MenuSubitemConfig> \| undefined` | `undefined` | Nested menu template; click/ArrowRight opens instead of selecting. |
+| `select` | `output<void>` | — | Emitted on activate (click or Enter/Space) for leaf items. |
+
+### `ax-menu-checkbox-item`
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `checked` | `model<boolean>` | `false` | Two-way checked state (`role="menuitemcheckbox"`). |
+| `disabled` | `boolean` | `false` | Skipped by keyboard navigation. |
+
+### `ax-menu-radio-group`
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `value` | `model<string \| null>` | `null` | Selected radio value (two-way). |
+
+### `ax-menu-radio-item`
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `value` | `string` (required) | — | This item’s value within the group. |
+| `disabled` | `boolean` | `false` | Skipped by keyboard navigation. |
+
+### `ax-menu-label` / `ax-menu-separator`
+
+| Component | Notes |
+|---|---|
+| `ax-menu-label` | Non-interactive section heading (`role="presentation"`). |
+| `ax-menu-separator` | Horizontal divider (`role="separator"`). |
+
+## Accessibility
+
+`role="menu"` with `menuitem` / `menuitemcheckbox` / `menuitemradio` children. Arrow keys move via a
+roving tabindex; type-ahead is supported; Home/End jump ends. Enter/Space activate (or open a
+submenu). ArrowRight opens a focused item’s submenu; ArrowLeft / Escape close the innermost submenu
+first, then the root menu. Disabled items are skipped. Focus restores to the trigger on close.
+
+## Storybook
+
+Interactive examples live in Storybook under **Overlays / Dropdown Menu** (including nested
+submenus). Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `dropdown-menu` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/overlays/src/lib/menu/)

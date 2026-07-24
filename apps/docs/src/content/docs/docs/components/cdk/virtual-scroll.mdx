@@ -1,0 +1,85 @@
+---
+title: Virtual scroll
+category: cdk
+description: Signals-native, zoneless-ready virtual scroller — renders only the visible rows.
+status: stable
+since: 0.2
+---
+
+# Virtual scroll
+
+A signals-native, zoneless-ready virtual scroller for large fixed-height lists — it renders only the
+visible rows (plus a small overscan), so a 10,000-row list keeps a handful of DOM nodes. It's the
+foundation for Tree / large List / DataTable virtualization. No Zone.js, no rxjs; SSR-safe.
+
+Two directives from `@axisui-ng/cdk`:
+
+- `[axVirtualViewport]` — the scroll container (tracks scroll + size; exposes `scrollToIndex`).
+- `*axVirtualFor` — renders the visible slice, with `*ngFor`-style context.
+
+## Import
+
+```ts
+import { AxVirtualViewportDirective, AxVirtualForDirective } from '@axisui-ng/cdk';
+```
+
+## Usage
+
+```html
+<div axVirtualViewport #vp="axVirtualViewport" class="h-80 rounded-md border border-border">
+  <div *axVirtualFor="let row of rows(); itemSize: 36; overscan: 6"
+       class="flex h-9 items-center px-3">
+    {{ row }}
+  </div>
+</div>
+<button (click)="vp.scrollToIndex(5000)">Jump to 5000</button>
+```
+
+## `*axVirtualFor` inputs
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `axVirtualForOf` | `readonly T[]` | — | **Required.** The full data array (`of` in microsyntax). |
+| `axVirtualForItemSize` | `number` | — | **Required.** Row height in px (`itemSize:`). |
+| `axVirtualForOverscan` | `number` | `4` | Extra rows rendered beyond the viewport on each side (`overscan:`). |
+
+## `*axVirtualFor` microsyntax
+
+| Part | Meaning |
+|---|---|
+| `let row of items` | the data array (`axVirtualForOf`) |
+| `itemSize: 36` | **required** row height in px |
+| `overscan: 6` | extra rows rendered each side (default `4`) |
+| context | `{ $implicit, index, count, first, last }` (like `*ngFor`) |
+
+## `[axVirtualViewport]`
+
+- Host: `relative block overflow-auto` — give it a bounded height (`class="h-80"`).
+- Methods: `scrollToIndex(index)`, `scrollToOffset(px)`.
+- Export: `#vp="axVirtualViewport"`.
+
+## How it works
+
+The viewport tracks `scrollTop` (scroll event) and its height (`ResizeObserver`, started in
+`afterNextRender`) as signals. `*axVirtualFor` runs a pure `computeRange(...)` in an `effect`,
+diffing the rendered views (a `Map<index, view>` — only the delta is created/destroyed). Sizing is
+applied with `Renderer2` (no `[style.*]`): one spacer carries the full scroll height; each row is
+absolutely positioned by its index. Before measurement (and on the server) it renders a one-screen
+window so output isn't empty, then corrects on hydrate.
+
+## Accessibility
+
+Only the visible rows are in the DOM (inherent to virtualization). For full-list semantics, add
+`aria-rowcount` / `aria-setsize` on your rows. The spacer is `aria-hidden`.
+
+## Limitations (v0.1)
+
+Fixed row height only; no variable/measured rows, horizontal virtualization, or sticky headers yet.
+
+## Storybook
+
+Interactive examples live in Storybook under **CDK / Virtual scroll**. Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `virtual-scroll` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/cdk/src/lib/virtual-scroll/)

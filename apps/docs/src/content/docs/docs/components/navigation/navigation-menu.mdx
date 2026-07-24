@@ -1,0 +1,96 @@
+---
+title: NavigationMenu
+category: navigation
+description: Horizontal nav whose items open rich mega-menu panels, one open at a time.
+status: stable
+since: 0.1
+---
+
+# NavigationMenu
+
+`<ax-navigation-menu>` is a horizontal nav whose items open rich mega-menu panels. Only one panel is
+open at a time. Each `<ax-navigation-menu-item>` has a `value` + `label` trigger and projects a
+`<ax-navigation-menu-content>` panel. An animated highlight backdrop follows the hovered (or open)
+trigger; tune it with CSS variables on the host or an ancestor.
+
+## Import
+
+```ts
+import {
+  AxNavigationMenuComponent,
+  AxNavigationMenuItemComponent,
+  AxNavigationMenuContentComponent,
+} from '@axisui-ng/navigation';
+```
+
+## Usage
+
+```html
+<ax-navigation-menu [(value)]="open">
+  <ax-navigation-menu-item value="products" label="Products">
+    <ax-navigation-menu-content>
+      <div class="grid w-64 gap-1">
+        <a href="/analytics">Analytics</a>
+        <a href="/automation">Automation</a>
+      </div>
+    </ax-navigation-menu-content>
+  </ax-navigation-menu-item>
+
+  <ax-navigation-menu-item value="company" label="Company">
+    <ax-navigation-menu-content>
+      <a href="/about">About</a>
+    </ax-navigation-menu-content>
+  </ax-navigation-menu-item>
+</ax-navigation-menu>
+```
+
+## `ax-navigation-menu` inputs & models
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `value` | `model<string \| null>` | `null` | Value of the open item (`null` = all closed). |
+
+## `ax-navigation-menu-item` inputs
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `value` | `string` (required) | — | Identifies the item / its panel. |
+| `label` | `string` | `''` | Trigger button text. |
+
+## `ax-navigation-menu-content`
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| — | — | — | No public inputs. Project panel content; the item attaches it as an overlay. |
+
+## Slots
+
+| Slot | Notes |
+|---|---|
+| `ax-navigation-menu-item` (on `ax-navigation-menu`) | Top-level triggers. |
+| `ax-navigation-menu-content` (on `ax-navigation-menu-item`) | Required mega-menu panel template. |
+
+## Customization
+
+Set on the host or an ancestor:
+
+| CSS variable | Default | Notes |
+|---|---|---|
+| `--navigation-menu-backdrop-color` | theme accent | Backdrop fill. |
+| `--navigation-menu-animation-duration` | `200ms` | Transition duration (`0ms` disables). |
+| `--navigation-menu-animation-easing` | `ease-out` | Transition easing. |
+
+Honors `prefers-reduced-motion: reduce` (backdrop transition disabled).
+
+## Accessibility
+
+Host is `role="navigation"`. Triggers expose `aria-expanded`. Only one panel is open at a time; Escape
+or an outside pointer closes it. The highlight backdrop is decorative (`aria-hidden`).
+
+## Storybook
+
+Interactive examples live in Storybook under **Navigation / Navigation Menu**. Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `navigation-menu` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/navigation/src/lib/navigation-menu/)

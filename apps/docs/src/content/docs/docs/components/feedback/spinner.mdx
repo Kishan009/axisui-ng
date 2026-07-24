@@ -1,0 +1,59 @@
+---
+title: Spinner
+category: feedback
+description: CSS border spinner whose color inherits via currentColor.
+status: stable
+since: 0.1
+---
+
+# Spinner
+
+`<ax-spinner>` is a lightweight CSS border spinner. Color inherits from `currentColor`, so it matches
+surrounding text or button content. Three sizes are available via the `size` input.
+
+## Import
+
+```ts
+import { AxSpinnerComponent } from '@axisui-ng/feedback';
+```
+
+## Usage
+
+```html
+<ax-spinner size="md" ariaLabel="Loading results" />
+
+<!-- inside a button, inherits the button's text color -->
+<ax-button disabled><ax-spinner size="sm" /> Saving…</ax-button>
+```
+
+## Variants & sizes
+
+| Option | Values | Default | Notes |
+|---|---|---|---|
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Diameter and border thickness (`h-4` / `h-6` / `h-8`). |
+
+```html
+<ax-spinner size="sm" />
+<ax-spinner size="md" />
+<ax-spinner size="lg" />
+```
+
+## Inputs
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Spinner diameter. |
+| `ariaLabel` | `string` | `'Loading'` | Accessible name announced to screen readers. |
+
+## Accessibility
+
+Host uses `role="status"` with `aria-label` from `ariaLabel`. Under `prefers-reduced-motion`, the spin
+stops and the ring closes into a full static circle so it still reads as a busy indicator.
+
+## Storybook
+
+Interactive examples live in Storybook under **Feedback / Spinner**. Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `spinner` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/feedback/src/lib/spinner/)

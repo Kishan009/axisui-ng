@@ -1,0 +1,72 @@
+---
+title: TreeSelect
+category: forms
+description: Dropdown that picks node(s) from a tree — single or multiple (cascading chips), with panel search.
+status: stable
+since: 0.2
+---
+
+# TreeSelect
+
+`<ax-tree-select>` is a dropdown form control that picks node(s) from a [`ax-tree`](/docs/components/tree/tree)
+(`@axisui-ng/tree`). It mirrors the [Combobox](/docs/components/forms/combobox) trigger + CDK
+connected-overlay pattern; the panel holds a tree (optionally searchable). Implements
+`ControlValueAccessor`.
+
+- **single** → value is one node id; the trigger shows that node's label.
+- **multiple** → value is the checked id array (cascade-managed by the tree), shown as removable
+  chips in the trigger (removing a chip unchecks that node).
+
+Selecting closes the panel in both modes.
+
+## Import
+
+```ts
+import { AxTreeSelectComponent } from '@axisui-ng/forms';
+```
+
+Tree node types (`TreeNode`, `TreeId`) come from `@axisui-ng/tree` — see the
+[Tree](/docs/components/tree/tree) docs.
+
+## Usage
+
+```html
+<ax-tree-select [nodes]="nodes" [(value)]="folder" placeholder="Pick a folder" ariaLabel="Folder" />
+
+<ax-tree-select [nodes]="nodes" selection="multiple" [(value)]="categories" ariaLabel="Categories" />
+
+<!-- lazy + non-searchable -->
+<ax-tree-select [nodes]="roots" [loadChildren]="load" [searchable]="false" ariaLabel="Tree" />
+```
+
+## Inputs & models
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `nodes` | `TreeNode[]` | — | **Required.** Tree data (see [Tree](/docs/components/tree/tree)). |
+| `selection` | `'single' \| 'multiple'` | `'single'` | Selection mode. |
+| `value` | `model<TreeId \| TreeId[] \| null>` | `null` | Two-way + CVA (`TreeId` single / `TreeId[]` multiple). |
+| `placeholder` | `string` | `''` | Shown when empty. |
+| `searchable` | `boolean` | `true` | In-panel filter input. |
+| `loadChildren` | `((node: TreeNode) => Promise<TreeNode[]>) \| null` | `null` | Forwarded to the tree (lazy). |
+| `disabled` | `boolean` | `false` | Also set by `setDisabledState`. |
+| `ariaLabel` | `string` | `''` | Trigger + tree label (tree falls back to `'Tree'`). |
+
+## Search
+
+When `searchable`, the panel shows a filter input; the tree renders `filterTree(nodes, query)` —
+pruned to matches plus their ancestors, auto-expanded. Clearing the query restores the full tree.
+
+## Accessibility
+
+Trigger `role="combobox"` with `aria-expanded` / `aria-controls` / `aria-haspopup="tree"` + label;
+the panel is the tree (`role="tree"`). ArrowDown/Enter open; Escape closes and returns focus to the
+trigger; outside-click closes.
+
+## Storybook
+
+Interactive examples live in Storybook under **Forms / TreeSelect**. Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `tree-select` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/forms/src/lib/tree-select/)

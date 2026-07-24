@@ -1,0 +1,26 @@
+{
+  "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
+  "dest": "../../dist/libs/ui",
+  "lib": {
+    "entryFile": "src/index.ts"
+  },
+  "allowedNonPeerDependencies": [
+    "@axisui-ng/primitives",
+    "@axisui-ng/icons",
+    "@axisui-ng/themes",
+    "@axisui-ng/buttons",
+    "@axisui-ng/forms",
+    "@axisui-ng/data",
+    "@axisui-ng/feedback",
+    "@axisui-ng/overlays-core",
+    "@axisui-ng/overlays",
+    "@axisui-ng/navigation",
+    "@axisui-ng/misc",
+    "@axisui-ng/flow",
+    "@axisui-ng/cdk",
+    "@axisui-ng/tree",
+    "@axisui-ng/layout",
+    "@axisui-ng/charts",
+    "@axisui-ng/blocks"
+  ]
+}

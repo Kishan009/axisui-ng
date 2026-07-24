@@ -1,0 +1,89 @@
+---
+title: Toggle
+category: buttons
+description: A two-state (pressed / not pressed) button, usable standalone or inside a ToggleGroup.
+status: stable
+since: 0.1
+---
+
+# Toggle
+
+`<ax-toggle>` is a two-state button. Use it standalone with a two-way `pressed` model, or as a child
+of [ToggleGroup](/docs/components/buttons/toggle-group/), which manages the selected value and roving
+tabindex.
+
+## Import
+
+```ts
+import {
+  AxToggleComponent,
+  AxButtonLeadingDirective,
+  AxButtonTrailingDirective,
+} from '@axisui-ng/buttons';
+```
+
+## Usage
+
+```html
+<!-- standalone -->
+<ax-toggle [(pressed)]="isMuted">Mute</ax-toggle>
+
+<!-- with a leading icon -->
+<ax-toggle [(pressed)]="isBold" [hasLeading]="true" ariaLabel="Bold">
+  <ax-icon axButtonLeading name="bold" />
+</ax-toggle>
+
+<!-- inside a group -->
+<ax-toggle-group type="single" [(value)]="align">
+  <ax-toggle value="left">Left</ax-toggle>
+  <ax-toggle value="center">Center</ax-toggle>
+  <ax-toggle value="right">Right</ax-toggle>
+</ax-toggle-group>
+```
+
+## Variants & sizes
+
+| Option | Values | Default | Notes |
+|---|---|---|---|
+| `variant` | `'default' \| 'outline' \| 'ghost'` | `'default'` | Pressed state uses accent fill via `data-pressed`. |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Heights 28 / 36 / 44px. |
+
+```html
+<ax-toggle variant="outline" size="sm" [(pressed)]="a">Outline</ax-toggle>
+<ax-toggle variant="ghost" size="md" [(pressed)]="b">Ghost</ax-toggle>
+```
+
+## Inputs
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `pressed` | `model<boolean>` | `false` | Two-way bound pressed state. |
+| `variant` | `ToggleVariant` | `'default'` | Visual style. |
+| `size` | `ToggleSize` | `'md'` | Bounding box size. |
+| `disabled` | `boolean` | `false` | Non-interactive. |
+| `value` | `string \| null` | `null` | Identifies the toggle inside a ToggleGroup. |
+| `hasLeading` | `boolean` | `false` | Set `true` when projecting a leading icon. |
+| `hasTrailing` | `boolean` | `false` | Set `true` when projecting a trailing icon. |
+| `ariaLabel` | `string \| null` | `null` | Accessible label override. |
+
+## Slots
+
+| Slot / marker | Notes |
+|---|---|
+| Default | Label / projected text. |
+| `[axButtonLeading]` | Leading icon. Import `AxButtonLeadingDirective`. Pair with `[hasLeading]="true"`. |
+| `[axButtonTrailing]` | Trailing icon. Import `AxButtonTrailingDirective`. Pair with `[hasTrailing]="true"`. |
+
+## Accessibility
+
+Renders an inner `<button>` with `aria-pressed`. When used in a ToggleGroup, the group manages the
+roving tabindex (active child `tabindex=0`, the rest `-1`). Standalone toggles default to
+`tabindex=0`.
+
+## Storybook
+
+Interactive examples live in Storybook under **Buttons / Toggle**. Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `toggle` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/buttons/src/lib/toggle/)

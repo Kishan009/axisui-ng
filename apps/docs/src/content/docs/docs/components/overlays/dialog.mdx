@@ -1,0 +1,108 @@
+---
+title: Dialog
+category: overlays
+description: Modal dialog with focus trap, backdrop, and Escape handling; title/body/footer slots.
+status: stable
+since: 0.1
+---
+
+# Dialog
+
+`<ax-dialog>` is a modal dialog rendered in a CDK overlay. Bind `[(open)]` to control it. Content
+projects into attribute slots: `[axDialogTitle]`, `[axDialogDescription]`, `[axDialogBody]`, and
+`[axDialogFooter]`. Use `AxDialogService` when you need to open an arbitrary component programmatically.
+
+## Import
+
+```ts
+import {
+  AxDialogComponent,
+  AxDialogTitleDirective,
+  AxDialogDescriptionDirective,
+  AxDialogService,
+  DialogRef,
+  DIALOG_DATA,
+  AxOverlayCloseDirective,
+} from '@axisui-ng/overlays';
+```
+
+## Usage
+
+```html
+<ax-button (clickEvent)="open.set(true)">Edit profile</ax-button>
+
+<ax-dialog [(open)]="open">
+  <h2 axDialogTitle>Edit profile</h2>
+  <p axDialogDescription>Update your account details.</p>
+  <div axDialogBody>…</div>
+  <div axDialogFooter>
+    <ax-button variant="ghost" axOverlayClose>Cancel</ax-button>
+    <ax-button variant="primary" (clickEvent)="save()">Save</ax-button>
+  </div>
+</ax-dialog>
+```
+
+## Inputs & models
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `open` | `model<boolean>` | `false` | Two-way open state. |
+| `closeOnEscape` | `boolean` | `true` | Close when Escape is pressed. |
+| `closeOnBackdrop` | `boolean` | `true` | Close when the backdrop is clicked. |
+
+## Slots / marker directives
+
+| Marker | Kind | Notes |
+|---|---|---|
+| `axDialogTitle` | Directive (`AxDialogTitleDirective`) | Assigns a stable `id`; wires `aria-labelledby` when projected. |
+| `axDialogDescription` | Directive (`AxDialogDescriptionDirective`) | Assigns a stable `id`; wires `aria-describedby` when projected. |
+| `axDialogBody` | Attribute slot | Main content region (`select="[axDialogBody]"`). |
+| `axDialogFooter` | Attribute slot | Action row; empty footer is hidden. |
+| `axOverlayClose` | Directive (`AxOverlayCloseDirective`) | On a button inside the dialog; calls `close()` via `OVERLAY_REF`. |
+
+Unmarked projected content also lands in the body region.
+
+## Programmatic open (`AxDialogService`)
+
+```ts
+const ref = dialog.open(ConfirmComponent, {
+  data: { message: 'Sure?' },
+  size: 'md',
+  closeOnEscape: true,
+  closeOnBackdrop: true,
+  closeButton: true,
+});
+ref.result$.subscribe((result) => { /* … */ });
+```
+
+### `DialogOptions`
+
+| Option | Type | Default | Notes |
+|---|---|---|---|
+| `backdrop` | `boolean` | `true` | Render a modal backdrop. |
+| `closeOnEscape` | `boolean` | `true` | Close when Escape is pressed. |
+| `closeOnBackdrop` | `boolean` | `true` | Close on backdrop click (only when `backdrop` is true). |
+| `closeButton` | `boolean` | `true` | Render a dismiss (“X”) button in the container. |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Panel max-width. |
+| `ariaLabel` | `string \| null` | `null` | Accessible name when content has no labelled title. |
+| `customClass` | `string` | — | Extra class(es) on the overlay pane. |
+| `data` | `unknown` | — | Injected into the opened component via `DIALOG_DATA`. |
+
+The opened component can inject `DialogRef` (or `OVERLAY_REF`) and call `close(result?)`. `result$`
+emits once then completes.
+
+## Accessibility
+
+`role="dialog"` `aria-modal="true"`, labelled by `[axDialogTitle]` and described by
+`[axDialogDescription]` when those markers are present. Focus is trapped while open (`cdkTrapFocus`
+with auto-capture). Escape and backdrop close when enabled. Prefer `axOverlayClose` or
+`open.set(false)` / `DialogRef.close()` for explicit dismiss.
+
+## Storybook
+
+Interactive examples live in Storybook under **Overlays / Dialog** (including programmatic
+`AxDialogService`). Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `dialog` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/overlays/src/lib/dialog/)

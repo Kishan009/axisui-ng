@@ -1,0 +1,51 @@
+name: Chromatic
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+# Grant the job permission to post PR comments (Chromatic review links).
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  chromatic:
+    name: Visual regression (Chromatic)
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Chromatic needs full git history to compute baselines correctly.
+          fetch-depth: 0
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # Pre-compile the Tailwind stylesheet that Storybook serves statically.
+      # Storybook's previewHead in main.ts links this file at ./preview.css.
+      - name: Build Storybook CSS
+        run: pnpm exec nx run storybook:storybook-css
+
+      # Build Storybook to a static directory — Chromatic uploads the build.
+      - name: Build Storybook
+        run: pnpm exec nx run storybook:build-storybook
+
+      # Run Chromatic against the built Storybook.
+      - name: Run Chromatic
+        uses: chromaui/action@latest
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          buildScriptName: ''          # we already built above
+          storybookBuildDir: apps/storybook/storybook-static
+          configFile: apps/storybook/chromatic.config.json

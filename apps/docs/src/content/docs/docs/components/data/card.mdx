@@ -1,0 +1,61 @@
+---
+title: Card
+category: data
+description: Structural surface with optional header, content, and footer slots.
+status: stable
+since: 0.1
+---
+
+# Card
+
+`<ax-card>` is a structural surface with three optional attribute slots: `[axCardHeader]`,
+`[axCardContent]`, and `[axCardFooter]`. Unmarked projected content also lands in the content region.
+
+## Import
+
+```ts
+import { AxCardComponent } from '@axisui-ng/data';
+```
+
+## Usage
+
+```html
+<ax-card>
+  <div axCardHeader>
+    <h3>Monthly plan</h3>
+  </div>
+  <div axCardContent>
+    <p>Everything you need to get started.</p>
+  </div>
+  <div axCardFooter>
+    <ax-button variant="primary">Choose plan</ax-button>
+  </div>
+</ax-card>
+```
+
+## Slots / marker directives
+
+| Marker | Kind | Notes |
+|---|---|---|
+| `axCardHeader` | Attribute slot | Title / actions area (`select="[axCardHeader]"`). Empty header is hidden. |
+| `axCardContent` | Attribute slot | Main body (`select="[axCardContent]"`). |
+| `axCardFooter` | Attribute slot | Actions / metadata; flex row aligned end. Empty footer is hidden. |
+
+Unmarked projected content also lands in the content region. All slots are optional.
+
+## API
+
+`<ax-card>` takes no inputs — it is a presentational container. Compose it with the header / body / footer marker-directive slots documented above; styling cascades from theme tokens.
+
+## Accessibility
+
+Card is a presentational container — it adds no roles. Use real headings inside the header slot so the
+document outline stays meaningful.
+
+## Storybook
+
+Interactive examples live in Storybook under **Data / Card**. Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `card` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/data/src/lib/card/)

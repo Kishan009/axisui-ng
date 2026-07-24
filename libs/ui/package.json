@@ -1,0 +1,36 @@
+{
+  "name": "@axisui-ng/angular",
+  "version": "0.0.1",
+  "description": "AxisUI — the full Angular 20 component library. Meta-package that re-exports every MIT category (@axisui-ng/buttons, forms, data, …).",
+  "license": "MIT",
+  "private": false,
+  "publishConfig": { "access": "public" },
+  "sideEffects": false,
+  "schematics": "./schematics/collection.json",
+  "ng-add": {
+    "save": "dependencies"
+  },
+  "peerDependencies": {
+    "@angular/core": "^20.0.0",
+    "@angular/common": "^20.0.0"
+  },
+  "dependencies": {
+    "@axisui-ng/primitives": "^0.0.1",
+    "@axisui-ng/icons": "^0.0.1",
+    "@axisui-ng/themes": "^0.0.1",
+    "@axisui-ng/buttons": "^0.0.1",
+    "@axisui-ng/forms": "^0.0.1",
+    "@axisui-ng/data": "^0.0.1",
+    "@axisui-ng/feedback": "^0.0.1",
+    "@axisui-ng/overlays-core": "^0.0.1",
+    "@axisui-ng/overlays": "^0.0.1",
+    "@axisui-ng/navigation": "^0.0.1",
+    "@axisui-ng/misc": "^0.0.1",
+    "@axisui-ng/flow": "^0.0.1",
+    "@axisui-ng/cdk": "^0.0.1",
+    "@axisui-ng/tree": "^0.0.1",
+    "@axisui-ng/layout": "^0.0.1",
+    "@axisui-ng/charts": "^0.0.1",
+    "@axisui-ng/blocks": "^0.0.1"
+  }
+}

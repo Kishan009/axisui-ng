@@ -1,0 +1,25 @@
+packages:
+  - 'apps/*'
+  - 'libs/*'
+  - 'packages/*'
+  - 'tools/*'
+
+# Internal @axisui-ng/* packages resolve via tsconfig path aliases (Nx), not node_modules.
+# They are declared as peerDependencies for publish metadata only, so pnpm must not
+# auto-install them from the public registry (they are unpublished → 404). Link any
+# workspace package by name; do not auto-install peer deps.
+autoInstallPeers: false
+linkWorkspacePackages: true
+
+# pnpm 11+ blocks postinstall scripts by default. Approve only the
+# packages that need to compile native code or run setup hooks.
+# This is the v11 syntax — `onlyBuiltDependencies` was removed.
+# Workspace-local — does not affect the user's global pnpm config.
+allowBuilds:
+  '@parcel/watcher': true
+  esbuild: true
+  lmdb: true
+  msgpackr-extract: true
+  nx: true
+  sharp: true
+  unrs-resolver: true

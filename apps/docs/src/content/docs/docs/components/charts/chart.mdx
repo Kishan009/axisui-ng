@@ -1,0 +1,204 @@
+---
+title: Chart
+category: charts
+description: Dependency-free SVG charts — line, area, bar, scatter, pie, and donut — themed via chart tokens.
+status: stable
+since: 0.2
+tier: pro
+---
+
+# Chart
+
+`<ax-chart>` is a dependency-free SVG chart built on a pure `chart-core`. It supports
+**line**, **area**, **bar**, **scatter**, **pie**, and **donut** types, optional stacking,
+custom formatters, keyboard exploration, and pointer events. Responsive via `viewBox`, themed
+through `--color-chart-1..5`, and self-gates with a `PRO` watermark until licensed.
+
+## Import
+
+```ts
+import {
+  AxChartComponent,
+  formatChartValue,
+  formatChartLabel,
+  formatPercent,
+  type ChartSeriesInput,
+  type ChartValueFormatter,
+  type ChartLabelFormatter,
+  type ChartPointEvent,
+  type ChartType,
+} from '@axisui-ng/charts';
+```
+
+## Usage
+
+```html
+<ax-chart
+  type="line"
+  [series]="[
+    { name: 'Revenue', data: [84200, 92100, 88500, 95400, 102300] },
+    { name: 'Costs', data: [51200, 54800, 53100, 56200, 58900] },
+  ]"
+  [labels]="['Jan', 'Feb', 'Mar', 'Apr', 'May']"
+  [height]="240"
+/>
+```
+
+## Chart types
+
+| `type` | Series shape | Notes |
+|---|---|---|
+| `line` | `{ name, data: number[] }` | Crosshair tooltip; dash patterns distinguish series without color. |
+| `area` | same | Filled baseline under each line. |
+| `bar` | same | Grouped bars per category; use `stacked` for cumulative bands. |
+| `scatter` | `{ kind: 'xy', name, data: { x, y, label? }[] }` | Numeric x/y axes; optional `xDomain` / `yDomain`. |
+| `pie` | `{ kind: 'radial', name, data: { label, value }[] }` | Exactly **one** radial series. |
+| `donut` | same as pie | Inner hole sized by `donutRatio` (default `0.55`). |
+
+All series accept an optional `color?: 1 | 2 | 3 | 4 | 5` to pick a chart palette slot.
+Numeric series may also set `stackId` so compatible series stack together.
+
+## Inputs
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `type` | `ChartType` (`'line' \| 'area' \| 'bar' \| 'scatter' \| 'pie' \| 'donut'`) | `'line'` | Chart kind. |
+| `series` | `ChartSeriesInput[]` (required) | — | See chart types above. |
+| `labels` | `string[]` | `[]` | X-axis category labels (cartesian types). |
+| `stacked` | `boolean` | `false` | Stack compatible `bar` / `area` series. |
+| `animated` | `boolean` | `false` | Animate marks on first paint; disabled under `prefers-reduced-motion`. |
+| `valueFormat` | `ChartValueFormatter \| null` | `null` | Formats numbers in axes, tooltips, and live region. |
+| `labelFormat` | `ChartLabelFormatter \| null` | `null` | Formats category / datum labels. |
+| `xDomain` | `[min, max] \| null` | `null` | Explicit scatter x extent. |
+| `yDomain` | `[min, max] \| null` | `null` | Explicit y extent (cartesian + scatter). |
+| `donutRatio` | `number` | `0.55` | Inner-radius fraction for `donut` (clamped 0–1). |
+| `height` | `number` | `240` | SVG height (coordinate units); width is responsive via `viewBox`. |
+| `showLegend` | `boolean` | `true` | Legend below the plot. |
+| `showGrid` | `boolean` | `true` | Gridlines (cartesian + scatter). |
+| `yTicks` | `number` | `5` | Approximate tick count. |
+| `ariaLabel` | `string` | `''` | Accessible name; auto-generated from series when empty. |
+
+## Outputs
+
+| Output | Payload | Notes |
+|---|---|---|
+| `pointHover` | `ChartPointEvent \| null` | Pointer moves over a datum, keyboard focus changes, or pointer leaves the plot. |
+| `pointClick` | `ChartPointEvent` | Click on the active datum, or **Enter** / **Space** while focused. |
+
+`ChartPointEvent` includes `chartType`, `seriesIndex`, `dataIndex`, `seriesName`, `label`,
+`value`, optional `x` (scatter), and `originalDatum`.
+
+## Formatters
+
+Pass functions that receive the raw value/label plus a `ChartFormatContext` (`chartType`,
+`location`: `'axis' | 'tooltip' | 'legend' | 'live-region'`, optional indices and datum).
+
+```html
+<ax-chart
+  type="line"
+  [series]="series"
+  [labels]="labels"
+  [valueFormat]="currency"
+  [labelFormat]="month"
+/>
+```
+
+```ts
+const currency: ChartValueFormatter = (value) =>
+  new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(value);
+
+const month: ChartLabelFormatter = (label) => `${label} 2026`;
+```
+
+The library also exports `formatChartValue`, `formatChartLabel`, and `formatPercent` from
+`@axisui-ng/charts` for reuse in custom formatters.
+
+## Examples
+
+### Scatter
+
+```html
+<ax-chart
+  type="scatter"
+  [series]="[
+    {
+      kind: 'xy',
+      name: 'Product A',
+      data: [
+        { x: 12, y: 240, label: 'Jan' },
+        { x: 18, y: 310, label: 'Feb' },
+      ],
+    },
+  ]"
+  [xDomain]="[0, 40]"
+  [yDomain]="[0, 500]"
+/>
+```
+
+### Pie / donut
+
+```html
+<ax-chart
+  type="donut"
+  [donutRatio]="0.6"
+  [series]="[
+    {
+      kind: 'radial',
+      name: 'Traffic',
+      data: [
+        { label: 'Organic', value: 42 },
+        { label: 'Paid', value: 28 },
+        { label: 'Email', value: 18 },
+      ],
+    },
+  ]"
+/>
+```
+
+### Stacked bar
+
+```html
+<ax-chart
+  type="bar"
+  [stacked]="true"
+  [series]="[
+    { name: 'Organic', data: [120, 140, 135], stackId: 'visits' },
+    { name: 'Paid', data: [80, 95, 88], stackId: 'visits' },
+  ]"
+  [labels]="['Jan', 'Feb', 'Mar']"
+/>
+```
+
+## Keyboard
+
+The SVG is focusable (`tabindex="0"`). Screen-reader instructions are linked via
+`aria-describedby`; focused navigation updates a polite live region.
+
+| Key | Behavior |
+|---|---|
+| **← / →** | Previous / next datum (category index for cartesian & radial; keyboard order for scatter). |
+| **↑ / ↓** | Previous / next series (cartesian & scatter only). |
+| **Home / End** | First / last datum in the current series. |
+| **Enter / Space** | Emit `pointClick` for the active datum. |
+| **Escape** | Clear keyboard selection and tooltip. |
+
+On pointer leave, keyboard selection is restored when the chart retains focus.
+
+## Accessibility
+
+`role="img"` with an `ariaLabel` summarizing the chart (or your override). Cartesian charts
+also expose a visually-hidden data table with the same values. Series colors resolve to OKLCH
+theme tokens so they adapt to light/dark and industry presets.
+
+Empty input shows **No data**; invalid series/type combinations show **Invalid chart data**.
+
+
+## Storybook
+
+Interactive examples live in Storybook under **Pro / Chart** — including stacked, scatter,
+pie/donut, formatters, events, animation, and empty/invalid states. Run `pnpm storybook` to
+explore them.
+
+## Source
+
+[View the `chart` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/charts/src/lib/chart/)

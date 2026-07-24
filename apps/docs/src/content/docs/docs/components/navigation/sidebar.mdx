@@ -1,0 +1,80 @@
+---
+title: Sidebar
+category: navigation
+description: Collapsible navigation rail with header/body/footer slots and active items.
+status: stable
+since: 0.1
+---
+
+# Sidebar
+
+`<ax-sidebar>` is a collapsible navigation rail. Project header/footer via attribute slots, and body
+rows as `<ax-sidebar-item>` children (typically an icon then a label). When collapsed, non-icon
+projected content on each item is hidden.
+
+## Import
+
+```ts
+import { AxSidebarComponent, AxSidebarItemComponent } from '@axisui-ng/navigation';
+```
+
+## Usage
+
+```html
+<ax-sidebar [(collapsed)]="collapsed" side="start">
+  <button
+    axSidebarHeader
+    type="button"
+    aria-label="Toggle sidebar"
+    (click)="collapsed.set(!collapsed())"
+  >
+    <ax-icon name="menu" />
+  </button>
+
+  <ax-sidebar-item [active]="true">
+    <ax-icon name="home" /><span>Dashboard</span>
+  </ax-sidebar-item>
+  <ax-sidebar-item>
+    <ax-icon name="settings" /><span>Settings</span>
+  </ax-sidebar-item>
+
+  <ax-sidebar-item axSidebarFooter>
+    <ax-icon name="archive" /><span>Archive</span>
+  </ax-sidebar-item>
+</ax-sidebar>
+```
+
+## `ax-sidebar` inputs & models
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `collapsed` | `model<boolean>` | `false` | Two-way collapsed (icon-rail) state. |
+| `side` | `'start' \| 'end'` | `'start'` | Which edge the rail sits on (`border-e` vs `border-s`). |
+
+## Slots
+
+| Slot | Notes |
+|---|---|
+| `[axSidebarHeader]` | Projected into the header region above the nav body. |
+| (default) | Nav body — typically `<ax-sidebar-item>` rows. |
+| `[axSidebarFooter]` | Projected into the footer region below the nav body. |
+
+## `ax-sidebar-item` inputs
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `active` | `boolean` | `false` | Active route indicator (`aria-current="page"`). |
+
+## Accessibility
+
+The body is a `<nav>`. Active items set `aria-current="page"`. Provide an accessible name on interactive
+header controls (e.g. a collapse toggle). When collapsed, labels are visually hidden; keep a meaningful
+name on the item (icon `aria-label`, or host attributes) if the remaining content is icon-only.
+
+## Storybook
+
+Interactive examples live in Storybook under **Navigation / Sidebar**. Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `sidebar` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/navigation/src/lib/sidebar/)

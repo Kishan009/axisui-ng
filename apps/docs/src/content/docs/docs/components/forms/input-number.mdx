@@ -1,0 +1,74 @@
+---
+title: InputNumber
+category: forms
+description: Numeric input with side −/+ steppers, min/max/step/precision, and prefix/suffix.
+status: stable
+since: 0.2
+---
+
+# InputNumber
+
+`<ax-input-number>` is a numeric field with side **−/+** steppers, bounds, step, precision, and
+optional prefix/suffix. It implements `ControlValueAccessor` over `number | null` and exposes a
+two-way `[(value)]`. The field matches `ax-input` (shared `inputVariants`).
+
+Typing updates the value without rewriting the field mid-edit (no caret jump); **blur** clamps to
+`[min, max]`, rounds to `precision`, and reflects the formatted value. The −/+ buttons and **↑/↓**
+arrow keys step (with hold-to-repeat on press).
+
+## Import
+
+```ts
+import { AxInputNumberComponent } from '@axisui-ng/forms';
+```
+
+## Usage
+
+```html
+<ax-input-number [(value)]="qty" [min]="0" [max]="99" ariaLabel="Quantity" />
+<ax-input-number [(value)]="price" [precision]="2" [step]="0.5" prefix="$" ariaLabel="Price" />
+<ax-input-number [(value)]="pct" [min]="0" [max]="100" [step]="5" suffix="%" ariaLabel="Discount" />
+```
+
+## Variants & sizes
+
+| Option | Values | Default | Notes |
+|---|---|---|---|
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Shared with `ax-input` (`inputVariants`). |
+
+```html
+<ax-input-number [(value)]="qty" size="sm" [min]="0" ariaLabel="Quantity" />
+```
+
+## Inputs & models
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `value` | `model<number \| null>` | `null` | Two-way + CVA. |
+| `min` | `number \| null` | `null` | Lower bound (clamped on step + blur). |
+| `max` | `number \| null` | `null` | Upper bound (clamped on step + blur). |
+| `step` | `number` | `1` | Step increment. |
+| `precision` | `number \| null` | `null` | Decimal places (rounded on step + blur). |
+| `prefix` | `string` | `''` | Adornment before the number (e.g. `$`). |
+| `suffix` | `string` | `''` | Adornment after the number (e.g. `%`). |
+| `placeholder` | `string` | `''` | Placeholder text. |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Control height/padding. |
+| `disabled` | `boolean` | `false` | Also set by `setDisabledState`. |
+| `readonly` | `boolean` | `false` | Read-only. |
+| `invalid` | `boolean` | `false` | Error styling + `aria-invalid` on the wrapper. |
+| `describedBy` | `string \| null` | `null` | `aria-describedby`. |
+| `ariaLabel` | `string` | `''` | Accessible name for the spinbutton. |
+
+## Accessibility
+
+The input is `role="spinbutton"` with `aria-valuenow/min/max` + `inputmode="decimal"`; ↑/↓ adjust it.
+The −/+ buttons are `tabindex="-1"` + `aria-hidden` (the spinbutton arrow keys are the accessible
+control), and are disabled at the respective bound.
+
+## Storybook
+
+Interactive examples live in Storybook under **Forms / InputNumber**. Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `input-number` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/forms/src/lib/input-number/)

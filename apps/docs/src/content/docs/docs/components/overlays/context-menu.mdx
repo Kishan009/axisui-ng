@@ -1,0 +1,79 @@
+---
+title: ContextMenu
+category: overlays
+description: Opens a dropdown menu at the pointer on right-click or via the keyboard context-menu keys.
+status: stable
+since: 0.1
+---
+
+# ContextMenu
+
+`[axContextMenuTriggerFor]` opens a `<ax-dropdown-menu>` at the pointer on right-click, or via the
+keyboard (Shift+F10 / the ContextMenu key) anchored to the focused element’s box. Menu content and
+item APIs are the same as [DropdownMenu](/docs/components/overlays/dropdown-menu/).
+
+## Import
+
+```ts
+import {
+  AxContextMenuTriggerDirective,
+  AxDropdownMenuComponent,
+  AxMenuItemComponent,
+  AxMenuLabelComponent,
+  AxMenuSeparatorComponent,
+} from '@axisui-ng/overlays';
+```
+
+## Usage
+
+```html
+<div
+  class="rounded-[var(--radius-md)] border border-border p-8"
+  [axContextMenuTriggerFor]="menu"
+  tabindex="0"
+>
+  Right-click or press Shift+F10 here.
+</div>
+
+<ax-dropdown-menu #menu>
+  <ax-menu-label>Actions</ax-menu-label>
+  <ax-menu-item (select)="copy()">Copy</ax-menu-item>
+  <ax-menu-item (select)="paste()">Paste</ax-menu-item>
+  <ax-menu-separator />
+  <ax-menu-item (select)="remove()">Delete</ax-menu-item>
+</ax-dropdown-menu>
+```
+
+## Components
+
+### `[axContextMenuTriggerFor]` inputs
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `axContextMenuTriggerFor` | `AxDropdownMenuComponent` (required) | — | Menu instance to open at the pointer. |
+
+Right-click (`contextmenu`) is prevented and the menu opens at `clientX` / `clientY`. If the menu is
+already open, it jumps to the new point without an exit animation. Outside-click closes; focus
+returns to the host.
+
+### Menu surface & items
+
+Reuse the full [DropdownMenu](/docs/components/overlays/dropdown-menu/) API: `ax-dropdown-menu` (`open`,
+`closed`), `ax-menu-item`, checkbox/radio items, labels, and separators.
+
+## Accessibility
+
+Keyboard equivalent of right-click (WCAG 2.1.1): **Shift+F10** or the **ContextMenu** key opens the
+menu anchored to the focused element’s bounding box. Ensure the host is focusable (`tabindex="0"`
+when it is not a native control). Once open, keyboard behaviour matches DropdownMenu (arrows,
+Enter/Space, Escape, type-ahead).
+
+## Storybook
+
+There is no dedicated ContextMenu story group; use **Overlays / Dropdown Menu** for the shared menu
+surface, and wire `[axContextMenuTriggerFor]` in your app. Run `pnpm storybook` to explore the menu
+stories.
+
+## Source
+
+[View the `context-menu` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/overlays/src/lib/context-menu/)

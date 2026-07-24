@@ -1,0 +1,63 @@
+---
+title: Progress
+category: feedback
+description: Determinate or indeterminate progress bar.
+status: stable
+since: 0.1
+---
+
+# Progress
+
+`<ax-progress>` is a determinate or indeterminate progress bar. Pass a numeric `value` for
+determinate fill; pass `null` (the default) for the indeterminate pulse.
+
+## Import
+
+```ts
+import { AxProgressComponent } from '@axisui-ng/feedback';
+```
+
+## Usage
+
+```html
+<!-- determinate -->
+<ax-progress [value]="upload()" [max]="100" ariaLabel="Upload progress" />
+
+<!-- indeterminate -->
+<ax-progress [value]="null" ariaLabel="Loading" />
+```
+
+## Variants & sizes
+
+| Option | Values | Default | Notes |
+|---|---|---|---|
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Track thickness (`h-1` / `h-2` / `h-3`). |
+
+```html
+<ax-progress [value]="40" size="sm" />
+<ax-progress [value]="40" size="md" />
+<ax-progress [value]="40" size="lg" />
+```
+
+## Inputs
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `value` | `number \| null` | `null` | Current progress; `null` = indeterminate (`data-state="indeterminate"`). |
+| `max` | `number` | `100` | Maximum value for determinate mode. |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Track thickness. |
+| `ariaLabel` | `string` | `'Progress'` | Accessible name for the progressbar. |
+
+## Accessibility
+
+Host uses `role="progressbar"` with `aria-valuemin="0"`, `aria-valuemax` from `max`, and
+`aria-valuenow` when determinate (`value` is not `null`). Provide a clear `ariaLabel`. Indeterminate
+fill uses a pulse animation that stops under `prefers-reduced-motion`.
+
+## Storybook
+
+Interactive examples live in Storybook under **Feedback / Progress**. Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `progress` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/feedback/src/lib/progress/)

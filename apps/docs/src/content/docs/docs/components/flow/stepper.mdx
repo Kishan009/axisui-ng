@@ -1,0 +1,99 @@
+---
+title: Stepper
+category: flow
+description: Multi-step / wizard control with linear gating and an optional async transition guard.
+status: stable
+since: 0.2
+---
+
+# Stepper
+
+`<ax-stepper>` is a multi-step / wizard control: an ordered, interactive rail of step
+indicators plus the active step's content. It's a **compound family** (like Tabs) — the root
+`<ax-stepper>` draws the rail from its projected `<ax-step>` children's metadata and shows the
+active step's content. Supports horizontal/vertical orientation, linear gating, and an optional
+(possibly async) transition guard.
+
+## Import
+
+```ts
+import { AxStepperComponent, AxStepComponent } from '@axisui-ng/flow';
+```
+
+## Usage
+
+```html
+<ax-stepper #s [(currentStep)]="step">
+  <ax-step label="Account" description="Your login">…</ax-step>
+  <ax-step label="Profile" description="About you">…</ax-step>
+  <ax-step label="Review">…</ax-step>
+</ax-stepper>
+
+<button (click)="s.previous()">Back</button>
+<button (click)="s.next()">Next</button>
+```
+
+## `ax-stepper` inputs
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `currentStep` | `model<number>` | `0` | Two-way, 0-based. Clamped to `[0, count-1]`. |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Rail orientation. |
+| `linear` | `boolean` | `true` | Gates skipping ahead (see below). |
+| `guard` | `StepperGuard \| null` | `null` | Optional transition guard. |
+
+**Methods:** `next()`, `previous()`, `goTo(index)`. All transitions funnel through one guarded
+path, so linear rules and the guard always apply.
+
+## `ax-step` inputs
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `label` | `string` | — | **Required.** Rail label. |
+| `description` | `string \| null` | `null` | Secondary line under the label. |
+| `icon` | `AxIconName \| null` | `null` | Custom indicator icon (overrides the number for upcoming/active states). |
+| `completed` | `boolean` | `false` | Explicit completion (independent of position). |
+| `disabled` | `boolean` | `false` | Not navigable; skipped by keyboard. |
+| `optional` | `boolean` | `false` | Shows an "Optional" hint. |
+| `error` | `boolean` | `false` | Error indicator + destructive colour. |
+
+## Linear gating
+
+With `linear` (the default), the user can return to any step they've already reached and advance
+to the next step one at a time, but cannot **skip ahead** past the frontier. With `linear=false`
+any enabled step is directly reachable.
+
+## Async / validation guard
+
+```ts
+type StepDirection = 'next' | 'previous' | 'jump';
+interface StepChange { from: number; to: number; direction: StepDirection; }
+type StepperGuard = (change: StepChange) => boolean | Promise<boolean>;
+```
+
+Set `[guard]` to validate before a transition commits. Return (or resolve) `false` to cancel.
+A `Promise` puts the stepper into a **pending** state (a spinner on the target step, `aria-busy`
+on the root) and ignores further requests until it settles. Inspect `direction` to gate only what
+you care about — commonly: validate the current step's form on `'next'`, allow `'previous'` freely.
+
+```ts
+validateStep: StepperGuard = ({ from, direction }) =>
+  direction !== 'next' ? true : this.forms[from].valid;
+```
+
+## Accessibility
+
+- The rail is an ordered list; each step is a `<button>`; the active one carries
+  `aria-current="step"` (this is **not** a tablist — steppers have different semantics).
+- Disabled / not-yet-reachable steps are `disabled` and skipped by keyboard.
+- Roving arrow-key focus among enabled step buttons (`←/→` horizontal, `↑/↓` vertical),
+  `Home`/`End` to the ends; `Enter`/`Space` activates the focused step (subject to `linear` + guard).
+- The active step's content is a labelled `region`.
+
+## Storybook
+
+Interactive examples live in Storybook under **Flow / Stepper**. Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `stepper` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/flow/src/lib/stepper/)

@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "../../dist/out-tsc",
+    "types": ["node"],
+    "lib": ["dom", "es2022"]
+  },
+  "include": ["../../libs/**/*.stories.ts", ".storybook/**/*.ts"],
+  "exclude": ["**/*.spec.ts"]
+}

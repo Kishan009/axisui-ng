@@ -1,0 +1,12 @@
+{
+  "name": "@axisui-ng/icons",
+  "version": "0.0.1",
+  "description": "First-party icon set for @axisui-ng/angular. Tree-shakeable, stroke-based, currentColor. 30 hand-designed icons in v0.1.",
+  "license": "MIT",
+  "private": false,
+  "publishConfig": { "access": "public" },
+  "sideEffects": false,
+  "peerDependencies": {
+    "@angular/core": "^20.0.0"
+  }
+}

@@ -1,0 +1,62 @@
+---
+title: Tag input
+category: forms
+description: Free-text tokens — type to add removable chips. ControlValueAccessor over string[].
+status: stable
+since: 0.2
+---
+
+# Tag input
+
+`<ax-tag-input>` turns free text into removable [chips](/docs/components/forms/chip). It implements
+`ControlValueAccessor` over `string[]` (works with `[(ngModel)]` / `formControlName`) and exposes a
+two-way `[(value)]`. For choosing from a fixed option list instead, use the
+[Combobox chips / MultiSelect](/docs/components/forms/combobox).
+
+## Import
+
+```ts
+import { AxTagInputComponent } from '@axisui-ng/forms';
+```
+
+## Usage
+
+```html
+<ax-tag-input [(value)]="tags" placeholder="Add a tag…" [max]="5" ariaLabel="Tags" />
+
+<!-- reactive forms -->
+<ax-tag-input formControlName="tags" ariaLabel="Tags" />
+```
+
+## Inputs & models
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `value` | `model<string[]>` | `[]` | Two-way; also driven by forms via CVA. |
+| `placeholder` | `string` | `''` | Text-field placeholder. |
+| `max` | `number \| null` | `null` | Cap on the number of tags (`null` = unlimited). |
+| `allowDuplicates` | `boolean` | `false` | Permit repeated tags. |
+| `disabled` | `boolean` | `false` | Also set by `setDisabledState` from a form. |
+| `ariaLabel` | `string` | `''` | Labels the group + the text field (field falls back to `'Add tag'`). |
+
+## Interaction
+
+| Action | Result |
+|---|---|
+| **Enter** or **comma** | Adds the trimmed draft as a tag (deduped unless `allowDuplicates`, capped by `max`). |
+| **Backspace** (empty field) | Removes the last tag. |
+| **Paste** | Splits on commas/newlines and adds each token. |
+| Chip `×` | Removes that tag. |
+
+## Accessibility
+
+A labelled `group` containing a labelled text input and removable chips (each `×` is labelled
+`Remove {tag}`). Add/remove/rejection messages go to an `aria-live="polite"` region.
+
+## Storybook
+
+Interactive examples live in Storybook under **Forms / TagInput**. Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `tag-input` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/forms/src/lib/tag-input/)

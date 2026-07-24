@@ -1,0 +1,71 @@
+---
+title: Menubar
+category: navigation
+description: An application menu bar of labelled menus, reusing the overlays dropdown menu.
+status: stable
+since: 0.1
+---
+
+# Menubar
+
+`<ax-menubar>` is an application-style menu bar. It contains `<ax-menubar-menu>` elements; each has a
+`label` trigger and projects a [DropdownMenu](/docs/components/overlays/dropdown-menu/) (`<ax-dropdown-menu>`)
+whose items open in a connected overlay.
+
+## Import
+
+```ts
+import { AxMenubarComponent, AxMenubarMenuComponent } from '@axisui-ng/navigation';
+import { AxDropdownMenuComponent, AxMenuItemComponent } from '@axisui-ng/overlays';
+```
+
+## Usage
+
+```html
+<ax-menubar>
+  <ax-menubar-menu label="File">
+    <ax-dropdown-menu>
+      <ax-menu-item (select)="newFile()">New File</ax-menu-item>
+      <ax-menu-item (select)="openFile()">Open…</ax-menu-item>
+      <ax-menu-item (select)="save()">Save</ax-menu-item>
+    </ax-dropdown-menu>
+  </ax-menubar-menu>
+  <ax-menubar-menu label="Edit">
+    <ax-dropdown-menu>
+      <ax-menu-item (select)="undo()">Undo</ax-menu-item>
+      <ax-menu-item (select)="redo()">Redo</ax-menu-item>
+    </ax-dropdown-menu>
+  </ax-menubar-menu>
+</ax-menubar>
+```
+
+## `ax-menubar` inputs
+
+None — the root coordinates one-open-at-a-time open state and keyboard roving across menus.
+
+## `ax-menubar-menu` inputs
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `label` | `string` (required) | — | Trigger button text. |
+
+## Slots
+
+| Slot | Notes |
+|---|---|
+| `ax-menubar-menu` (on `ax-menubar`) | Top-level menus only. |
+| `ax-dropdown-menu` (on `ax-menubar-menu`) | Required projected dropdown whose panel opens under the trigger. |
+
+## Accessibility
+
+Root is `role="menubar"`. Each trigger is `role="menuitem"` with `aria-haspopup="menu"` and
+`aria-expanded`. Arrow Left/Right move between top-level triggers (and move an already-open menu);
+Arrow Down / Enter open; Escape closes. The open panel uses DropdownMenu menu semantics.
+
+## Storybook
+
+Interactive examples live in Storybook under **Navigation / Menubar**. Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `menubar` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/navigation/src/lib/menubar/)

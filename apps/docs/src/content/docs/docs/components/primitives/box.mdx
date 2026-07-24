@@ -1,0 +1,55 @@
+---
+title: Box
+category: primitives
+description: The base layout primitive — padding, border, radius, and color tokens via inputs.
+status: stable
+since: 0.1
+---
+
+# Box
+
+`[axBox]` is the most primitive layout building block: a host element that accepts padding, border,
+radius, shadow, and color **tokens** through signal inputs. All values map to theme tokens, not raw CSS.
+
+## Import
+
+```ts
+import { AxBoxDirective } from '@axisui-ng/primitives';
+```
+
+## Usage
+
+```html
+<div axBox p="4" rounded="md" border bg="card" fg="card-foreground">
+  Padded, bordered, rounded surface.
+</div>
+```
+
+## Inputs
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `display` | `'block' \| 'inline-block' \| 'flex' \| 'inline-flex' \| 'grid' \| 'inline-grid' \| 'none'` | `'block'` | Host display mode. |
+| `p` | `'0' \| '1' \| '2' \| '3' \| '4' \| '5' \| '6' \| '8' \| '10' \| '12'` | `'0'` | Padding on all sides (spacing token). |
+| `ps` | `'0' \| '1' \| '2' \| '3' \| '4' \| '5' \| '6' \| '8' \| '10' \| '12' \| null` | `null` | Padding inline-start (logical). |
+| `pe` | `'0' \| '1' \| '2' \| '3' \| '4' \| '5' \| '6' \| '8' \| '10' \| '12' \| null` | `null` | Padding inline-end (logical). |
+| `pt` | `'0' \| '1' \| '2' \| '3' \| '4' \| '5' \| '6' \| '8' \| '10' \| '12' \| null` | `null` | Padding block-start. |
+| `pb` | `'0' \| '1' \| '2' \| '3' \| '4' \| '5' \| '6' \| '8' \| '10' \| '12' \| null` | `null` | Padding block-end. |
+| `bg` | `string \| null` | `null` | Background color token name (e.g. `card`, `muted`). |
+| `fg` | `string \| null` | `null` | Foreground (text) color token name. |
+| `rounded` | `'none' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| '2xl' \| 'full'` | `'none'` | Border-radius token. |
+| `shadow` | `'none' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'none'` | Box-shadow token. |
+| `border` | `boolean` | `false` | Apply the default `border border-border`. |
+
+## Accessibility
+
+Box is purely presentational and adds no semantics — apply it to whatever element is correct for your
+content.
+
+## Storybook
+
+Interactive examples live in Storybook under **Primitives / Box**. Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `box` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/primitives/src/lib/box/)

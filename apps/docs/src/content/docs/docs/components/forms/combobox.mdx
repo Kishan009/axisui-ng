@@ -1,0 +1,73 @@
+---
+title: Combobox / MultiSelect
+category: forms
+description: Single/multi-select with type-to-filter; chips mode renders the MultiSelect.
+status: stable
+since: 0.1
+---
+
+# Combobox / MultiSelect
+
+`<ax-combobox>` is a single- or multi-select with type-to-filter, a CDK-overlay dropdown, and
+`ControlValueAccessor`. **MultiSelect = Combobox + chips**: add `[multiple] [chips]` to render the
+selection as removable [chips](/docs/components/forms/chip) in the trigger.
+
+## Import
+
+```ts
+import { AxComboboxComponent, type ComboboxOption } from '@axisui-ng/forms';
+```
+
+## Usage
+
+```html
+<!-- single select -->
+<ax-combobox [options]="countries" [(value)]="country" placeholder="Country" />
+
+<!-- multi-select, comma-joined label -->
+<ax-combobox [options]="countries" [(value)]="picked" multiple placeholder="Countries" />
+
+<!-- MultiSelect: removable chips in the trigger -->
+<ax-combobox [options]="countries" [(value)]="picked" multiple chips ariaLabel="Countries" />
+```
+
+```ts
+countries: ComboboxOption[] = [
+  { value: 'us', label: 'United States' },
+  { value: 'ca', label: 'Canada', disabled: true },
+];
+```
+
+## Inputs & models
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `options` | `ComboboxOption[]` | — | **Required.** `{ value; label; disabled? }`. |
+| `value` | `model<string \| string[] \| null>` | `null` | `string` (single) or `string[]` (multiple). |
+| `multiple` | `boolean` | `false` | Multi-select with checkmarks. |
+| `chips` | `boolean` | `false` | With `multiple`, render the selection as removable chips (MultiSelect). |
+| `placeholder` | `string` | `''` | Shown when empty. |
+| `ariaLabel` | `string` | `''` | Trigger label (falls back to the selection/placeholder). |
+| `disabled` | `boolean` | `false` | Also set by `setDisabledState` from a form. |
+
+## Outputs
+
+| Output | Payload | Notes |
+|---|---|---|
+| `searchChange` | `string` | The filter text — wire it up for server-side filtering. |
+
+## Accessibility
+
+`role="combobox"` trigger with `aria-expanded` + `aria-controls`; the dropdown is a `role="listbox"`
+(`aria-multiselectable` when `multiple`) of `role="option"`s. Keyboard: ArrowDown/Enter open, Escape
+closes; ArrowUp/Down/Home/End move the active option; Enter selects. In chips mode the trigger is a
+focusable `div[role="combobox"]` (so chip remove buttons can nest); removing a chip filters the value
+without opening the panel.
+
+## Storybook
+
+Interactive examples live in Storybook under **Forms / Combobox**. Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `combobox` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/forms/src/lib/combobox/)

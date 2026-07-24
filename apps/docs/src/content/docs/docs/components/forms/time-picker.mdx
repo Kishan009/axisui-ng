@@ -1,0 +1,57 @@
+---
+title: TimePicker
+category: forms
+description: Segmented spinbutton time-of-day control with 12/24h and optional seconds.
+status: stable
+since: 0.2
+tier: pro
+---
+
+# TimePicker
+
+`<ax-time-picker>` is a segmented spinbutton time-of-day control, independent of any date model. It
+supports 12- or 24-hour display and optional seconds. It's a **Pro** component and self-gates with a
+`PRO` watermark until licensed.
+
+## Import
+
+```ts
+import { AxTimePickerComponent, type TimeValue } from '@axisui-ng/forms';
+```
+
+## Usage
+
+```html
+<ax-time-picker [(value)]="time" [use24]="false" [minuteStep]="5" />
+
+<!-- with seconds, 24-hour -->
+<ax-time-picker [(value)]="time" withSeconds />
+```
+
+```ts
+time: TimeValue | null = { hours: 9, minutes: 30 };
+```
+
+## Inputs & models
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `value` | `model<TimeValue \| null>` | `null` | `{ hours, minutes, seconds? }` (`hours` is always 0–23). |
+| `use24` | `boolean` | `true` | `false` shows a 12-hour view + AM/PM toggle. |
+| `withSeconds` | `boolean` | `false` | Show a seconds segment. |
+| `minuteStep` | `number` | `1` | Increment step for the minutes field on ↑/↓. |
+
+## Accessibility
+
+Each segment is a `role="spinbutton"` with `aria-valuenow` / `min` / `max` / `valuetext`. **ArrowUp** /
+**ArrowDown** increment or decrement the focused field. In 12-hour mode an AM/PM toggle button is
+included (`aria-label="Toggle AM/PM"`).
+
+
+## Storybook
+
+Interactive examples live in Storybook under **Pro / TimePicker**. Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `time-picker` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/forms/src/lib/time/)

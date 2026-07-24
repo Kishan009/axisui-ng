@@ -1,0 +1,70 @@
+---
+title: Accordion
+category: data
+description: Container for collapsible items with single or multiple open sections.
+status: stable
+since: 0.1
+---
+
+# Accordion
+
+`<ax-accordion>` is a container for collapsible items. Each `<ax-accordion-item>` projects a trigger
+(`[axAccordionTrigger]`) and content (`[axAccordionContent]`); the item supplies the button element
+and tracks open state via dependency injection.
+
+## Import
+
+```ts
+import { AxAccordionComponent, AxAccordionItemComponent } from '@axisui-ng/data';
+```
+
+## Usage
+
+```html
+<ax-accordion type="single" collapsible [(value)]="open">
+  <ax-accordion-item value="a">
+    <span axAccordionTrigger>Shipping</span>
+    <div axAccordionContent>Ships in 2-3 business days.</div>
+  </ax-accordion-item>
+  <ax-accordion-item value="b">
+    <span axAccordionTrigger>Returns</span>
+    <div axAccordionContent>30-day return window.</div>
+  </ax-accordion-item>
+</ax-accordion>
+```
+
+## `ax-accordion` inputs & models
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `type` | `'single' \| 'multiple'` | `'single'` | One open item vs many. |
+| `collapsible` | `boolean` | `false` | In `single`, allow closing the open item. Ignored in `multiple`. |
+| `value` | `model<string \| string[] \| null>` | `null` | Open item id(s) — `string` for single, `string[]` for multiple. |
+
+## `ax-accordion-item` inputs
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `value` | `string` (required) | — | Unique id for this item. |
+| `disabled` | `boolean` | `false` | Prevents toggling. |
+
+## Slots / marker directives
+
+| Marker | Kind | Notes |
+|---|---|---|
+| `axAccordionTrigger` | Attribute slot | Inline content only — **not** a button; the item wraps it in a real `<button>`. |
+| `axAccordionContent` | Attribute slot | Panel body inside the expandable region. |
+
+## Accessibility
+
+The accordion renders the trigger as a real `<button>` with `aria-expanded` and `aria-controls`
+wired to a `role="region"` content panel (`aria-labelledby` back to the trigger). Closed panels are
+`inert`. Project inline content (not a button) into `[axAccordionTrigger]`.
+
+## Storybook
+
+Interactive examples live in Storybook under **Data / Accordion**. Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `accordion` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/data/src/lib/accordion/)

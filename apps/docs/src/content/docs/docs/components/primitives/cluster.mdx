@@ -1,0 +1,49 @@
+---
+title: Cluster
+category: primitives
+description: Horizontally-flowing layout where items hug their content and wrap when needed.
+status: stable
+since: 0.1
+---
+
+# Cluster
+
+`[axCluster]` is a horizontally-flowing layout that wraps when items don't fit. Each child hugs its
+content; the cluster's `gap` controls spacing. Ideal for tag lists, button rows, and toolbars.
+
+## Import
+
+```ts
+import { AxClusterDirective } from '@axisui-ng/primitives';
+```
+
+## Usage
+
+```html
+<div axCluster gap="2" align="center">
+  <ax-badge>Angular</ax-badge>
+  <ax-badge>Signals</ax-badge>
+  <ax-badge>Tailwind</ax-badge>
+</div>
+```
+
+## Inputs
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `gap` | `'0' \| '1' \| '2' \| '3' \| '4' \| '5' \| '6' \| '8' \| '10' \| '12' \| '16'` | `'2'` | Spacing token between items. |
+| `align` | `'start' \| 'center' \| 'end' \| 'baseline' \| 'stretch'` | `'center'` | Cross-axis alignment (`align-items`). |
+| `justify` | `'start' \| 'center' \| 'end' \| 'between'` | `'start'` | Main-axis distribution (`justify-content`). |
+
+## Accessibility
+
+Presentational only. For a single-axis stack with stretched children, use
+[Stack](/docs/components/primitives/stack/).
+
+## Storybook
+
+Interactive examples live in Storybook under **Primitives / Cluster**. Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `cluster` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/primitives/src/lib/cluster/)

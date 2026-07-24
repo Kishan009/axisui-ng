@@ -1,0 +1,16 @@
+{
+  "name": "@axisui-ng/overlays",
+  "version": "0.0.1",
+  "description": "Overlay components for @axisui-ng/angular. Standalone, signal-first, CDK Overlay.",
+  "license": "MIT",
+  "private": false,
+  "publishConfig": { "access": "public" },
+  "sideEffects": false,
+  "peerDependencies": {
+    "@angular/core": "^20.0.0",
+    "@angular/common": "^20.0.0",
+    "@angular/cdk": "^20.0.0",
+    "@axisui-ng/icons": "^0.0.1",
+    "@axisui-ng/overlays-core": "^0.0.1"
+  }
+}

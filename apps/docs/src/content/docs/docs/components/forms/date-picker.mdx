@@ -1,0 +1,61 @@
+---
+title: DatePicker
+category: forms
+description: Text field with a connected-overlay calendar, free-text parsing, and range support.
+status: stable
+since: 0.2
+tier: pro
+---
+
+# DatePicker
+
+`<ax-date-picker>` pairs a text field with a connected-overlay [Calendar](/docs/components/forms/calendar/).
+It parses free-typed dates against a `format` and supports the same single/range/multiple modes. It's
+a **Pro** component and self-gates with a `PRO` watermark until licensed.
+
+## Import
+
+```ts
+import { AxDatePickerComponent, type CalendarMode, type CalendarValue } from '@axisui-ng/forms';
+```
+
+## Usage
+
+```html
+<ax-date-picker [(value)]="date" format="yyyy-MM-dd" placeholder="Pick a date" />
+
+<!-- range -->
+<ax-date-picker [(value)]="range" mode="range" rangeSeparator=" to " />
+```
+
+## Inputs & models
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `value` | `model<CalendarValue>` | `null` | Same shape as Calendar: `Date`, `DateRange`, or `Date[]`. |
+| `mode` | `CalendarMode` (`'single' \| 'range' \| 'multiple'`) | `'single'` | Selection behaviour. |
+| `min` | `Date \| null` | `null` | Inclusive lower bound (passed to the overlay calendar). |
+| `max` | `Date \| null` | `null` | Inclusive upper bound. |
+| `disabledDates` | `((d: Date) => boolean) \| null` | `null` | Extra per-day disable predicate. |
+| `weekStartsOn` | `WeekDay` (`0–6`) | `0` | First weekday for the overlay calendar. |
+| `locale` | `string \| undefined` | `undefined` | Locale for calendar month/day names. |
+| `format` | `string` | `'yyyy-MM-dd'` | Display + parse pattern. |
+| `placeholder` | `string` | `''` | Field placeholder. |
+| `ariaLabel` | `string` | `'Date'` | Accessible label for the text input. |
+| `rangeSeparator` | `string` | `' – '` | Separator between range ends in the field. |
+
+## Accessibility
+
+The control is a labelled text `<input>` plus a “Toggle calendar” button. Focus or click opens the
+connected calendar overlay; blur / **Enter** commits free-text parsing (invalid text sets
+`aria-invalid`); **Escape** or an outside pointer closes the overlay. The embedded calendar keeps its
+grid keyboard semantics.
+
+
+## Storybook
+
+Interactive examples live in Storybook under **Pro / DatePicker**. Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `date-picker` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/forms/src/lib/date-picker/)

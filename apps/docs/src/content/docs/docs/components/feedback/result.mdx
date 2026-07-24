@@ -1,0 +1,59 @@
+---
+title: Result
+category: feedback
+description: Centered outcome display (success / info / warning / error) with title, description, and actions.
+status: stable
+since: 0.2
+---
+
+# Result
+
+`<ax-result>` is a centered outcome / status display — a larger sibling of
+[Alert](/docs/components/feedback/alert/) for page-level results like “Payment successful” or “404 Not
+found”. Status drives the icon and color; project actions as content.
+
+## Import
+
+```ts
+import { AxResultComponent } from '@axisui-ng/feedback';
+```
+
+## Usage
+
+```html
+<ax-result status="success" title="Payment successful" description="A receipt was emailed to you.">
+  <ax-button variant="primary">Back to dashboard</ax-button>
+</ax-result>
+
+<ax-result status="error" title="404" description="This page could not be found.">
+  <ax-button>Go home</ax-button>
+</ax-result>
+```
+
+## Inputs
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `status` | `'success' \| 'info' \| 'warning' \| 'error'` | `'info'` | Outcome → icon + color (`check-circle`, `info`, `alert-triangle`, `x-circle`). |
+| `title` | `string` | `''` | Headline. |
+| `description` | `string` | `''` | Supporting text. |
+
+## Slots
+
+| Slot | Notes |
+|---|---|
+| Default | Actions or extra content below the description. |
+
+## Accessibility
+
+Host uses `role="status"`. The status icon is decorative (`aria-hidden`); title and description carry
+the meaning. Use a real heading level in surrounding markup when the result is the page’s primary
+outcome.
+
+## Storybook
+
+Interactive examples live in Storybook under **Feedback / Result**. Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `result` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/feedback/src/lib/result/)

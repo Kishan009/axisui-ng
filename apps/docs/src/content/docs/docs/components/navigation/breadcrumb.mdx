@@ -1,0 +1,53 @@
+---
+title: Breadcrumb
+category: navigation
+description: A navigation trail of items with CSS leading separators and an aria-current end.
+status: stable
+since: 0.1
+---
+
+# Breadcrumb
+
+`<ax-breadcrumb>` is a navigation trail. Project `<ax-breadcrumb-item>` children; each renders a
+leading separator (hidden on the first via CSS). Mark the current page with `[current]="true"`.
+
+## Import
+
+```ts
+import { AxBreadcrumbComponent, AxBreadcrumbItemComponent } from '@axisui-ng/navigation';
+```
+
+## Usage
+
+```html
+<ax-breadcrumb>
+  <ax-breadcrumb-item><a routerLink="/">Home</a></ax-breadcrumb-item>
+  <ax-breadcrumb-item><a routerLink="/docs">Docs</a></ax-breadcrumb-item>
+  <ax-breadcrumb-item [current]="true">Breadcrumb</ax-breadcrumb-item>
+</ax-breadcrumb>
+```
+
+## `ax-breadcrumb` inputs
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `separator` | `AxIconName` | `'chevron-right'` | Retained for theming; v1 items always render `chevron-right`. |
+
+## `ax-breadcrumb-item` inputs
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `current` | `boolean` | `false` | Marks the current page (`aria-current="page"`); typically the last item as plain text. |
+
+## Accessibility
+
+Host is `role="navigation"` with `aria-label="Breadcrumb"`. Items sit in a `role="list"` / `role="listitem"`
+structure. The `current` item sets `aria-current="page"`. Separators are decorative (`aria-hidden`).
+
+## Storybook
+
+Interactive examples live in Storybook under **Navigation / Breadcrumb**. Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `breadcrumb` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/navigation/src/lib/breadcrumb/)

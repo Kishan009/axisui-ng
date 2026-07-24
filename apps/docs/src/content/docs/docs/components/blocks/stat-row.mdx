@@ -1,0 +1,73 @@
+---
+title: StatRow
+category: blocks
+description: A responsive row of metrics composed from ax-statistic. Data-driven and preset-reactive.
+status: stable
+since: 0.2
+---
+
+# StatRow
+
+`<ax-stat-row>` lays out a responsive grid of metrics from a `[stats]` array, each rendered with
+[ax-statistic](/docs/components/data/statistic/). Built from token utilities, so it re-themes with the
+active preset. Project an optional heading into the default slot above the grid.
+
+## Import
+
+```ts
+import { AxStatRowComponent, type StatItem } from '@axisui-ng/blocks';
+```
+
+## Usage
+
+```ts
+stats: StatItem[] = [
+  { label: 'Users', value: 12480, trend: 8 },
+  { label: 'MRR', value: 42, prefix: '$', suffix: 'k', trend: 12 },
+  { label: 'Churn', value: 2.1, suffix: '%', trend: -3 },
+  { label: 'NPS', value: 64, trend: 5 },
+];
+```
+
+```html
+<ax-stat-row [stats]="stats" ariaLabel="Key metrics">
+  <h2 class="mb-4 text-lg font-semibold">Key metrics</h2>
+</ax-stat-row>
+```
+
+## Inputs
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `stats` | `StatItem[]` | `[]` | One [ax-statistic](/docs/components/data/statistic/) per item; tracked by `label`. |
+| `columns` | `number` | `0` | Fixed column count `1`–`6`. `0` uses responsive auto (`grid-cols-2 md:grid-cols-4`). |
+| `ariaLabel` | `string` | `''` | Host `aria-label` on `role="group"`; empty omits the attribute. |
+
+### `StatItem`
+
+| Field | Type | Required | Notes |
+|---|---|---|---|
+| `label` | `string` | yes | Metric label (also the `@for` track key). |
+| `value` | `number \| string` | yes | Forwarded to `ax-statistic`. |
+| `trend` | `number` | no | Percent change; forwarded as `trend` (omitted → `null`). |
+| `prefix` | `string` | no | Text before the value (e.g. `$`). |
+| `suffix` | `string` | no | Text after the value (e.g. `k`, `%`). |
+
+## Slots
+
+| Slot | Selector | Notes |
+|---|---|---|
+| Default | `<ng-content />` | Optional projected content (typically a heading) rendered above the stats grid. |
+
+## Accessibility
+
+Host is `role="group"`. Set `ariaLabel` so the group has an accessible name. Each cell is a
+`ax-statistic` (label + value; trend is not color-only).
+
+## Storybook
+
+Interactive examples live in Storybook under **Blocks / StatRow**. Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `stat-row` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/blocks/src/lib/stat-row/)

@@ -1,0 +1,60 @@
+---
+title: Badge
+category: data
+description: Compact status or label pill with semantic variants and solid/soft appearances.
+status: stable
+since: 0.1
+---
+
+# Badge
+
+`<ax-badge>` is a compact pill for status or labels. Content is projected. It supports six semantic
+variants, solid or soft fill, and two sizes.
+
+## Import
+
+```ts
+import { AxBadgeComponent } from '@axisui-ng/data';
+```
+
+## Usage
+
+```html
+<ax-badge variant="success">Active</ax-badge>
+<ax-badge variant="info" appearance="soft">Beta</ax-badge>
+<ax-badge variant="destructive" size="sm">Error</ax-badge>
+```
+
+## Variants & sizes
+
+| Option | Values | Default | Notes |
+|---|---|---|---|
+| `variant` | `'default' \| 'success' \| 'warning' \| 'destructive' \| 'info' \| 'outline'` | `'default'` | Semantic color. |
+| `appearance` | `'solid' \| 'soft'` | `'solid'` | Solid fill vs tinted soft pill (`outline` reuses the outline look for soft). |
+| `size` | `'sm' \| 'md'` | `'md'` | Pill height/padding. |
+
+```html
+<ax-badge variant="success" appearance="solid" size="md">Solid</ax-badge>
+<ax-badge variant="success" appearance="soft" size="sm">Soft</ax-badge>
+```
+
+## Inputs
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `variant` | `BadgeVariant` | `'default'` | Visual / semantic style. |
+| `appearance` | `BadgeAppearance` | `'solid'` | Fill style: solid or soft. |
+| `size` | `BadgeSize` | `'md'` | Pill size. |
+
+## Accessibility
+
+A badge is decorative text by default. If it conveys a status not otherwise in the DOM, add an
+`aria-label` or accompanying visible text so the meaning isn't color-only.
+
+## Storybook
+
+Interactive examples live in Storybook under **Data / Badge**. Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `badge` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/data/src/lib/badge/)

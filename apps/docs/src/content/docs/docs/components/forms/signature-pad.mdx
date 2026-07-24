@@ -1,0 +1,58 @@
+---
+title: SignaturePad
+category: forms
+description: SVG drawable signature input. Pointer drawing, Clear + Undo, value as an SVG string or PNG data URL.
+status: stable
+since: 0.2
+---
+
+# SignaturePad
+
+`<ax-signature-pad>` captures a hand-drawn signature as **vector SVG** (or a PNG
+data URL). It implements `ControlValueAccessor`, so it works with `ngModel` /
+reactive forms. Ink uses the theme's foreground token, and the exported SVG stays
+portable (`stroke="currentColor"`).
+
+## Import
+
+```ts
+import { AxSignaturePadComponent } from '@axisui-ng/forms';
+```
+
+## Usage
+
+```html
+<ax-signature-pad [(ngModel)]="signature" ariaLabel="Sign here" />
+
+<!-- emit a PNG data URL instead of SVG -->
+<ax-signature-pad [(ngModel)]="signature" format="png" />
+```
+
+## Inputs
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `format` | `'svg' \| 'png'` | `'svg'` | Value/export encoding. PNG requires a browser. |
+| `penWidth` | `number` | `2` | Stroke width (px). |
+| `width` | `number` | `320` | Pad width (px / viewBox). |
+| `height` | `number` | `160` | Pad height (px / viewBox). |
+| `disabled` | `boolean` | `false` | Also via `setDisabledState`. (Bare attribute works.) |
+| `ariaLabel` | `string` | `''` | Group label (surface falls back to `'Signature'`). |
+
+There is no `model()` — bind via `[(ngModel)]` / `formControlName`. The CVA value is `''` for an
+empty pad (so `Validators.required` works). `writeValue('')` clears the pad; setting a non-empty
+value programmatically does not reconstruct strokes (the pad is a capture surface, not an image
+viewer).
+
+## Accessibility
+
+The drawing surface is a labelled `role="img"`; **Clear** and **Undo** are
+keyboard-accessible buttons. Drawing itself is pointer-only.
+
+## Storybook
+
+Interactive examples live in Storybook under **Forms / SignaturePad**. Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `signature-pad` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/forms/src/lib/signature-pad/)

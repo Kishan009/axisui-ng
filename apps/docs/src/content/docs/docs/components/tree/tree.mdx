@@ -1,0 +1,91 @@
+---
+title: Tree / TreeView
+category: tree
+description: Data-driven tree with expand/collapse, none/single/multiple selection, lazy load, and virtual scroll.
+status: stable
+since: 0.2
+---
+
+# Tree
+
+`<ax-tree>` is a data-driven tree/treeview. It flattens the expanded nodes into a list (optionally
+virtualized via `@axisui-ng/cdk` for very large trees), supports none/single/multiple selection
+(multiple cascades to descendants with indeterminate parents), lazy children, and a custom node
+template. WAI-ARIA `tree` with roving-tabindex keyboard nav.
+
+## Import
+
+```ts
+import { AxTreeComponent, type TreeNode } from '@axisui-ng/tree';
+```
+
+## Usage
+
+```html
+<!-- file explorer (single select) -->
+<ax-tree [nodes]="files" selection="single" [(expandedIds)]="open" ariaLabel="Files" />
+
+<!-- checkbox tree (cascading) -->
+<ax-tree [nodes]="files" selection="multiple" [(checkedIds)]="checked" ariaLabel="Select files" />
+
+<!-- lazy + virtual for big trees (needs a bounded height) -->
+<ax-tree class="block h-80" [nodes]="roots" [loadChildren]="load" [virtual]="true" [itemSize]="28" ariaLabel="Tree" />
+```
+
+```ts
+interface TreeNode {
+  id: string | number;
+  label?: string;
+  children?: TreeNode[];
+  disabled?: boolean;
+  icon?: AxIconName;
+  hasChildren?: boolean; // lazy hint
+  data?: unknown;
+}
+```
+
+## Inputs & models
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `nodes` | `TreeNode[]` | — | **Required.** The tree data. |
+| `selection` | `'none' \| 'single' \| 'multiple'` | `'none'` | `multiple` shows cascading checkboxes. |
+| `loadChildren` | `((node: TreeNode) => Promise<TreeNode[]>) \| null` | `null` | Lazy loader for nodes with `hasChildren` and no loaded children. |
+| `nodeTemplate` | `TemplateRef<TreeNodeTemplateContext> \| null` | `null` | Custom node content (`{ $implicit: node, flat }`). |
+| `virtual` | `boolean` | `false` | Render through `@axisui-ng/cdk`'s virtual scroller (give the host a bounded height). |
+| `itemSize` | `number` | `32` | Row height (px) in virtual mode. |
+| `ariaLabel` | `string` | `''` | Tree label. |
+| `expandedIds` | `model<(string \| number)[]>` | `[]` | Two-way expanded node ids. |
+| `selectedId` | `model<(string \| number) \| null>` | `null` | Two-way single-selected id (`selection="single"`). |
+| `checkedIds` | `model<(string \| number)[]>` | `[]` | Two-way checked ids (`selection="multiple"`). |
+
+## Keyboard
+
+| Key | Action |
+|---|---|
+| `↑` / `↓` | Move focus (skips disabled) |
+| `→` | Expand, or move to first child |
+| `←` | Collapse, or move to parent |
+| `Home` / `End` | First / last row |
+| `Enter` / `Space` | Select (single) or toggle checkbox (multiple) |
+
+## Accessibility
+
+`role="tree"` (+ `aria-multiselectable` when multiple); rows `role="treeitem"` with `aria-level`,
+`aria-expanded`, `aria-selected` (single) / `aria-checked` `true|false|mixed` (multiple),
+`aria-disabled`. Roving tabindex keeps one row tabbable.
+
+> **Virtualization note:** with `virtual`, only the visible rows are in the DOM (inherent to
+> windowing). Use it for very large trees; otherwise the default render keeps the full visible set.
+
+## Limitations (v0.1)
+
+Fixed row height under virtualization; no drag-reorder, inline rename, or tree-grid yet.
+
+## Storybook
+
+Interactive examples live in Storybook under **Tree / Tree / TreeView**. Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `tree` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/tree/src/lib/tree/)

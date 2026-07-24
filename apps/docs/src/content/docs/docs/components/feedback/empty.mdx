@@ -1,0 +1,53 @@
+---
+title: Empty
+category: feedback
+description: Centered empty / no-data state with icon, title, description, and projected actions.
+status: stable
+since: 0.2
+---
+
+# Empty
+
+`<ax-empty>` is a centered empty / no-data state: an icon, title, description, and a default slot for
+projected actions (typically buttons).
+
+## Import
+
+```ts
+import { AxEmptyComponent } from '@axisui-ng/feedback';
+```
+
+## Usage
+
+```html
+<ax-empty icon="search" title="No results" description="Try a different search term.">
+  <ax-button variant="primary">Clear filters</ax-button>
+</ax-empty>
+```
+
+## Inputs
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `icon` | `AxIconName` | `'search'` | Leading glyph from `@axisui-ng/icons`. |
+| `title` | `string` | `''` | Headline. |
+| `description` | `string` | `''` | Supporting text. |
+
+## Slots
+
+| Slot | Notes |
+|---|---|
+| Default | Actions or extra content below the description. |
+
+## Accessibility
+
+The icon is decorative (`aria-hidden`). Title and description convey the empty state. Projected
+actions remain normal focusable controls.
+
+## Storybook
+
+Interactive examples live in Storybook under **Feedback / Empty**. Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `empty` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/feedback/src/lib/empty/)

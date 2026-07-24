@@ -1,0 +1,82 @@
+---
+title: Alert
+category: feedback
+description: Inline contextual message with a variant-driven icon, tinted surface, and optional dismiss.
+status: stable
+since: 0.1
+---
+
+# Alert
+
+`<ax-alert>` is an inline contextual message with a severity variant, default icon, and soft tinted
+surface. Project the body as content; optionally set a title, make it dismissible, or replace the
+icon via the `[axAlertIcon]` slot.
+
+## Import
+
+```ts
+import { AxAlertComponent } from '@axisui-ng/feedback';
+```
+
+## Usage
+
+```html
+<ax-alert variant="success" title="Saved" dismissible (dismiss)="onDismiss()">
+  Your changes have been saved.
+</ax-alert>
+```
+
+## Variants & sizes
+
+| Option | Values | Default | Notes |
+|---|---|---|---|
+| `variant` | `'info' \| 'success' \| 'warning' \| 'destructive'` | `'info'` | Tinted border/fill and default icon (`info`, `check-circle`, `alert-triangle`, `x-circle`). |
+
+```html
+<ax-alert variant="info" title="Heads up">Informational note.</ax-alert>
+<ax-alert variant="warning" title="Careful">Check before continuing.</ax-alert>
+<ax-alert variant="destructive" title="Failed">Something went wrong.</ax-alert>
+```
+
+## Inputs
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `variant` | `'info' \| 'success' \| 'warning' \| 'destructive'` | `'info'` | Visual style + default icon. |
+| `title` | `string \| null` | `null` | Optional bold title line. |
+| `dismissible` | `boolean` | `false` | Shows a close button that emits `dismiss`. |
+| `hasCustomIcon` | `boolean` | `false` | Set `true` when projecting `[axAlertIcon]` so the default icon is suppressed. |
+
+## Outputs
+
+| Output | Payload | Notes |
+|---|---|---|
+| `dismiss` | `void` | Emitted when the dismiss button is clicked. |
+
+## Slots
+
+| Slot | Notes |
+|---|---|
+| Default | Message body (rendered under the title). |
+| `[axAlertIcon]` | Custom icon projection. Set `hasCustomIcon` to suppress the variant default. |
+
+```html
+<ax-alert variant="info" title="Custom icon" [hasCustomIcon]="true">
+  <ax-icon axAlertIcon name="help-circle" [size]="18" />
+  Body copy goes here.
+</ax-alert>
+```
+
+## Accessibility
+
+Host `role` follows severity: `info` / `success` use `role="status"` (polite); `warning` /
+`destructive` use `role="alert"` (assertive). The variant icon is decorative; meaning comes from the
+title and body. The dismiss control is a labelled button (`aria-label="Dismiss"`).
+
+## Storybook
+
+Interactive examples live in Storybook under **Feedback / Alert**. Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `alert` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/feedback/src/lib/alert/)

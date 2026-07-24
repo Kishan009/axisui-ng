@@ -1,0 +1,15 @@
+/* Healthcare preset — Calm Teal, comfortable, regulated by default */
+
+@import "../tokens.css";
+
+:root {
+  --color-primary:              oklch(0.55 0.12 195);
+  --color-primary-foreground:   oklch(0.99 0 0);
+  --color-ring:                 oklch(0.55 0.12 195);
+  --radius-default:             0.875rem;
+  --radius-button:              0.625rem;
+  --radius-card:                1rem;
+  --space-padding:              1rem;
+  --height-row:                 3.5rem;
+  --motion-duration:            150ms;
+}

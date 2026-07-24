@@ -1,0 +1,18 @@
+{
+  "name": "@axisui-ng/buttons",
+  "version": "0.0.1",
+  "description": "Button components for @axisui-ng/angular. Standalone, signal-first, OnPush.",
+  "license": "MIT",
+  "private": false,
+  "publishConfig": { "access": "public" },
+  "sideEffects": false,
+  "peerDependencies": {
+    "@angular/core": "^20.0.0",
+    "@angular/common": "^20.0.0"
+  },
+  "dependencies": {
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^2.5.5"
+  }
+}

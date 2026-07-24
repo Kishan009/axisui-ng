@@ -1,0 +1,83 @@
+---
+title: Rating
+category: forms
+description: Star-based rating input with half-steps, full keyboard support, and ControlValueAccessor.
+status: stable
+since: 0.1
+---
+
+# Rating
+
+`<ax-rating>` is a star-rating input. It implements `ControlValueAccessor` (works with
+`[(ngModel)]` / `formControlName`) and exposes a two-way `[(value)]`. The host is a single
+WAI-ARIA **slider** (or **img** when `readonly`), so screen readers announce
+`aria-valuenow / valuemax` and keyboard users can adjust it without per-star tab stops.
+
+## Import
+
+```ts
+import { AxRatingComponent } from '@axisui-ng/forms';
+```
+
+## Usage
+
+```html
+<ax-rating [(value)]="score" [max]="5" ariaLabel="Overall quality" />
+
+<!-- half-steps + amber stars -->
+<ax-rating [(value)]="score" allowHalf variant="warning" />
+
+<!-- display-only -->
+<ax-rating [value]="4" readonly variant="warning" />
+
+<!-- reactive forms -->
+<ax-rating formControlName="rating" ariaLabel="Rating" />
+```
+
+## Variants & sizes
+
+| Option | Values | Default | Notes |
+|---|---|---|---|
+| `variant` | `'default' \| 'warning' \| 'muted'` | `'default'` | Filled-star colour (`text-primary` / `text-warning` / `text-muted-foreground`). |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Star pixel size 16 / 20 / 24 and inter-star gap. |
+
+```html
+<ax-rating [(value)]="score" variant="warning" size="lg" allowHalf />
+```
+
+## Inputs & models
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `value` | `model<number>` | `0` | Two-way; also driven by forms via CVA. |
+| `max` | `number` | `5` | Number of stars. |
+| `allowHalf` | `boolean` | `false` | Enables 0.5 increments (pointer + keyboard). |
+| `readonly` | `boolean` | `false` | Display-only; exposes `role="img"`. |
+| `disabled` | `boolean` | `false` | Also set by `setDisabledState` from a form. |
+| `variant` | `'default' \| 'warning' \| 'muted'` | `'default'` | Filled-star colour. |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Star pixel size (16 / 20 / 24). |
+| `ariaLabel` | `string` | `'Rating'` | Accessible name. |
+
+## Keyboard
+
+| Key | Action |
+|---|---|
+| `→` / `↑` | Increase by one step (0.5 when `allowHalf`) |
+| `←` / `↓` | Decrease by one step |
+| `Home` | Set to 0 |
+| `End` | Set to `max` |
+
+## Accessibility
+
+- Interactive: `role="slider"`, `aria-valuemin/now/max`, `aria-valuetext` (e.g. `"3 of 5"`), `tabindex="0"`.
+- `readonly`: `role="img"` with `aria-readonly`; not in the tab order.
+- `disabled`: `aria-disabled="true"`; not focusable.
+- Stars are decorative (`<ax-icon aria-hidden>`); they never receive their own tab stop.
+
+## Storybook
+
+Interactive examples live in Storybook under **Forms / Rating**. Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `rating` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/forms/src/lib/rating/)

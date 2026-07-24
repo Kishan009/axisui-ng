@@ -1,0 +1,69 @@
+---
+title: Textarea
+category: forms
+description: Multi-line text input with the same ControlValueAccessor contract as Input.
+status: stable
+since: 0.1
+---
+
+# Textarea
+
+`<ax-textarea>` is a multi-line text input. It shares the same CVA contract and `inputVariants` size
+ramp as [Input](/docs/components/forms/input/), so it works with `[(value)]`, `[(ngModel)]`, and reactive
+forms.
+
+## Import
+
+```ts
+import { AxTextareaComponent } from '@axisui-ng/forms';
+```
+
+## Usage
+
+```html
+<ax-textarea [(value)]="bio" [rows]="6" placeholder="Tell us about yourself" />
+
+<ax-form-field label="Bio" forId="bio">
+  <ax-textarea id="bio" [(value)]="bio" />
+</ax-form-field>
+```
+
+## Variants & sizes
+
+| Option | Values | Default | Notes |
+|---|---|---|---|
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Padding / typography via shared `inputVariants`. |
+
+```html
+<ax-textarea size="sm" [rows]="3" placeholder="Small" />
+<ax-textarea size="md" [rows]="4" placeholder="Medium" />
+<ax-textarea size="lg" [rows]="6" placeholder="Large" />
+```
+
+## Inputs & models
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `value` | `model<string \| null>` | `null` | Two-way value (`[(value)]`); also CVA. |
+| `id` | `string \| null` | `null` | Inner `<textarea>` id — match a FormField `forId`. |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Padding / typography. |
+| `rows` | `number` | `4` | Visible text rows. |
+| `placeholder` | `string` | `''` | Placeholder text. |
+| `required` | `boolean` | `false` | Sets `aria-required`. |
+| `readonly` | `boolean` | `false` | Read-only. |
+| `disabled` | `boolean` | `false` | Disabled (also via CVA `setDisabledState`). |
+| `invalid` | `boolean` | `false` | Error styling + `aria-invalid` (OR’d with FormField wiring). |
+| `describedBy` | `string \| null` | `null` | `aria-describedby`; explicit value wins over FormField auto-wiring. |
+
+## Accessibility
+
+Renders a native `<textarea>`. Associate a label via `id` + FormField `forId`, or a wrapping
+`<label>`. Inside a FormField, `aria-describedby` / `aria-invalid` are auto-wired unless overridden.
+
+## Storybook
+
+Interactive examples live in Storybook under **Forms / Textarea**. Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `textarea` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/forms/src/lib/textarea/)

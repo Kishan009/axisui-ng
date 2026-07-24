@@ -1,0 +1,51 @@
+---
+title: Sparkline
+category: charts
+description: Compact inline line/area trend with no axes. Token-themed, dependency-free SVG.
+status: stable
+since: 0.2
+tier: pro
+---
+
+# Sparkline
+
+`<ax-sparkline>` is a **Pro** component: a tiny inline trend chart (no axes) for tables, cards, and
+KPIs. It reuses the chart engine and is colored from the chart palette, so it auto-themes with the
+active preset. Self-gates with a `PRO` watermark until licensed.
+
+## Import
+
+```ts
+import { AxSparklineComponent } from '@axisui-ng/charts';
+```
+
+## Usage
+
+```html
+<ax-sparkline [data]="[3, 7, 4, 9, 6, 10]" type="area" [showDot]="true" ariaLabel="Revenue" />
+```
+
+## Inputs
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `data` | `number[]` | `[]` | The series. |
+| `type` | `'line' \| 'area'` | `'line'` | Area adds a filled baseline under the line. |
+| `colorIndex` | `number` | `1` | Clamped to 1–5 → `--color-chart-N` stroke/fill. |
+| `showDot` | `boolean` | `false` | Marker on the last point. |
+| `width` | `number` | `120` | SVG width (px). |
+| `height` | `number` | `32` | SVG height (px). |
+| `ariaLabel` | `string` | `''` | Accessible name; empty → auto summary (count, trend, latest, range). |
+
+## Accessibility
+
+`role="img"` with `aria-label` from `ariaLabel` or an auto-generated series summary.
+
+
+## Storybook
+
+Interactive examples live in Storybook under **Pro / Sparkline**. Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `sparkline` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/charts/src/lib/sparkline/)

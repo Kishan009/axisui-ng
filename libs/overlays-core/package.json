@@ -1,0 +1,18 @@
+{
+  "name": "@axisui-ng/overlays-core",
+  "version": "0.0.1",
+  "description": "Shared internals for @axisui-ng/overlays: connected overlay positioning, overlay-ref token, cn util.",
+  "license": "MIT",
+  "private": false,
+  "publishConfig": { "access": "public" },
+  "sideEffects": false,
+  "peerDependencies": {
+    "@angular/core": "^20.0.0",
+    "@angular/common": "^20.0.0",
+    "@angular/cdk": "^20.0.0"
+  },
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^2.5.5"
+  }
+}

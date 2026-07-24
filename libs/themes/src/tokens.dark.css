@@ -1,0 +1,29 @@
+/* ============================================================================
+ * Dark mode — applied when <html class="dark"> (or .dark on any ancestor).
+ * The @theme block stays the same; only the values change.
+ * Re-imports tokens.css, then overrides.
+ * ============================================================================ */
+
+@import "./tokens.css";
+
+:root.dark,
+.dark {
+  --color-background:           oklch(0.12 0.01 250);
+  --color-foreground:           oklch(0.99 0 0);
+  --color-primary:              oklch(0.65 0.22 265);
+  --color-primary-foreground:   oklch(0.12 0.01 250);
+  --color-primary-hover:        oklch(0.55 0.22 265);
+  --color-secondary:            oklch(0.25 0.01 250);
+  --color-secondary-foreground: oklch(0.99 0 0);
+  --color-muted:                oklch(0.25 0.01 250);
+  --color-muted-foreground:     oklch(0.70 0.01 250);
+  --color-accent:               oklch(0.25 0.01 250);
+  --color-accent-foreground:    oklch(0.99 0 0);
+  --color-border:               oklch(0.25 0.01 250);
+  --color-input:                oklch(0.25 0.01 250);
+  --color-ring:                 oklch(0.65 0.22 265);
+  --color-card:                 oklch(0.18 0.01 250);
+  --color-card-foreground:      oklch(0.99 0 0);
+  --color-popover:              oklch(0.18 0.01 250);
+  --color-popover-foreground:   oklch(0.99 0 0);
+}

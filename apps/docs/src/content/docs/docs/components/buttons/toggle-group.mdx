@@ -1,0 +1,73 @@
+---
+title: ToggleGroup
+category: buttons
+description: A set of Toggles acting as a single- or multi-select control with roving-tabindex keyboard nav.
+status: stable
+since: 0.1
+---
+
+# ToggleGroup
+
+`<ax-toggle-group>` turns a set of [Toggle](/docs/components/buttons/toggle/) children into one
+single-select or multi-select control. It binds a value (`string` or `string[]`) and handles
+Arrow / Home / End keyboard navigation with a roving tabindex.
+
+## Import
+
+```ts
+import { AxToggleGroupComponent, AxToggleComponent } from '@axisui-ng/buttons';
+```
+
+## Usage
+
+```html
+<!-- single select -->
+<ax-toggle-group type="single" [(value)]="align" ariaLabel="Alignment">
+  <ax-toggle value="left">Left</ax-toggle>
+  <ax-toggle value="center">Center</ax-toggle>
+  <ax-toggle value="right">Right</ax-toggle>
+</ax-toggle-group>
+
+<!-- multi select -->
+<ax-toggle-group type="multiple" [(value)]="formats" ariaLabel="Formats">
+  <ax-toggle value="bold">B</ax-toggle>
+  <ax-toggle value="italic">I</ax-toggle>
+  <ax-toggle value="underline">U</ax-toggle>
+</ax-toggle-group>
+```
+
+## Inputs
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `value` | `model<string \| string[] \| null>` | `null` | `string \| null` for `single`, `string[]` for `multiple`. |
+| `type` | `'single' \| 'multiple'` | `'single'` | Radio-like vs checkbox-like selection. |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Layout + arrow-key axis. |
+| `ariaLabel` | `string \| null` | `null` | Accessible label for the group. |
+
+## Slots
+
+| Slot / marker | Notes |
+|---|---|
+| Default | Projected `ax-toggle` children. Each child should set a `value` so the group can sync `pressed` and selection. |
+
+## Accessibility
+
+Applies `role="group"` with `ariaLabel`. Implements a tab-like roving tabindex (without the `tab`
+role — these are toggles): Arrow keys move focus, Home/End jump to the ends. Distinct from
+[Segmented](/docs/components/buttons/segmented/), which is always single-select and config-driven.
+
+## Keyboard
+
+| Key | Action |
+|---|---|
+| `←` / `→` (horizontal) or `↑` / `↓` (vertical) | Move roving focus |
+| `Home` / `End` | Focus first / last toggle |
+
+## Storybook
+
+Interactive examples live in Storybook under **Buttons / ToggleGroup**. Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `toggle-group` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/buttons/src/lib/toggle-group/)

@@ -1,0 +1,43 @@
+---
+title: Accessibility
+description: AxisUI accessibility — WCAG 2.2 AA, jest-axe on every component in three modes, keyboard + ARIA. Enforced in CI, not aspirational.
+---
+
+Accessibility in AxisUI is a **build gate, not a best-effort**. Every component ships with keyboard support, correct ARIA, and automated a11y tests that run in CI — so an inaccessible component can't be merged.
+
+## What we guarantee
+
+- **WCAG 2.2 AA** is the target for every component in v0.1.
+- **`jest-axe` on every component** — each component has an automated accessibility assertion that fails the build on any violation.
+- **Three-mode testing** — every a11y test runs in **LTR, RTL, and dark** mode, so accessibility holds across direction and theme.
+- **Dual change-detection** — the suite runs under both zoneless and Zone.js.
+
+## Keyboard & ARIA
+
+Every interactive component implements its WAI-ARIA authoring-practices pattern:
+
+- Correct `role`s and ARIA state (`aria-expanded`, `aria-selected`, `aria-checked`, `aria-current`, …).
+- Full keyboard interaction — arrow-key roving focus, `Home`/`End`, `Enter`/`Space`, `Escape`, type-ahead where the pattern calls for it.
+- Focus management for overlays (focus trap, restore on close) and roving `tabindex` for composite widgets.
+- Logical-CSS throughout (`ms`/`me`/`start`/`end`) so RTL is correct, not mirrored by hand.
+- A reduced-motion floor — every animation stays usable under `prefers-reduced-motion`.
+
+## Why it's enforced, not documented
+
+Accessibility that lives only in docs rots. AxisUI encodes it as tests and lint rules:
+
+- `jest-axe` assertions are part of each component's spec suite.
+- ARIA/keyboard conventions are checked by ESLint (`@angular-eslint` template rules) and the repo's convention checker.
+- CI runs the full suite on every change, so regressions are caught before merge.
+
+## How to verify it yourself
+
+Clone the repo and run the tests — the a11y assertions are in the component specs:
+
+```bash
+git clone https://github.com/Kishan009/UI-Library
+cd UI-Library && pnpm install
+npx nx run-many -t test
+```
+
+Every component spec includes a 3-mode `jest-axe` block. If you find an accessibility gap, please [report it](/report/) — a11y issues are treated as high priority.

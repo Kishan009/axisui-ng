@@ -1,0 +1,61 @@
+---
+title: InputOTP
+category: forms
+description: One-time-code entry with per-digit cells, paste/autofill support, and a complete event.
+status: stable
+since: 0.2
+---
+
+# InputOTP
+
+`<ax-input-otp>` is a one-time-code field. A single hidden input handles paste and autofill, while the
+visible cells mirror its value. It implements `ControlValueAccessor` with two-way `[(value)]` and
+emits `(complete)` when all cells are filled.
+
+## Import
+
+```ts
+import { AxInputOtpComponent } from '@axisui-ng/forms';
+```
+
+## Usage
+
+```html
+<ax-input-otp [length]="6" [(value)]="code" (complete)="verify($event)" />
+
+<!-- masked, separator after index 3 (e.g. 3-3) -->
+<ax-input-otp [length]="6" [separator]="3" mask [(value)]="code" />
+```
+
+## Inputs & models
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `value` | `model<string>` | `''` | Entered code (`[(value)]`); also CVA. Digits only; truncated to `length`. |
+| `length` | `number` | `6` | Number of cells / `maxlength`. |
+| `separator` | `number \| null` | `null` | Insert a visual `-` before this cell index (e.g. `3` for a 3–3 split). |
+| `mask` | `boolean` | `false` | Render `•` instead of digits in the cells. |
+| `disabled` | `boolean` | `false` | Disabled (also via CVA `setDisabledState`). |
+| `invalid` | `boolean` | `false` | Destructive cell borders + `aria-invalid` on the hidden input. |
+| `describedBy` | `string \| null` | `null` | `aria-describedby` on the hidden input (e.g. an error message id). |
+
+## Outputs
+
+| Output | Payload | Notes |
+|---|---|---|
+| `complete` | `string` | Emitted when `value.length === length` (and length &gt; 0). |
+
+## Accessibility
+
+A real text input (opacity-hidden) underlies the cells, with `inputmode="numeric"` and
+`autocomplete="one-time-code"`, so paste, autofill, and keyboard editing work. The input’s
+`aria-label` is `"One-time code, N digits"`. Visible cells are `aria-hidden`; link helper/error text
+via `describedBy`.
+
+## Storybook
+
+Interactive examples live in Storybook under **Forms / InputOTP**. Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `input-otp` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/forms/src/lib/input-otp/)

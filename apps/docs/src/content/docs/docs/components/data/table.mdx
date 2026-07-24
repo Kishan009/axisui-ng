@@ -1,0 +1,82 @@
+---
+title: Table
+category: data
+description: Lightweight data table with column defs, optional sort, search, and pagination.
+status: stable
+since: 0.1
+---
+
+# Table
+
+`<ax-table>` is the MIT, lightweight data table: declarative column definitions, optional client-side
+sort, search, and pagination. For server-side data, advanced filtering, column resize, and row
+selection, use the data grid.
+
+## Import
+
+```ts
+import { AxTableComponent, type ColDef } from '@axisui-ng/data';
+```
+
+## Usage
+
+```html
+<ax-table
+  [data]="rows"
+  [columns]="columns"
+  [pageSize]="10"
+  searchable
+  caption="Customers"
+  (rowClick)="open($event)"
+/>
+```
+
+```ts
+columns: ColDef<Customer>[] = [
+  { key: 'name', header: 'Name', sortable: true },
+  { key: 'email', header: 'Email' },
+  { key: 'total', header: 'Total', align: 'end', sortable: true },
+];
+```
+
+## Inputs
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `columns` | `ColDef<T>[]` (required) | — | Column definitions (see below). |
+| `data` | `T[]` (required) | — | Row objects (`T extends Record<string, unknown>`). |
+| `pageSize` | `number` | `10` | Rows per page; `0` disables pagination. |
+| `searchable` | `boolean` | `false` | Show a global search box. |
+| `caption` | `string` | `''` | Visually hidden `<caption>` for screen readers. |
+| `trackBy` | `TrackByFunction<T>` | index | Row identity for efficient rendering. |
+
+### `ColDef<T>`
+
+| Field | Type | Default | Notes |
+|---|---|---|---|
+| `key` | `keyof T` | — | Property key on the row object. |
+| `header` | `string` | — | Column header text. |
+| `sortable` | `boolean` | `false` | Enable click-to-sort. |
+| `align` | `'start' \| 'end'` | `'start'` | Text alignment. |
+| `searchable` | `boolean` | `true` | Include this column in global search. |
+| `cellTemplate` | `TemplateRef<{ $implicit: T; value: unknown }>` | — | Custom cell renderer. |
+
+## Outputs
+
+| Output | Payload | Notes |
+|---|---|---|
+| `rowClick` | `T` | Emitted when a body row is clicked. |
+
+## Accessibility
+
+Renders a semantic `<table>` with `<th scope="col">` headers. Sortable headers expose `aria-sort`;
+the search box is labelled (`aria-label="Search table"`). Pagination controls are labelled. Prefer a
+non-empty `caption` so assistive tech can name the table.
+
+## Storybook
+
+Interactive examples live in Storybook under **Data / Table**. Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `table` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/data/src/lib/table/)

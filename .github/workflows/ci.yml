@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  affected:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      # Derive the base/head SHAs for `nx affected` on both push and PR.
+      - uses: nrwl/nx-set-shas@v4
+
+      - name: Lint, test, build (affected)
+        run: pnpm exec nx affected -t lint test build --parallel=3
+
+      # Enforce the bundle-size budgets against the freshly built dist output.
+      - name: Bundle size gate
+        run: pnpm exec nx run bundle-bench:check

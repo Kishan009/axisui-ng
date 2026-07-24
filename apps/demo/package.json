@@ -1,0 +1,11 @@
+{
+  "name": "@axisui-ng/angular-demo",
+  "version": "0.0.1",
+  "description": "Apollo-style demo template for @axisui-ng/angular — shell, theme configurator, dashboard, UI Kit, and Blocks.",
+  "private": true,
+  "scripts": {
+    "start": "nx serve demo",
+    "build": "nx build demo",
+    "test": "nx test demo"
+  }
+}

@@ -1,0 +1,60 @@
+---
+title: Skeleton
+category: feedback
+description: Loading placeholder; stack multiples to mirror a layout.
+status: stable
+since: 0.1
+---
+
+# Skeleton
+
+`<ax-skeleton>` is a loading placeholder. Stack multiples to mirror the shape of content being loaded.
+`width` and `height` accept any CSS length (e.g. `'60%'`, `'120px'`) as per-instance overrides.
+
+## Import
+
+```ts
+import { AxSkeletonComponent } from '@axisui-ng/feedback';
+```
+
+## Usage
+
+```html
+<ax-skeleton variant="circle" width="40px" height="40px" />
+<ax-skeleton variant="text" width="60%" />
+<ax-skeleton variant="rect" height="120px" />
+```
+
+## Variants & sizes
+
+| Option | Values | Default | Notes |
+|---|---|---|---|
+| `variant` | `'text' \| 'circle' \| 'rect'` | `'rect'` | Placeholder shape (`text` is full-width `h-4`; `circle` is `rounded-full`). |
+
+```html
+<ax-skeleton variant="text" />
+<ax-skeleton variant="circle" width="40px" height="40px" />
+<ax-skeleton variant="rect" height="96px" />
+```
+
+## Inputs
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `variant` | `'text' \| 'circle' \| 'rect'` | `'rect'` | Placeholder shape. |
+| `width` | `string \| null` | `null` | CSS width override (e.g. `'60%'`, `'120px'`). |
+| `height` | `string \| null` | `null` | CSS height override. |
+
+## Accessibility
+
+Skeletons are decorative (`aria-hidden="true"`). Expose loading state to assistive tech on the
+surrounding region (e.g. `aria-busy="true"`), not on each placeholder. Pulse animation stops under
+`prefers-reduced-motion`.
+
+## Storybook
+
+Interactive examples live in Storybook under **Feedback / Skeleton**. Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `skeleton` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/feedback/src/lib/skeleton/)

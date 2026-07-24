@@ -1,0 +1,85 @@
+---
+title: IconButton
+category: buttons
+description: A square or circular button containing only an icon, with a required accessible label.
+status: stable
+since: 0.1
+---
+
+# IconButton
+
+`<ax-icon-button>` is a compact button whose entire content is a single icon — common in toolbars and
+dense UIs. Because it has no text label, an accessible name is **required** via `ariaLabel` (or an
+`aria-label` attribute on the host).
+
+## Import
+
+```ts
+import { AxIconButtonComponent } from '@axisui-ng/buttons';
+```
+
+## Usage
+
+```html
+<ax-icon-button ariaLabel="Add item" variant="primary" (clickEvent)="onAdd()">
+  <ax-icon name="plus" />
+</ax-icon-button>
+
+<!-- circular ghost icon button -->
+<ax-icon-button ariaLabel="Close" shape="circle" variant="ghost">
+  <ax-icon name="x" />
+</ax-icon-button>
+```
+
+## Variants & sizes
+
+| Option | Values | Default | Notes |
+|---|---|---|---|
+| `variant` | `'primary' \| 'secondary' \| 'ghost' \| 'outline' \| 'destructive'` | `'ghost'` | No `link` variant (unlike Button). |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Square bounding box (`h` × `w`: 28 / 36 / 44px). |
+| `shape` | `'square' \| 'circle'` | `'square'` | `circle` applies `rounded-full`. |
+
+```html
+<ax-icon-button ariaLabel="Edit" variant="outline" size="sm" shape="square">
+  <ax-icon name="pencil" />
+</ax-icon-button>
+<ax-icon-button ariaLabel="More" variant="ghost" size="md" shape="circle">
+  <ax-icon name="more-horizontal" />
+</ax-icon-button>
+```
+
+## Inputs
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `variant` | `IconButtonVariant` | `'ghost'` | Visual style. |
+| `size` | `IconButtonSize` | `'md'` | Bounding box size. |
+| `shape` | `IconButtonShape` | `'square'` | Square or fully rounded. |
+| `disabled` | `boolean` | `false` | Non-interactive and muted. |
+| `loading` | `boolean` | `false` | Shows a spinner and suppresses click. |
+| `ariaLabel` | `string \| null` | `null` | **Required for a11y** — accessible name (`aria-label` on the host also works). |
+
+## Outputs
+
+| Output | Payload | Notes |
+|---|---|---|
+| `clickEvent` | `MouseEvent` | Emitted on click; suppressed while `disabled` or `loading`. |
+
+## Slots
+
+| Slot / marker | Notes |
+|---|---|
+| Default | The icon content (any icon component or SVG). No leading/trailing markers — the whole content is the icon. |
+
+## Accessibility
+
+Renders a native `<button>`. Always provide `ariaLabel` or a host `aria-label` so the icon-only
+control has an accessible name (WCAG 4.1.2). In dev mode, a missing name logs a console warning.
+
+## Storybook
+
+Interactive examples live in Storybook under **Buttons / IconButton**. Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `icon-button` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/buttons/src/lib/icon-button/)

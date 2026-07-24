@@ -1,0 +1,147 @@
+# AxisUI
+
+AxisUI is the modern **Angular 20** UI component library: signals-first, standalone, OnPush by default, zoneless-ready, styled with Tailwind v4 + OKLCH design tokens, and accessible to WCAG 2.2 AA with jest-axe assertions run against every component in CI. It is MIT licensed and install-as-you-go — pull in only the categories you use. npm scope: `@axisui-ng/*`.
+
+## Install
+
+- Everything (recommended): `ng add @axisui-ng/angular` — installs the umbrella package, wires Tailwind v4 + theme tokens, and gives you every component.
+- Surgical (per category): `npm i @axisui-ng/<category>` — e.g. `npm i @axisui-ng/forms @axisui-ng/overlays`.
+- Import a component from the umbrella (`@axisui-ng/angular`) or directly from its category package (`@axisui-ng/<category>`). Components are standalone — import the ones you need.
+
+## Links
+
+- Docs: https://axisui.dev
+- Demo: https://axisui-demo.pages.dev
+- Storybook: https://axisui-storybook.pages.dev
+- Repo: https://github.com/Kishan009/UI-Library
+
+## Components
+
+### Primitives — `@axisui-ng/primitives`
+Layout and text building blocks.
+- aspect-ratio — maintain a fixed width-to-height ratio for its content
+- box — generic styled container primitive
+- cluster — inline group that wraps with consistent gaps
+- grid — CSS grid layout primitive
+- heading — semantic heading with typographic scale
+- stack — vertical spacing primitive
+- text — typographic text primitive
+
+### Buttons — `@axisui-ng/buttons`
+- button — primary action button with variants
+- button-group — group related buttons together
+- icon-button — compact icon-only button
+- segmented — segmented single-select control
+- toggle — two-state toggle button
+- toggle-group — group of toggle buttons (single/multi select)
+
+### Forms — `@axisui-ng/forms`
+Form controls with reactive/template forms support.
+- calendar — date calendar view
+- checkbox — boolean checkbox control
+- chip — chip / removable token element
+- color — color picker input
+- combobox — filterable select with typeahead
+- date-picker — date selection input with popover calendar
+- form-field — wrapper for label, hint, and error messaging
+- input — text input
+- input-mask — masked text input
+- input-number — numeric input with stepper
+- input-otp — one-time-passcode input
+- radio — single radio control
+- radio-group — grouped radio buttons
+- rating — star / rating input
+- select — dropdown select
+- signature-pad — draw-to-sign canvas input
+- slider — range slider
+- switch — on/off switch
+- tag-input — multi-value tag entry
+- textarea — multi-line text input
+- time — time picker input
+- tree-select — hierarchical tree select
+- upload — file upload control
+
+### Data display — `@axisui-ng/data`
+- accordion — vertically stacked expandable panels
+- avatar — user avatar with fallback
+- badge — small status / count badge
+- card — content container card
+- carousel — sliding content carousel
+- collapsible — single expand/collapse region
+- data-grid — feature-rich data grid (sorting, paging) — MIT
+- statistic — formatted stat value display
+- table — data table
+- tabs — tabbed content
+- timeline — chronological timeline
+
+### Charts — `@axisui-ng/charts`
+All MIT.
+- chart — general-purpose chart component
+- gauge — radial gauge
+- heatmap — heatmap grid
+- sparkline — compact inline trend chart
+
+### Overlays — `@axisui-ng/overlays`
+Floating and layered UI.
+- context-menu — right-click context menu
+- dialog — modal dialog
+- hover-card — content card shown on hover
+- menu — dropdown menu
+- popover — anchored popover
+- sheet — edge-anchored slide-in panel
+- tooltip — hover/focus tooltip
+
+### Navigation — `@axisui-ng/navigation`
+- breadcrumb — breadcrumb trail
+- command — command palette
+- menubar — horizontal application menu bar
+- navigation-menu — multi-level navigation menu
+- pagination — page navigation control
+- sidebar — collapsible app sidebar
+
+### Feedback — `@axisui-ng/feedback`
+- alert — inline alert / callout
+- empty — empty-state placeholder
+- progress — progress bar
+- result — full-page result / status screen
+- skeleton — loading skeleton placeholder
+- spinner — loading spinner
+- toast — transient toast notifications
+
+### Layout — `@axisui-ng/layout`
+- splitter — resizable split panes
+
+### Misc — `@axisui-ng/misc`
+- kbd — keyboard key display
+- scroll-area — styled custom scroll container
+- separator — visual divider
+
+### Flow — `@axisui-ng/flow`
+- hierarchy — hierarchy / org-chart flow view
+- stepper — multi-step wizard
+
+### Tree — `@axisui-ng/tree`
+- tree — hierarchical tree view
+
+### CDK — `@axisui-ng/cdk`
+Low-level behavior primitives.
+- virtual-scroll — virtual scrolling for large lists
+
+### Blocks — `@axisui-ng/blocks`
+Composed, page-level sections.
+- auth-form — ready-made authentication form
+- feature-grid — feature highlight grid
+- pricing-table — pricing comparison table
+- stat-row — row of headline statistics
+
+### Icons — `@axisui-ng/icons`
+- ax-icon — SVG icon component with a customizable registry
+
+### Themes — `@axisui-ng/themes`
+Theming utilities (OKLCH tokens, presets, dark mode).
+- apply-theme — apply / switch theme tokens at runtime
+- tokens — design token definitions
+
+### Pro — `@axisui-ng/pro`
+Only Theme Studio is commercial; everything above is MIT.
+- theme-studio — visual theme / token editor (commercial)

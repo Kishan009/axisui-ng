@@ -1,0 +1,9 @@
+/* Neutral — default preset (slate-based, calm) */
+
+@import "../tokens.css";
+
+:root {
+  --color-primary:              oklch(0.45 0.02 250);
+  --color-primary-foreground:   oklch(0.99 0 0);
+  --color-ring:                 oklch(0.45 0.02 250);
+}

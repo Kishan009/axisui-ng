@@ -1,0 +1,73 @@
+---
+title: Sheet
+category: overlays
+description: Modal panel that slides in from an edge, with focus trap and Escape/backdrop close.
+status: stable
+since: 0.1
+---
+
+# Sheet
+
+`<ax-sheet>` is a modal drawer that slides in from a screen edge. It shares Dialog’s content slots
+(`axDialogTitle` / `axDialogDescription` / `axDialogBody` / `axDialogFooter`), focus trap, backdrop,
+and Escape/backdrop dismiss. Control it with `[(open)]`.
+
+## Import
+
+```ts
+import {
+  AxSheetComponent,
+  AxDialogTitleDirective,
+  AxDialogDescriptionDirective,
+  AxOverlayCloseDirective,
+} from '@axisui-ng/overlays';
+```
+
+## Usage
+
+```html
+<ax-button (clickEvent)="open.set(true)">Open menu</ax-button>
+
+<ax-sheet [(open)]="open" side="start">
+  <h2 axDialogTitle>Navigation</h2>
+  <p axDialogDescription>Browse sections of the app.</p>
+  <div axDialogBody>…</div>
+  <div axDialogFooter>
+    <ax-button variant="ghost" axOverlayClose>Close</ax-button>
+  </div>
+</ax-sheet>
+```
+
+## Inputs & models
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `open` | `model<boolean>` | `false` | Two-way open state. |
+| `side` | `'start' \| 'end' \| 'top' \| 'bottom'` | `'end'` | Edge the sheet slides from (logical `start`/`end` respect RTL). |
+| `closeOnEscape` | `boolean` | `true` | Close when Escape is pressed. |
+| `closeOnBackdrop` | `boolean` | `true` | Close when the backdrop is clicked. |
+
+## Slots / marker directives
+
+Same projection markers as [Dialog](/docs/components/overlays/dialog/):
+
+| Marker | Kind | Notes |
+|---|---|---|
+| `axDialogTitle` | Directive | Wires `aria-labelledby` when projected. |
+| `axDialogDescription` | Directive | Wires `aria-describedby` when projected. |
+| `axDialogBody` | Attribute slot | Main content region. |
+| `axDialogFooter` | Attribute slot | Action row; empty footer is hidden. |
+| `axOverlayClose` | Directive | Dismisses via `OVERLAY_REF.close()`. |
+
+## Accessibility
+
+`role="dialog"` `aria-modal="true"` with a focus trap and scroll lock, like Dialog. Provide a title
+via `[axDialogTitle]`. Escape and backdrop close when enabled. Focus returns when the sheet closes.
+
+## Storybook
+
+Interactive examples live in Storybook under **Overlays / Sheet**. Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `sheet` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/overlays/src/lib/sheet/)

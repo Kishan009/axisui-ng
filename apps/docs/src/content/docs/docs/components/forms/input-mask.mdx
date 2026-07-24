@@ -1,0 +1,81 @@
+---
+title: InputMask
+category: forms
+description: Text input that formats against a mask pattern; stores the masked value.
+status: stable
+since: 0.2
+---
+
+# InputMask
+
+`<ax-input-mask>` formats input against a `mask` pattern and stores the **masked** text as its value
+(`ControlValueAccessor` over `string`). The masking is a pure, tested `applyMask(raw, mask)` engine.
+
+## Import
+
+```ts
+import { AxInputMaskComponent, applyMask } from '@axisui-ng/forms';
+```
+
+## Usage
+
+```html
+<ax-input-mask mask="(999) 999-9999" [(value)]="phone" ariaLabel="Phone" />
+<ax-input-mask mask="99/99/9999" placeholder="MM/DD/YYYY" [(value)]="dob" ariaLabel="Date of birth" />
+<ax-input-mask mask="9999 9999 9999 9999" [(value)]="card" ariaLabel="Card number" />
+<ax-input-mask mask="AAA-9999" [(value)]="plate" ariaLabel="License plate" />
+```
+
+## Tokens
+
+| Token | Matches |
+|---|---|
+| `9` | a digit (0–9) |
+| `A` | a letter (a–z / A–Z) |
+| `*` | alphanumeric |
+
+Any other character in the mask is a **literal** (emitted verbatim; a matching typed literal is
+consumed).
+
+## Variants & sizes
+
+| Option | Values | Default | Notes |
+|---|---|---|---|
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Shared with `ax-input` (`inputVariants`). |
+
+```html
+<ax-input-mask mask="(999) 999-9999" size="lg" [(value)]="phone" ariaLabel="Phone" />
+```
+
+## Inputs & models
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `mask` | `string` | `''` | Pattern (empty = no masking). |
+| `value` | `model<string \| null>` | `null` | The **masked** text; two-way + CVA. |
+| `placeholder` | `string` | `''` | Placeholder text. |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Control height/padding. |
+| `disabled` | `boolean` | `false` | Also set by `setDisabledState`. |
+| `readonly` | `boolean` | `false` | Read-only. |
+| `invalid` | `boolean` | `false` | Error styling + `aria-invalid`. |
+| `describedBy` | `string \| null` | `null` | `aria-describedby`. |
+| `ariaLabel` | `string` | `''` | Accessible name. |
+
+## Notes
+
+The field reflects the masked text on every keystroke (rejected characters are dropped). The caret
+is restored from the masked prefix before the previous caret, so mid-string edits and backspace do
+not jump to the end.
+
+## Accessibility
+
+Renders a native `<input>`. Provide `ariaLabel` and/or pair with a [FormField](/docs/components/forms/form-field/)
+label; use `describedBy` for helper/error text and `invalid` for error styling + `aria-invalid`.
+
+## Storybook
+
+Interactive examples live in Storybook under **Forms / InputMask**. Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `input-mask` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/forms/src/lib/input-mask/)

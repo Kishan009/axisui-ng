@@ -1,0 +1,86 @@
+---
+title: Input
+category: forms
+description: Single-line text input — the canonical form control. Implements ControlValueAccessor.
+status: stable
+since: 0.1
+---
+
+# Input
+
+`<ax-input>` is a single-line text input and the canonical form-control pattern. It implements
+`ControlValueAccessor`, so two-way binding works with `[(value)]`, `[(ngModel)]`, and reactive forms
+(`[formControl]` / `formControlName`). Pair it with [FormField](/docs/components/forms/form-field/) for
+label / helper / error chrome.
+
+## Import
+
+```ts
+import { AxInputComponent } from '@axisui-ng/forms';
+```
+
+## Usage
+
+```html
+<ax-input [(value)]="name" placeholder="Your name" />
+
+<!-- reactive form, paired with a FormField label -->
+<ax-form-field label="Email" forId="email" helper="We'll never share it.">
+  <ax-input id="email" type="email" formControlName="email" />
+</ax-form-field>
+```
+
+## Variants & sizes
+
+| Option | Values | Default | Notes |
+|---|---|---|---|
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Height / padding / text size via `inputVariants`. |
+
+```html
+<ax-input size="sm" placeholder="Small" />
+<ax-input size="md" placeholder="Medium" />
+<ax-input size="lg" placeholder="Large" />
+```
+
+## Inputs & models
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `value` | `model<string \| null>` | `null` | Two-way value (`[(value)]`); also CVA for `ngModel` / `FormControl`. |
+| `id` | `string \| null` | `null` | Inner `<input>` id — match a FormField `forId`. |
+| `type` | `'text' \| 'email' \| 'password' \| 'number' \| 'tel' \| 'url' \| 'search' \| 'date' \| 'time' \| 'datetime-local'` | `'text'` | Native input type (browser pickers for date/time). |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Control height/padding. |
+| `placeholder` | `string` | `''` | Placeholder text. |
+| `autocomplete` | `string \| null` | `null` | Native `autocomplete` hint (e.g. `'email'`, `'current-password'`). |
+| `name` | `string \| null` | `null` | Native `name` — helps password managers group fields. |
+| `required` | `boolean` | `false` | Sets `aria-required`. |
+| `readonly` | `boolean` | `false` | Read-only. |
+| `disabled` | `boolean` | `false` | Disabled (also via CVA `setDisabledState`). |
+| `invalid` | `boolean` | `false` | Error styling + `aria-invalid` (OR’d with FormField wiring). |
+| `describedBy` | `string \| null` | `null` | `aria-describedby`; explicit value wins over FormField auto-wiring. |
+
+## Date & time
+
+`type="date"`, `type="time"`, and `type="datetime-local"` render the browser's native pickers and
+still bind as strings via `[(value)]` / CVA. For a calendar overlay or segmented spinbutton time
+control, use the [DatePicker](/docs/components/forms/date-picker/) and [TimePicker](/docs/components/forms/time-picker/).
+
+## File upload
+
+`ax-input` does not support `type="file"` (the value model is `string`, not `File[]`). Use
+[Upload](/docs/components/forms/upload/) for drag-drop / browse file selection.
+
+## Accessibility
+
+Renders a native `<input>`. Associate a visible label by giving the input an `id` and setting the
+[FormField](/docs/components/forms/form-field/) `forId` to match, or wrap it in a `<label>`. Inside a
+FormField, `aria-describedby` / `aria-invalid` are auto-wired unless you override with `describedBy` /
+`invalid`.
+
+## Storybook
+
+Interactive examples live in Storybook under **Forms / Input**. Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `input` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/forms/src/lib/input/)

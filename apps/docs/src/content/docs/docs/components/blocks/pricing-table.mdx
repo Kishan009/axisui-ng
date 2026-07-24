@@ -1,0 +1,93 @@
+---
+title: PricingTable
+category: blocks
+description: Tiered pricing cards with a highlighted tier and per-tier CTA.
+status: stable
+since: 0.2
+---
+
+# PricingTable
+
+`<ax-pricing-table>` renders tiered pricing cards from a `[tiers]` array. Each card lists features
+with a check icon and a [ax-button](/docs/components/buttons/button/) CTA. The `highlighted` tier gets a
+primary ring **and** a text badge (`highlightLabel`, default `"Popular"`) so emphasis is not
+color-only. CTA clicks emit `(selectTier)`.
+
+## Import
+
+```ts
+import { AxPricingTableComponent, type PricingTier } from '@axisui-ng/blocks';
+```
+
+## Usage
+
+```ts
+tiers: PricingTier[] = [
+  { name: 'Starter', price: '$0', period: '/mo', features: ['1 project', 'Community support'] },
+  {
+    name: 'Pro',
+    price: '$29',
+    period: '/mo',
+    features: ['Unlimited projects', 'Email support', 'Analytics'],
+    highlighted: true,
+    cta: 'Upgrade',
+  },
+  { name: 'Enterprise', price: 'Custom', features: ['SSO', 'Dedicated support', 'SLA'], cta: 'Contact us' },
+];
+```
+
+```html
+<ax-pricing-table
+  [tiers]="tiers"
+  highlightLabel="Popular"
+  ariaLabel="Pricing"
+  (selectTier)="choose($event)"
+>
+  <h2 class="mb-6 text-lg font-semibold">Plans</h2>
+</ax-pricing-table>
+```
+
+## Inputs
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `tiers` | `PricingTier[]` | `[]` | One card per tier; tracked by `name`. Layout is always `sm:grid-cols-2 lg:grid-cols-3`. |
+| `ariaLabel` | `string` | `''` | Host `aria-label` on `role="group"`; empty omits the attribute. |
+| `highlightLabel` | `string` | `'Popular'` | Badge text on the highlighted tier (non-color emphasis cue). |
+
+### `PricingTier`
+
+| Field | Type | Required | Notes |
+|---|---|---|---|
+| `name` | `string` | yes | Tier title (also the `@for` track key). |
+| `price` | `string` | yes | Display price (e.g. `'$29'`, `'Custom'`). |
+| `period` | `string` | no | Shown next to price when set (e.g. `'/mo'`). |
+| `features` | `string[]` | yes | Bullet list; each row gets a decorative check icon. |
+| `cta` | `string` | no | Button label; defaults to `'Get started'`. |
+| `highlighted` | `boolean` | no | Primary ring + badge; CTA uses `variant="primary"` (else `secondary`). |
+
+## Outputs
+
+| Output | Payload | Notes |
+|---|---|---|
+| `selectTier` | `PricingTier` | Emitted when that tier’s CTA `clickEvent` fires. |
+
+## Slots
+
+| Slot | Selector | Notes |
+|---|---|---|
+| Default | `<ng-content />` | Optional projected content (typically a heading) rendered above the pricing cards. |
+
+## Accessibility
+
+Host is `role="group"`. Set `ariaLabel` so the group has an accessible name. Highlighted tiers use a
+visible text badge plus a ring — not color alone. Feature check icons are `aria-hidden="true"`. CTAs
+are real `ax-button` controls.
+
+## Storybook
+
+Interactive examples live in Storybook under **Blocks / PricingTable**. Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `pricing-table` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/blocks/src/lib/pricing-table/)

@@ -1,0 +1,14 @@
+/* Automotive preset — Electric Blue + Signal Orange, technical */
+
+@import "../tokens.css";
+
+:root {
+  --color-primary:              oklch(0.55 0.22 250);
+  --color-primary-foreground:   oklch(0.99 0 0);
+  --color-info:                 oklch(0.70 0.20 50);
+  --color-ring:                 oklch(0.55 0.22 250);
+  --radius-default:             0.5rem;
+  --radius-button:              0.5rem;
+  --radius-card:                0.75rem;
+  --height-row:                 3rem;
+}

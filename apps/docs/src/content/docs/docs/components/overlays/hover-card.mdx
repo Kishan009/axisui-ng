@@ -1,0 +1,64 @@
+---
+title: HoverCard
+category: overlays
+description: Non-modal rich preview shown on hover/focus with open/close delays.
+status: stable
+since: 0.1
+---
+
+# HoverCard
+
+`<ax-hover-card>` is a non-modal rich preview shown when its trigger is hovered or focused. Put
+`[axHoverCardFor]` on the trigger. Open and close delays reduce flicker; moving the pointer onto the
+card keeps it open.
+
+## Import
+
+```ts
+import {
+  AxHoverCardComponent,
+  AxHoverCardTriggerDirective,
+} from '@axisui-ng/overlays';
+```
+
+## Usage
+
+```html
+<a [axHoverCardFor]="preview" [openDelay]="300" [closeDelay]="150" href="/users/ada">@ada</a>
+
+<ax-hover-card #preview placement="bottom">
+  <div class="p-3">Rich preview content…</div>
+</ax-hover-card>
+```
+
+## Components
+
+### `ax-hover-card` inputs & models
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `open` | `model<boolean>` | `false` | Two-way open state (set by the trigger while attached). |
+| `placement` | `PlacementInput` | `'bottom'` | `'top' \| 'bottom' \| 'start' \| 'end'`, or `side-align`. |
+| `openDelay` | `number` | `300` | Documented delay on the card (ms). Scheduling uses the trigger’s delays. |
+| `closeDelay` | `number` | `150` | Documented delay on the card (ms). Scheduling uses the trigger’s delays. |
+
+### `[axHoverCardFor]` inputs
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `axHoverCardFor` | `AxHoverCardComponent` (required) | — | Card instance to control. |
+| `openDelay` | `number` | `300` | Delay before opening (ms); `0` opens immediately. |
+| `closeDelay` | `number` | `150` | Delay before closing (ms); `0` closes immediately. |
+
+## Accessibility
+
+Opens on hover **and** focus so keyboard users get the preview. Non-modal; the card is supplementary
+content, not a focus trap. Prefer a meaningful host (link or button) with its own accessible name.
+
+## Storybook
+
+Interactive examples live in Storybook under **Overlays / Hover Card**. Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `hover-card` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/overlays/src/lib/hover-card/)

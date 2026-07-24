@@ -1,0 +1,74 @@
+---
+title: Popover
+category: overlays
+description: Non-modal floating panel anchored to a trigger via a CDK connected overlay.
+status: stable
+since: 0.1
+---
+
+# Popover
+
+`<ax-popover>` is a non-modal floating panel anchored to a trigger. Put `[axPopoverTriggerFor]` on
+the trigger, pointing at the popover instance. The popover holds content in a template that the
+trigger attaches to a CDK connected overlay. Click toggles; Escape and outside-click dismiss.
+
+## Import
+
+```ts
+import {
+  AxPopoverComponent,
+  AxPopoverTriggerDirective,
+  AxOverlayCloseDirective,
+} from '@axisui-ng/overlays';
+```
+
+## Usage
+
+```html
+<ax-button [axPopoverTriggerFor]="info">Details</ax-button>
+
+<ax-popover #info placement="bottom-start">
+  <div class="p-3">
+    Anchored, non-modal content.
+    <ax-button variant="ghost" axOverlayClose>Close</ax-button>
+  </div>
+</ax-popover>
+```
+
+## Components
+
+### `ax-popover` inputs & models
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `open` | `model<boolean>` | `false` | Two-way open state (usually driven by the trigger). |
+| `placement` | `PlacementInput` | `'bottom'` | `'top' \| 'bottom' \| 'start' \| 'end'`, or `side-align` (e.g. `'bottom-start'`). |
+
+### `[axPopoverTriggerFor]` inputs
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `axPopoverTriggerFor` | `AxPopoverComponent` (required) | — | Popover instance to control. |
+
+The trigger toggles `open` on click, sets `aria-haspopup="true"` and `aria-expanded`, and light-dismisses
+on outside pointer events and Escape.
+
+## Slots / marker directives
+
+| Marker | Notes |
+|---|---|
+| Default `<ng-content>` | Popover panel body. |
+| `axOverlayClose` | Optional dismiss control; uses `OVERLAY_REF` provided by the popover. |
+
+## Accessibility
+
+The trigger exposes `aria-haspopup` / `aria-expanded`. The panel is non-modal — focus is not trapped.
+Escape and outside-click close the overlay and restore focus to the trigger.
+
+## Storybook
+
+Interactive examples live in Storybook under **Overlays / Popover**. Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `popover` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/overlays/src/lib/popover/)

@@ -1,0 +1,52 @@
+---
+title: Stack
+category: primitives
+description: One-dimensional layout that lays children out along an axis with a consistent gap.
+status: stable
+since: 0.1
+---
+
+# Stack
+
+`[axStack]` lays its children out along one axis (vertical by default) with a consistent `gap`. Switch
+`direction="horizontal"` for a row.
+
+## Import
+
+```ts
+import { AxStackDirective } from '@axisui-ng/primitives';
+```
+
+## Usage
+
+```html
+<div axStack gap="4" align="stretch">
+  <div>One</div>
+  <div>Two</div>
+</div>
+
+<div axStack direction="horizontal" gap="2" align="center" justify="between">…</div>
+```
+
+## Inputs
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `direction` | `'vertical' \| 'horizontal'` | `'vertical'` | Main axis (`flex-col` / `flex-row`). |
+| `gap` | `'0' \| '1' \| '2' \| '3' \| '4' \| '5' \| '6' \| '8' \| '10' \| '12' \| '16'` | `'4'` | Spacing token between children. |
+| `align` | `'start' \| 'center' \| 'end' \| 'stretch' \| 'baseline'` | `'stretch'` | Cross-axis alignment (`align-items`). |
+| `justify` | `'start' \| 'center' \| 'end' \| 'between' \| 'around' \| 'evenly'` | `'start'` | Main-axis distribution (`justify-content`). |
+| `wrap` | `boolean` | `false` | Allow wrapping along the main axis. |
+
+## Accessibility
+
+Presentational only. For a wrapping row of hugging items, prefer
+[Cluster](/docs/components/primitives/cluster/).
+
+## Storybook
+
+Interactive examples live in Storybook under **Primitives / Stack**. Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `stack` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/primitives/src/lib/stack/)

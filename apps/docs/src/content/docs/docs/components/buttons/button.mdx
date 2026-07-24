@@ -1,0 +1,90 @@
+---
+title: Button
+category: buttons
+description: Interactive trigger for actions, with variants, sizes, loading state, and icon slots.
+status: stable
+since: 0.1
+---
+
+# Button
+
+`<ax-button>` is the interactive trigger for actions. It renders a real `<button>`, supports six
+visual variants and three sizes, a loading state, and leading/trailing icon slots. Density, trust
+tier, and industry accent cascade from `data-*` tokens on an ancestor — not from inputs.
+
+## Import
+
+```ts
+import {
+  AxButtonComponent,
+  AxButtonLeadingDirective,
+  AxButtonTrailingDirective,
+} from '@axisui-ng/buttons';
+```
+
+## Usage
+
+```html
+<ax-button variant="primary" size="md" (clickEvent)="onSubmit()">Submit</ax-button>
+
+<!-- with a leading icon (marker directive on the icon) -->
+<ax-button [hasLeading]="true">
+  <ax-icon axButtonLeading name="plus" />
+  Add item
+</ax-button>
+```
+
+## Variants & sizes
+
+| Option | Values | Default | Notes |
+|---|---|---|---|
+| `variant` | `'primary' \| 'secondary' \| 'ghost' \| 'outline' \| 'destructive' \| 'link'` | `'primary'` | Visual style. |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Heights 28 / 36 / 44px; padding and icon slot size follow. |
+
+```html
+<ax-button variant="secondary" size="sm">Secondary sm</ax-button>
+<ax-button variant="outline" size="md">Outline md</ax-button>
+<ax-button variant="destructive" size="lg">Destructive lg</ax-button>
+```
+
+## Inputs
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `variant` | `ButtonVariant` | `'primary'` | Visual style. |
+| `size` | `ButtonSize` | `'md'` | Height, padding, and icon slot size. |
+| `disabled` | `boolean` | `false` | Non-interactive and visually muted. |
+| `loading` | `boolean` | `false` | Shows a spinner; suppresses `clickEvent` regardless of `disabled`. |
+| `hasLeading` | `boolean` | `false` | Set `true` when projecting a leading icon so the slot is visible. |
+| `hasTrailing` | `boolean` | `false` | Set `true` when projecting a trailing icon so the slot is visible. |
+| `ariaLabel` | `string \| null` | `null` | Accessible name override (e.g. icon-only usage). |
+
+## Outputs
+
+| Output | Payload | Notes |
+|---|---|---|
+| `clickEvent` | `MouseEvent` | Emitted on click; suppressed while `disabled` or `loading`. |
+
+## Slots
+
+| Slot / marker | Notes |
+|---|---|
+| Default | Label / projected text content. |
+| `[axButtonLeading]` | Leading icon. Import `AxButtonLeadingDirective`. Pair with `[hasLeading]="true"`. |
+| `[axButtonTrailing]` | Trailing icon. Import `AxButtonTrailingDirective`. Pair with `[hasTrailing]="true"`. |
+
+Marker directives accept optional `size` (icon size override) and `ariaHidden` (defaults to `'true'` for decorative icons beside a visible label).
+
+## Accessibility
+
+Renders a native `<button>`, so it is focusable and keyboard-operable (Enter/Space) for free.
+`disabled` and `loading` set the button non-interactive (`aria-disabled` / `aria-busy` when loading).
+On the `destructive` variant under a `data-trust="regulated"` ancestor, a confirmation step is required.
+
+## Storybook
+
+Interactive examples live in Storybook under **Buttons / Button**. Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `button` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/buttons/src/lib/button/)

@@ -1,0 +1,68 @@
+---
+title: Heatmap
+category: charts
+description: Grid of value-colored cells with sequential or binned scales. Token-themed SVG.
+status: stable
+since: 0.2
+tier: pro
+---
+
+# Heatmap
+
+`<ax-heatmap>` is a **Pro** component: a grid of cells colored by value. Use a `sequential` ramp (one
+token's fill-opacity) or `bins` (mapped to `--color-chart-1..5`). Self-gates with a `PRO` watermark
+until licensed.
+
+## Import
+
+```ts
+import { AxHeatmapComponent } from '@axisui-ng/charts';
+```
+
+## Usage
+
+```html
+<ax-heatmap
+  [matrix]="matrix"
+  [rows]="rows"
+  [cols]="cols"
+  scale="bins"
+  ariaLabel="Activity"
+/>
+```
+
+```ts
+matrix = [
+  [1, 3, 2],
+  [4, 0, 5],
+];
+rows = ['Mon', 'Tue'];
+cols = ['AM', 'Mid', 'PM'];
+```
+
+## Inputs
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `matrix` | `number[][]` | `[]` | Row-major cell values. |
+| `rows` | `string[]` | `[]` | Optional row axis labels. |
+| `cols` | `string[]` | `[]` | Optional column axis labels. |
+| `scale` | `'sequential' \| 'bins'` | `'sequential'` | Opacity ramp vs chart-palette bins. |
+| `bins` | `number` | `5` | Band count for `bins` (mapped into chart-1..5). |
+| `colorIndex` | `number` | `1` | Base token (1–5) for `sequential`. |
+| `cellSize` | `number` | `28` | Cell size in px. |
+| `ariaLabel` | `string` | `''` | Summary; empty → auto (`rows × cols`, value range). |
+
+## Accessibility
+
+`role="img"` with `aria-label` from `ariaLabel` or an auto summary. Each cell has a `<title>` with
+its value. A visually hidden data table mirrors the matrix for screen readers.
+
+
+## Storybook
+
+Interactive examples live in Storybook under **Pro / Heatmap**. Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `heatmap` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/charts/src/lib/heatmap/)

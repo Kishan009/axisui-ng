@@ -1,0 +1,101 @@
+---
+title: Timeline
+category: data
+description: Ordered events with connected markers — projected or data-driven, vertical/horizontal, alternating.
+status: stable
+since: 0.2
+---
+
+# Timeline
+
+`<ax-timeline>` renders an ordered list of events with connected markers. It works in **two modes** —
+projected `<ax-timeline-item>` children, or data-driven via `[items]` — and supports
+vertical/horizontal orientation plus an alternating (zig-zag) layout for vertical timelines.
+
+## Import
+
+```ts
+import {
+  AxTimelineComponent,
+  AxTimelineItemComponent,
+  type TimelineItem,
+} from '@axisui-ng/data';
+```
+
+## Usage
+
+```html
+<!-- projected: rich per-item content -->
+<ax-timeline>
+  <ax-timeline-item title="Created" time="09:00" color="primary">Order placed.</ax-timeline-item>
+  <ax-timeline-item title="Shipped" time="14:20" icon="check" color="success">Left the warehouse.</ax-timeline-item>
+  <ax-timeline-item title="Delivered" time="17:45" icon="check" color="success" />
+</ax-timeline>
+
+<!-- data-driven, alternating -->
+<ax-timeline [items]="events" align="alternate" />
+```
+
+```ts
+events: TimelineItem[] = [
+  { title: 'Created', time: '09:00', description: 'Order placed', color: 'primary' },
+  { title: 'Shipped', time: '14:20', icon: 'check', color: 'success' },
+];
+```
+
+## Variants & sizes
+
+| Option | Values | Default | Notes |
+|---|---|---|---|
+| `orientation` | `'vertical' \| 'horizontal'` | `'vertical'` | Rail orientation. |
+| `align` | `'start' \| 'alternate'` | `'start'` | `alternate` zig-zags (vertical only). |
+| `color` (item) | `'default' \| 'primary' \| 'success' \| 'warning' \| 'destructive'` | `'default'` | Marker tint. |
+
+```html
+<ax-timeline orientation="vertical" align="alternate">
+  <ax-timeline-item title="A" color="primary" />
+  <ax-timeline-item title="B" color="success" />
+</ax-timeline>
+```
+
+## `ax-timeline` inputs
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `orientation` | `TimelineOrientation` | `'vertical'` | `'vertical' \| 'horizontal'`. |
+| `align` | `TimelineAlign` | `'start'` | `'start' \| 'alternate'`; alternate is vertical only. |
+| `items` | `TimelineItem[] \| null` | `null` | Data-driven mode; when set, projected content is ignored. |
+
+### `TimelineItem` (data-driven)
+
+| Field | Type | Notes |
+|---|---|---|
+| `title` | `string` | Required. |
+| `time` | `string` | Optional timestamp/meta. |
+| `description` | `string` | Optional description line. |
+| `icon` | `AxIconName` | Optional marker icon (replaces the dot). |
+| `color` | `TimelineColor` | Optional marker tint. |
+
+## `ax-timeline-item` inputs
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `title` | `string` (required) | — | Event title. |
+| `time` | `string \| null` | `null` | Timestamp/meta line. |
+| `description` | `string \| null` | `null` | Description line. |
+| `icon` | `AxIconName \| null` | `null` | Marker icon (replaces the dot). |
+| `color` | `TimelineColor` | `'default'` | Marker tint. |
+
+Projected content under the item is additional body below title/description.
+
+## Accessibility
+
+Container `role="list"`; each item `role="listitem"`; markers and connectors are `aria-hidden`.
+
+## Storybook
+
+Interactive examples live in Storybook under **Data / Timeline**. Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `timeline` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/data/src/lib/timeline/)

@@ -1,0 +1,44 @@
+---
+title: Support
+description: Get help with AxisUI — FAQ, community Q&A on GitHub Discussions, and contact for private or licensing questions.
+---
+
+Need help using AxisUI? Start with the FAQ, ask the community, or reach out directly.
+
+## FAQ
+
+### How do I install AxisUI?
+
+Use the Angular CLI: `ng add @axisui-ng/angular` installs everything and wires up Tailwind v4 + tokens. For a surgical install, add only the category packages you need, e.g. `npm i @axisui-ng/buttons @axisui-ng/forms`. See [Getting started](/docs/guides/getting-started/).
+
+### Which Angular versions are supported?
+
+Angular **20+**. Components are standalone, signals-based, OnPush, and zoneless-ready — they work in both zoneless and Zone.js apps.
+
+### How does theming work?
+
+AxisUI is themed with Tailwind v4 `@theme` tokens in OKLCH — colors, radius, spacing, motion, and elevation. You get density scales, industry presets, and a light/dark cascade from CSS custom properties. `ng add` imports the tokens for you.
+
+### Does it support SSR?
+
+Yes. Components are SSR-safe — no top-level `window`/`document`/`localStorage`; browser-only work is guarded with `afterNextRender()` / `isPlatformBrowser()`.
+
+### Is it accessible?
+
+Yes — WCAG 2.2 AA, with `jest-axe` on every component in CI. See the [accessibility story](/accessibility/).
+
+### I'm coming from Angular Material / PrimeNG — how do I migrate?
+
+Import AxisUI components directly (they're standalone) and swap markup incrementally. The [components docs](/docs/components/) list each component's inputs, outputs, and usage.
+
+## Ask the community
+
+Questions, ideas, and show-and-tell live on **GitHub Discussions**:
+
+- [Open GitHub Discussions →](https://github.com/Kishan009/UI-Library/discussions)
+
+Found a bug instead? [Report an issue →](/report/)
+
+## Private & licensing questions
+
+For anything you'd rather not ask in public — commercial/licensing questions or private support — email **[kishanhadiyal009@gmail.com](mailto:kishanhadiyal009@gmail.com?subject=AxisUI%20support)**.

@@ -1,0 +1,130 @@
+---
+title: Roadmap
+description: The AI-native Angular UI platform — free components today, visual builders tomorrow.
+---
+
+import { CardGrid, Card, LinkButton, Badge, Aside } from '@astrojs/starlight/components';
+
+**Free components today, visual builders tomorrow.** AxisUI ships as three layers: an
+open-source component library you can use right now, a suite of AI-native visual **builders**
+in active development, and a hosted **cloud** tier on the horizon. The library is real and
+free — everything above it is what we're building next, in the open.
+
+<Aside type="tip" title="Shape what gets built">
+  Every upcoming builder has a waitlist. Joining does two things: you get **early access +
+  founding-member pricing**, and your vote tells us what to build first. We build in public —
+  follow along on [GitHub](https://github.com/Kishan009/UI-Library).
+</Aside>
+
+## Layer 1 — Core · <Badge text="Available now" variant="success" />
+
+The foundation, free forever under the MIT license.
+
+<CardGrid>
+  <Card title="100+ components" icon="puzzle">
+    Buttons, forms, overlays, navigation, data display, charts, and more — standalone, OnPush,
+    signal-based.
+  </Card>
+  <Card title="Accessible by default" icon="approve-check">
+    WAI-ARIA roles, keyboard interaction, and ARIA wiring on every component, verified with
+    3-mode `jest-axe`.
+  </Card>
+  <Card title="Tailwind v4 theming" icon="setting">
+    OKLCH design tokens, industry presets, density, and a light/dark cascade — all from CSS
+    custom properties.
+  </Card>
+  <Card title="Angular 20, zoneless-ready" icon="rocket">
+    Signals-first, no `NgModule`, works in both zoneless and Zone.js apps.
+  </Card>
+</CardGrid>
+
+<LinkButton href="/docs/guides/getting-started/" variant="primary" icon="right-arrow">
+  Get started free
+</LinkButton>
+
+---
+
+## Layer 2 — Builders · <Badge text="In development" variant="note" />
+
+Visual tools that generate production-grade Angular from the components you already trust.
+Each one is designed to be **AI-native**: describe what you want in plain English, and let it
+scaffold the schema for you.
+
+<CardGrid>
+  <Card title="Theme Studio &nbsp;·&nbsp; Coming soon" icon="setting">
+    Design your entire Tailwind v4 theme visually — edit tokens, preview live, snap to your
+    palette, and export production CSS with light/dark modes.
+
+    <LinkButton href="#waitlist" variant="secondary">Join the waitlist →</LinkButton>
+  </Card>
+
+  <Card title="Form Builder &nbsp;·&nbsp; Coming soon" icon="pencil">
+    Drag, drop, ship. Build complex Angular forms visually — conditional logic, multi-step
+    wizards, validation — or describe a form and let AI generate the schema. Renders with the
+    accessible form components you already have.
+
+    <LinkButton href="#waitlist" variant="secondary">Join the waitlist →</LinkButton>
+  </Card>
+
+  <Card title="Report Builder &nbsp;·&nbsp; In development" icon="document">
+    Turn your data into pixel-perfect PDF reports. Compose tables and charts, theme them, and
+    export anywhere. Client-side backbone, free — with an optional high-fidelity generation API.
+
+    <LinkButton href="#waitlist" variant="secondary">Join the waitlist →</LinkButton>
+  </Card>
+
+  <Card title="Dashboard Builder &nbsp;·&nbsp; On the roadmap" icon="bars">
+    Arrange charts, stats, and tables into live dashboards — no code. Resize, rearrange, and
+    save layouts, built on the charts you already ship.
+
+    <LinkButton href="#waitlist" variant="minimal">Notify me →</LinkButton>
+  </Card>
+</CardGrid>
+
+<Aside title="What's next">
+  We build one thing at a time, well. The **Form Builder** is up first — the waitlist vote
+  decides what follows. Further ideas (Scheduler / Gantt, an enterprise data grid) are on the
+  long-term roadmap and will move up as demand shows.
+</Aside>
+
+---
+
+## Layer 3 — Cloud · <Badge text="On the roadmap" variant="caution" />
+
+Hosted services that turn the builders into complete, recurring solutions.
+
+<CardGrid>
+  <Card title="Hosted submissions" icon="email">
+    Collect, store, and analyze Form Builder submissions — no backend to run.
+  </Card>
+  <Card title="PDF generation API" icon="document">
+    Server-side, high-fidelity, paginated PDF rendering for the Report Builder at scale.
+  </Card>
+  <Card title="AI generation" icon="open-book">
+    Describe a form, theme, or report in plain English and get production output — metered per
+    use.
+  </Card>
+  <Card title="Theme hosting" icon="setting">
+    Publish, version, and serve your design tokens from a CDN.
+  </Card>
+</CardGrid>
+
+---
+
+## Join the waitlist <a id="waitlist" />
+
+Be first in line for the builders — and lock in **founding-member pricing** before launch.
+Email us and we'll add you to the list (tell us which builder you want most).
+
+<LinkButton href="mailto:kishanhadiyal009@gmail.com?subject=AxisUI%20builder%20waitlist&body=Add%20me%20to%20the%20AxisUI%20waitlist.%20The%20builder%20I%20want%20most%3A%20" variant="primary" icon="email">
+  Join the waitlist
+</LinkButton>
+
+<LinkButton href="https://github.com/Kishan009/UI-Library" variant="secondary" icon="github">
+  Follow the build on GitHub
+</LinkButton>
+
+<Aside type="tip">
+  **Building in public:** we post progress every week. Watch the repo and the
+  [changelog](/docs/roadmap/) to see each builder come together — and tell us what to build next.
+</Aside>

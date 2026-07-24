@@ -1,0 +1,98 @@
+---
+title: Toast
+category: feedback
+description: Transient notifications shown via a service and rendered by a single outlet.
+status: stable
+since: 0.1
+---
+
+# Toast
+
+Toasts are transient notifications. Place one `<ax-toast-outlet>` in the app shell, then call
+`ToastService.show(...)` from anywhere. The outlet stacks active toasts, pauses auto-dismiss while
+hovered or focused, and exposes a dismiss control when configured.
+
+## Import
+
+```ts
+import { ToastService, AxToastOutletComponent } from '@axisui-ng/feedback';
+```
+
+## Usage
+
+```html
+<!-- once, near the app root -->
+<ax-toast-outlet position="bottom-end" />
+```
+
+```ts
+import { inject } from '@angular/core';
+import { ToastService } from '@axisui-ng/feedback';
+
+export class SaveButton {
+  private readonly toast = inject(ToastService);
+
+  save() {
+    this.toast.show({
+      title: 'Saved',
+      description: 'Your changes are live.',
+      variant: 'success',
+      duration: 4000,
+    });
+  }
+}
+```
+
+## Variants & sizes
+
+| Option | Values | Default | Notes |
+|---|---|---|---|
+| `position` (`ax-toast-outlet`) | `'top-start' \| 'top-center' \| 'top-end' \| 'bottom-start' \| 'bottom-center' \| 'bottom-end'` | `'bottom-end'` | Where toasts stack. |
+| `variant` (`ToastConfig`) | `'default' \| 'success' \| 'warning' \| 'destructive'` | `'default'` | Surface tint on each toast. |
+
+```ts
+this.toast.show({ title: 'Done', variant: 'success' });
+this.toast.show({ title: 'Check this', variant: 'warning' });
+this.toast.show({ title: 'Failed', variant: 'destructive', duration: 0 });
+```
+
+## `ax-toast-outlet` inputs
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `position` | `'top-start' \| 'top-center' \| 'top-end' \| 'bottom-start' \| 'bottom-center' \| 'bottom-end'` | `'bottom-end'` | Fixed stack anchor (logical start/end). |
+
+## `ToastService`
+
+| Method | Signature | Notes |
+|---|---|---|
+| `show` | `show(config: ToastConfig): ToastRef` | Enqueues a toast; returns `{ dismiss() }` for imperative close. |
+| `dismiss` | `dismiss(id: number): void` | Removes a toast by id (also used by the outlet close button). |
+| `pause` | `pause(): void` | Pauses auto-dismiss timers (outlet calls this on hover/focus). |
+| `resume` | `resume(): void` | Resumes timers with remaining time. |
+| `toasts` | `ReadonlySignal<Toast[]>` | Read-only view of active toasts. |
+
+### `ToastConfig`
+
+| Field | Type | Default | Notes |
+|---|---|---|---|
+| `title` | `string` | — | Required headline. |
+| `description` | `string` | — | Optional supporting line. |
+| `variant` | `'default' \| 'success' \| 'warning' \| 'destructive'` | `'default'` | Visual style. |
+| `duration` | `number` | `5000` | Auto-dismiss ms; `0` = sticky. |
+| `dismissible` | `boolean` | `true` | Shows the close button on the toast. |
+
+## Accessibility
+
+The outlet is a landmark region (`role="region"`, `aria-label="Notifications"`). Each toast sets
+`role` + `aria-live` by severity: `warning` / `destructive` → `alert` / `assertive`; `default` /
+`success` → `status` / `polite`. Auto-dismiss pauses while the outlet is hovered or focused
+(WCAG 2.2.1). Sticky toasts (`duration: 0`) should keep `dismissible` enabled so users can close them.
+
+## Storybook
+
+Interactive examples live in Storybook under **Feedback / Toast**. Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `toast` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/feedback/src/lib/toast/)

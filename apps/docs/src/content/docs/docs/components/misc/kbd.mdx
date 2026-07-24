@@ -1,0 +1,51 @@
+---
+title: Kbd
+category: misc
+description: Keyboard-shortcut keycaps that resolve modifier tokens per platform.
+status: stable
+since: 0.1
+---
+
+# Kbd
+
+`<ax-kbd>` renders keyboard-shortcut keycaps. It's platform-aware: modifier tokens resolve to
+⌘/⌥/⌃/⇧ on macOS and Ctrl/Alt/Win elsewhere. Pass keys via the `keys` input or project content.
+
+## Import
+
+```ts
+import { AxKbdComponent } from '@axisui-ng/misc';
+```
+
+## Usage
+
+```html
+<!-- resolves to "Ctrl K" on Windows/Linux, "⌘ K" on macOS -->
+<ax-kbd keys="mod+k" />
+
+<!-- explicit keys as an array -->
+<ax-kbd [keys]="['Shift', 'Enter']" />
+
+<!-- projected content -->
+<ax-kbd>Esc</ax-kbd>
+```
+
+## Inputs
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `keys` | `string \| string[] \| null` | `null` | Shortcut tokens; `'mod'` maps to ⌘ (mac) / Ctrl (other). Joined with `+`. Empty/`null` → projected content. |
+| `ariaLabel` | `string \| null` | `null` | Override the announced label for the whole combo. |
+
+## Accessibility
+
+Renders `<kbd>` elements; symbol modifiers carry an accessible label so screen readers announce the
+shortcut meaningfully.
+
+## Storybook
+
+Interactive examples live in Storybook under **Misc / Kbd**. Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `kbd` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/misc/src/lib/kbd/)

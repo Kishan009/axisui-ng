@@ -1,0 +1,53 @@
+---
+title: Switch
+category: forms
+description: Boolean on/off toggle styled as a sliding pill; semantically a switch role.
+status: stable
+since: 0.1
+---
+
+# Switch
+
+`<ax-switch>` is a boolean toggle styled as a sliding pill. Use Switch for “this feature is on/off”
+and [Checkbox](/docs/components/forms/checkbox/) for “yes/no, I agree” options. It implements
+`ControlValueAccessor` with two-way `[(checked)]`.
+
+## Import
+
+```ts
+import { AxSwitchComponent } from '@axisui-ng/forms';
+```
+
+## Usage
+
+```html
+<ax-switch [(checked)]="notifications" ariaLabel="Enable notifications">
+  Notifications
+</ax-switch>
+```
+
+## Inputs & models
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `checked` | `model<boolean>` | `false` | Two-way on/off state (`[(checked)]`); also CVA. |
+| `disabled` | `boolean` | `false` | Disabled (also via CVA `setDisabledState`). |
+| `ariaLabel` | `string \| null` | `null` | Accessible label when there’s no visible projected label. |
+| `describedBy` | `string \| null` | `null` | `aria-describedby`. |
+
+## Slots
+
+Default content is projected as the visible label next to the control (inside the wrapping `<label>`).
+
+## Accessibility
+
+Renders a native checkbox with `role="switch"` and `aria-checked`. Keyboard (Space) toggles. Provide
+projected label text or `ariaLabel`.
+
+## Storybook
+
+Interactive examples live in Storybook under **Forms / Switch**. Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `switch` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/forms/src/lib/switch/)

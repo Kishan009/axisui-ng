@@ -1,0 +1,13 @@
+{
+  "name": "@axisui-ng/cdk",
+  "version": "0.0.1",
+  "description": "Low-level utilities for @axisui-ng/angular (virtual scroll, …). Signals-native, zoneless-ready, SSR-safe.",
+  "license": "MIT",
+  "private": false,
+  "publishConfig": { "access": "public" },
+  "sideEffects": false,
+  "peerDependencies": {
+    "@angular/core": "^20.0.0",
+    "@angular/common": "^20.0.0"
+  }
+}

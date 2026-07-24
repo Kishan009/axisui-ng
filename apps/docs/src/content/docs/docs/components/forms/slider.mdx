@@ -1,0 +1,57 @@
+---
+title: Slider
+category: forms
+description: Token-styled wrapper over a native range input, with min/max/step and a two-way value.
+status: stable
+since: 0.1
+---
+
+# Slider
+
+`<ax-slider>` is a token-styled wrapper over a native `<input type="range">`. It implements
+`ControlValueAccessor`, so it works with `[(value)]`, `[(ngModel)]`, and reactive forms.
+
+## Import
+
+```ts
+import { AxSliderComponent } from '@axisui-ng/forms';
+```
+
+## Usage
+
+```html
+<ax-slider [(value)]="volume" [min]="0" [max]="100" [step]="5" ariaLabel="Volume" />
+
+<!-- screen-reader-friendly valuetext -->
+<ax-slider [(value)]="percent" [format]="pctFormat" ariaLabel="Progress" />
+```
+
+```ts
+pctFormat = (v: number) => `${v}%`;
+```
+
+## Inputs & models
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `value` | `model<number>` | `0` | Two-way value (`[(value)]`); also CVA. |
+| `min` | `number` | `0` | Minimum. |
+| `max` | `number` | `100` | Maximum. |
+| `step` | `number` | `1` | Increment. |
+| `disabled` | `boolean` | `false` | Disabled (also via CVA `setDisabledState`). |
+| `ariaLabel` | `string` | `''` | Accessible label. |
+| `format` | `((value: number) => string) \| null` | `null` | Optional formatter for `aria-valuetext` (e.g. `v => v + '%'`). |
+
+## Accessibility
+
+Backed by a native range input: arrow keys adjust the value, Home/End jump to the bounds, and
+`aria-valuemin` / `aria-valuemax` / `aria-valuenow` are exposed automatically. Always provide
+`ariaLabel` (or a wrapping label). Use `format` when the raw number needs a spoken unit.
+
+## Storybook
+
+Interactive examples live in Storybook under **Forms / Slider**. Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `slider` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/forms/src/lib/slider/)

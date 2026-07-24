@@ -1,0 +1,85 @@
+---
+title: Radio
+category: forms
+description: Single value from a set — use ax-radio-group for CVA, arrow keys, and a shared name.
+status: stable
+since: 0.1
+---
+
+# Radio
+
+`<ax-radio>` represents one value from a mutually exclusive set. Prefer wrapping radios in
+`<ax-radio-group>`: the group owns the selected value (`[(value)]` / CVA), shares a native `name`,
+and exposes `role="radiogroup"`. Standalone radios still work via a shared `name` plus `[checked]` /
+`(changed)`.
+
+## Import
+
+```ts
+import { AxRadioComponent, AxRadioGroupComponent } from '@axisui-ng/forms';
+```
+
+## Usage
+
+```html
+<!-- recommended: group owns the model + CVA -->
+<ax-radio-group [(value)]="plan" ariaLabel="Plan">
+  <ax-radio value="free">Free</ax-radio>
+  <ax-radio value="pro">Pro</ax-radio>
+</ax-radio-group>
+
+<!-- standalone (shared name + parent-managed checked) -->
+<ax-radio
+  name="plan"
+  value="free"
+  [checked]="plan() === 'free'"
+  (changed)="plan.set($event)"
+>Free</ax-radio>
+```
+
+## `ax-radio-group` inputs & models
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `value` | `model<string \| null>` | `null` | Selected value (`[(value)]`); group is the CVA — bind `ngModel` / `formControlName` here. |
+| `name` | `string` | auto (`ax-radio-group-N`) | Shared native `name` for all children. |
+| `disabled` | `boolean` | `false` | Disables the whole group (also via CVA `setDisabledState`). |
+| `ariaLabel` | `string` | `''` | Accessible name for the radiogroup. |
+| `orientation` | `'vertical' \| 'horizontal'` | `'vertical'` | Exposed as `aria-orientation`. |
+
+## `ax-radio` inputs
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `value` | `string` (required) | — | Value this radio represents / emits when selected. |
+| `name` | `string` | auto (`ax-radio-N`) | Group name when standalone; ignored when inside a `ax-radio-group` (group `name` wins). |
+| `checked` | `boolean` | `false` | Selected when standalone; inside a group, selection follows the group `value`. |
+| `disabled` | `boolean` | `false` | Disabled (OR’d with group disabled / CVA). |
+| `ariaLabel` | `string \| null` | `null` | Accessible label when there’s no visible projected label. |
+
+## Outputs
+
+| Output | Payload | Notes |
+|---|---|---|
+| `changed` | `string` | On `ax-radio`: emits this radio’s `value` when selected. |
+
+## Slots
+
+Default content on `ax-radio` is projected as the visible label. `ax-radio-group` projects its
+`ax-radio` children.
+
+## Accessibility
+
+Inside a group, the host is `role="radiogroup"` with native radios sharing one `name` — arrow keys
+move/select and form submission work natively. Provide `ariaLabel` on the group (or wrap with
+[FormField](/docs/components/forms/form-field/) `group` + `groupRole="radiogroup"`). Standalone radios rely
+on a shared `name` for mutual exclusion.
+
+## Storybook
+
+Interactive examples live in Storybook under **Forms / Radio** and **Forms / RadioGroup**. Run
+`pnpm storybook` to explore them.
+
+## Source
+
+[View the `radio` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/forms/src/lib/radio/)

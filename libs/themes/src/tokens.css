@@ -1,0 +1,445 @@
+/* ============================================================================
+ * @axisui-ng/angular — Design Tokens (Single Source of Truth)
+ * ----------------------------------------------------------------------------
+ * This is the @theme block. Tailwind v4 reads it and auto-generates utility
+ * classes (bg-primary, text-muted-foreground, rounded-md, shadow-sm, ...).
+ *
+ * Token naming convention (Tailwind v4):
+ *   - `--color-*`     -> produces bg-*, text-*, border-*, ring-*, fill-* utilities
+ *   - `--radius-*`    -> produces rounded-* utilities
+ *   - `--space-*`     -> spacing scale (used via arbitrary values)
+ *   - `--font-*`      -> font families
+ *   - `--ease-*` / `--duration-*` -> motion utilities
+ *
+ * The four-layer token model:
+ *   1. Primitive    — raw OKLCH values, no semantic meaning
+ *   2. Semantic     — intent (primary, destructive, muted, ...)
+ *   3. Industry     — per-vertical overrides (data-industry="banking")
+ *   4. Tenant       — per-customer overrides (data-tenant="chase")
+ *
+ * Rules (enforced by PreToolUse hook):
+ *   - OKLCH only. No hex, no rgb in component code.
+ *   - Logical CSS only. Use --color-* tokens, never margin-left/padding-right.
+ *   - Do not edit the @theme block without updating AGENTS.md first.
+ * ============================================================================ */
+
+@import "tailwindcss";
+
+/* ----------------------------------------------------------------------------
+ * Layer 1 — Primitive tokens
+ * Raw OKLCH values, no semantic meaning. These are referenced by Layer 2.
+ * ------------------------------------------------------------------------- */
+@theme {
+  /* Neutrals (slate) */
+  --color-slate-50:  oklch(0.99 0 0);
+  --color-slate-100: oklch(0.97 0.005 250);
+  --color-slate-200: oklch(0.92 0.005 250);
+  --color-slate-300: oklch(0.85 0.005 250);
+  --color-slate-400: oklch(0.70 0.01 250);
+  --color-slate-500: oklch(0.55 0.01 250);
+  --color-slate-600: oklch(0.45 0.01 250);
+  --color-slate-700: oklch(0.35 0.01 250);
+  --color-slate-800: oklch(0.25 0.01 250);
+  --color-slate-900: oklch(0.18 0.01 250);
+  --color-slate-950: oklch(0.12 0.01 250);
+
+  /* Accent ramps — used by the 6 consumer/SaaS presets */
+  --color-blue-50:    oklch(0.97 0.02 250);
+  --color-blue-500:   oklch(0.55 0.22 265);
+  --color-blue-600:   oklch(0.50 0.22 265);
+  --color-blue-700:   oklch(0.45 0.22 265);
+  --color-violet-500: oklch(0.55 0.22 295);
+  --color-violet-600: oklch(0.50 0.22 295);
+  --color-rose-500:   oklch(0.60 0.22 15);
+  --color-rose-600:   oklch(0.55 0.22 15);
+  --color-emerald-500:oklch(0.65 0.18 155);
+  --color-amber-500:  oklch(0.75 0.18 75);
+  --color-red-500:    oklch(0.55 0.22 25);
+  --color-red-600:    oklch(0.50 0.22 25);
+
+  /* Industry accent ramps */
+  --color-trust-blue:    oklch(0.45 0.18 250);   /* Banking */
+  --color-trust-blue-dk: oklch(0.35 0.18 250);
+  --color-calm-teal:     oklch(0.55 0.12 195);   /* Healthcare */
+  --color-calm-teal-dk:  oklch(0.45 0.12 195);
+  --color-electric-blue: oklch(0.55 0.22 250);   /* Automotive */
+  --color-signal-orange: oklch(0.70 0.20 50);
+  --color-industrial-blue:oklch(0.40 0.18 250);  /* Logistics */
+  --color-hivis-yellow:  oklch(0.85 0.20 95);
+  --color-navy:           oklch(0.30 0.15 250);  /* Government */
+  --color-heritage-red:   oklch(0.45 0.20 25);
+
+  /* Radius scale */
+  --radius-sm: 0.375rem;   /* 6px */
+  --radius:    0.625rem;   /* 10px — default */
+  --radius-md: 0.625rem;
+  --radius-lg: 0.875rem;   /* 14px */
+  --radius-xl: 1.25rem;    /* 20px */
+
+  /* Spacing */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+
+  /* Shadows — slate-tinted (hue 255) so elevation reads as "designed" depth,
+     not flat gray. Punchier mid/large steps give cards, popovers and overlays
+     clear separation. Dark mode overrides the ramp under :root.dark. */
+  --shadow-sm: 0 1px 2px 0 oklch(0.20 0.02 255 / 0.06);
+  --shadow:    0 1px 3px 0 oklch(0.20 0.02 255 / 0.08), 0 1px 2px -1px oklch(0.20 0.02 255 / 0.06);
+  --shadow-md: 0 6px 16px -4px oklch(0.20 0.02 255 / 0.12), 0 2px 6px -2px oklch(0.20 0.02 255 / 0.08);
+  --shadow-lg: 0 16px 40px -12px oklch(0.20 0.02 255 / 0.20), 0 4px 12px -6px oklch(0.20 0.02 255 / 0.10);
+  --shadow-xl: 0 28px 64px -16px oklch(0.20 0.02 255 / 0.26), 0 8px 20px -8px oklch(0.20 0.02 255 / 0.12);
+
+  /* Badge / soft-surface tinting recipe. Semantic soft fills are built as
+     color-mix(in oklch, <semantic> <bg-mix>, var(--color-card)) with a border
+     at <bd-mix> and, in light mode, a foreground darkened toward the hue by
+     <fg-shift>. Overridden for dark mode where tones already run light. */
+  --badge-bg-mix: 14%;
+  --badge-bd-mix: 30%;
+  --badge-fg-shift: 44%;
+
+  /* Motion — easings drive `ease-*` utilities, durations drive `duration-*`.
+     No bounce/elastic curves (design ban). */
+  --ease-out-expo:  cubic-bezier(0.16, 1, 0.3, 1);   /* expressive reveals / overlays */
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);   /* subtle UI state transitions */
+  --ease-in-quart:  cubic-bezier(0.5, 0, 0.75, 0);   /* exits */
+  --duration-fast: 120ms;
+  --duration:      180ms;
+  --duration-slow: 240ms;
+
+  /* Type — families */
+  --font-sans: 'Geist', 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'Geist Mono', 'JetBrains Mono', 'SF Mono', 'Consolas', monospace;
+
+  /* Type — scale (size + paired line-height).
+     Tailwind v4 reads --text-* and --text-*--line-height to generate the text-*
+     utilities (size + leading in one class). Intentionally compatible with the
+     prior Tailwind defaults so existing text-* usages render unchanged — but now
+     owned, documented (docs/conventions/typography.md), and drift-checked. */
+  --text-xs:    0.75rem;   --text-xs--line-height:   1rem;     /* 12 / 16 */
+  --text-sm:    0.875rem;  --text-sm--line-height:   1.25rem;  /* 14 / 20 */
+  --text-base:  1rem;      --text-base--line-height: 1.5rem;   /* 16 / 24 */
+  --text-lg:    1.125rem;  --text-lg--line-height:   1.75rem;  /* 18 / 28 */
+  --text-xl:    1.25rem;   --text-xl--line-height:   1.75rem;  /* 20 / 28 */
+  --text-2xl:   1.5rem;    --text-2xl--line-height:  2rem;     /* 24 / 32 */
+  --text-3xl:   1.875rem;  --text-3xl--line-height:  2.25rem;  /* 30 / 36 */
+
+  /* Type — weights */
+  --font-weight-normal:   400;
+  --font-weight-medium:   500;
+  --font-weight-semibold: 600;
+  --font-weight-bold:     700;
+
+  /* Type — line-height (named, for headings/leading control) */
+  --leading-none:   1;
+  --leading-tight:  1.25;
+  --leading-normal: 1.5;
+
+  /* Type — letter spacing (tracking). Heading tighten floor is -0.04em. */
+  --tracking-tight:  -0.02em;
+  --tracking-normal:  0em;
+  --tracking-wide:    0.05em;  /* uppercase eyebrows / section labels */
+
+  /* Chart palette */
+  --color-chart-1: oklch(0.65 0.22 265);
+  --color-chart-2: oklch(0.70 0.18 165);
+  --color-chart-3: oklch(0.70 0.20 50);
+  --color-chart-4: oklch(0.65 0.22 320);
+  --color-chart-5: oklch(0.70 0.20 25);
+}
+
+/* ----------------------------------------------------------------------------
+ * Non-color / non-spacing tokens.
+ * --radius-* and --space-* are used by components via arbitrary values
+ * (rounded-[var(--radius-button)], h-[var(--height-row)]). They're not
+ * Tailwind utilities, so they live in :root, not @theme.
+ * ------------------------------------------------------------------------- */
+:root {
+  --radius-default: var(--radius-md);
+  --radius-card:    var(--radius-lg);
+  --radius-button:  var(--radius-md);
+  --radius-field:   var(--radius-md);
+
+  --space-padding:  var(--space-3);
+  --height-row:     2.5rem;       /* 40px — default */
+  --motion-duration: var(--duration);
+
+  --font-family:    var(--font-sans);
+}
+
+/* ----------------------------------------------------------------------------
+ * Layer 2 — Semantic tokens (industry-agnostic intent)
+ * Inside @theme so Tailwind v4 auto-generates bg-primary, text-foreground,
+ * border-input, ring-ring utilities, etc. The cascade from Layer 3/4
+ * overrides the values at the :root[data-industry="..."] level.
+ * ------------------------------------------------------------------------- */
+@theme {
+  --color-background:           var(--color-slate-50);
+  --color-foreground:           var(--color-slate-900);
+  --color-primary:              var(--color-blue-600);
+  --color-primary-foreground:   var(--color-slate-50);
+  --color-primary-hover:        var(--color-blue-700);
+  --color-secondary:            var(--color-slate-100);
+  --color-secondary-foreground: var(--color-slate-900);
+  --color-muted:                var(--color-slate-100);
+  --color-muted-foreground:     var(--color-slate-500);
+  --color-accent:               var(--color-slate-100);
+  --color-accent-foreground:    var(--color-slate-900);
+  --color-destructive:          var(--color-red-600);
+  --color-destructive-foreground: var(--color-slate-50);
+  --color-success:              var(--color-emerald-500);
+  --color-warning:              var(--color-amber-500);
+  /* warning's bg stays light (amber/hi-vis) across every theme + preset, so a
+     single dark foreground gives AA contrast everywhere — no per-theme override. */
+  --color-warning-foreground:   var(--color-slate-900);
+  --color-info:                 var(--color-blue-500);
+  --color-border:               var(--color-slate-200);
+  --color-input:                var(--color-slate-200);
+  --color-ring:                 var(--color-blue-600);
+  --color-card:                 var(--color-slate-50);
+  --color-card-foreground:      var(--color-slate-900);
+  --color-popover:              var(--color-slate-50);
+  --color-popover-foreground:   var(--color-slate-900);
+}
+
+/* Dark mode */
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root.dark {
+  --color-background:           var(--color-slate-950);
+  --color-foreground:           var(--color-slate-50);
+  --color-primary:              var(--color-blue-500);
+  --color-primary-foreground:   var(--color-slate-950);
+  --color-primary-hover:        var(--color-blue-600);
+  --color-secondary:            var(--color-slate-800);
+  --color-secondary-foreground: var(--color-slate-50);
+  --color-muted:                var(--color-slate-800);
+  --color-muted-foreground:     var(--color-slate-400);
+  --color-accent:               var(--color-slate-800);
+  --color-accent-foreground:    var(--color-slate-50);
+  --color-border:               var(--color-slate-800);
+  --color-input:                var(--color-slate-800);
+  --color-ring:                 var(--color-blue-500);
+  --color-card:                 var(--color-slate-900);
+  --color-card-foreground:      var(--color-slate-50);
+  --color-popover:              var(--color-slate-900);
+  --color-popover-foreground:   var(--color-slate-50);
+
+  /* Elevation — light-mode tinted shadows disappear on dark surfaces, so the
+     ramp switches to a deeper, near-black cast that still reads. */
+  --shadow-sm: 0 1px 2px 0 oklch(0 0 0 / 0.40);
+  --shadow:    0 1px 3px 0 oklch(0 0 0 / 0.45), 0 1px 2px -1px oklch(0 0 0 / 0.40);
+  --shadow-md: 0 8px 20px -6px oklch(0 0 0 / 0.50), 0 2px 8px -3px oklch(0 0 0 / 0.40);
+  --shadow-lg: 0 20px 48px -12px oklch(0 0 0 / 0.60), 0 6px 16px -8px oklch(0 0 0 / 0.45);
+  --shadow-xl: 0 32px 72px -18px oklch(0 0 0 / 0.68), 0 10px 24px -10px oklch(0 0 0 / 0.50);
+
+  /* Soft fills: dark tones already run light, so lift the tint and keep the
+     foreground on the hue's own light end (no darkening shift). */
+  --badge-bg-mix: 20%;
+  --badge-bd-mix: 36%;
+  --badge-fg-shift: 0%;
+}
+
+/* ----------------------------------------------------------------------------
+ * Layer 3 — Industry overrides
+ * Activated by data-industry attribute on <html> or any subtree.
+ * ------------------------------------------------------------------------- */
+
+/* Banking/Fintech — Trust Blue, compact, regulated, tighter radius */
+:root[data-industry="banking"] {
+  --color-primary:              var(--color-trust-blue);
+  --color-primary-foreground:   var(--color-slate-50);
+  --color-ring:                 var(--color-trust-blue);
+  --radius-default:             var(--radius-sm);
+  --radius-card:                var(--radius-md);
+  --radius-button:              var(--radius-sm);
+  --space-padding:              var(--space-2);
+  --height-row:                 2rem;
+}
+
+/* Healthcare — Calm Teal, comfortable, regulated, looser radius */
+:root[data-industry="healthcare"] {
+  --color-primary:              var(--color-calm-teal);
+  --color-primary-foreground:   var(--color-slate-50);
+  --color-ring:                 var(--color-calm-teal);
+  --radius-default:             var(--radius-lg);
+  --radius-card:                var(--radius-xl);
+  --radius-button:              var(--radius-lg);
+  --space-padding:              var(--space-4);
+  --height-row:                 3.5rem;
+}
+
+/* Automotive HMI — Electric Blue + Signal Orange accents, driver = sparse */
+:root[data-industry="automotive"] {
+  --color-primary:              var(--color-electric-blue);
+  --color-primary-foreground:   var(--color-slate-50);
+  --color-info:                 var(--color-signal-orange);
+  --color-ring:                 var(--color-electric-blue);
+  --radius-default:             var(--radius);
+  --radius-button:              var(--radius-md);
+  --height-row:                 3rem;
+}
+
+/* Logistics — Industrial Blue, very dense */
+:root[data-industry="logistics"] {
+  --color-primary:              var(--color-industrial-blue);
+  --color-primary-foreground:   var(--color-slate-50);
+  --color-warning:              var(--color-hivis-yellow);
+  --color-ring:                 var(--color-industrial-blue);
+  --radius-default:             var(--radius-sm);
+  --radius-button:              var(--radius-sm);
+  --space-padding:              var(--space-2);
+  --height-row:                 2rem;
+}
+
+/* Government — Navy + Heritage Red, authoritative, medium */
+:root[data-industry="government"] {
+  --color-primary:              var(--color-navy);
+  --color-primary-foreground:   var(--color-slate-50);
+  --color-destructive:          var(--color-heritage-red);
+  --color-ring:                 var(--color-navy);
+  --radius-default:             var(--radius-sm);
+  --radius-button:              var(--radius-sm);
+  --height-row:                 2.5rem;
+}
+
+/* ----------------------------------------------------------------------------
+ * Density modes — consumer can switch at any subtree
+ * ------------------------------------------------------------------------- */
+:root[data-density="dense"] {
+  --space-padding: var(--space-1);
+  --height-row:    1.75rem;       /* 28px — data-heavy grids */
+}
+:root[data-density="compact"] {
+  --space-padding: var(--space-2);
+  --height-row:    2rem;          /* 32px */
+}
+:root[data-density="default"] {
+  --space-padding: var(--space-3);
+  --height-row:    2.5rem;        /* 40px */
+}
+:root[data-density="comfortable"] {
+  --space-padding: var(--space-4);
+  --height-row:    3.5rem;        /* 56px */
+}
+:root[data-density="spacious"] {
+  --space-padding: var(--space-4);
+  --height-row:    4rem;          /* 64px — loosest */
+}
+
+/* ----------------------------------------------------------------------------
+ * Trust-tier modes — regulated enforces accessibility and motion limits
+ * ------------------------------------------------------------------------- */
+:root[data-trust="minimal"] {
+  --motion-duration: var(--duration);
+}
+:root[data-trust="standard"] {
+  --motion-duration: 200ms;
+}
+:root[data-trust="regulated"] {
+  --motion-duration: 120ms;
+}
+/* In regulated mode, hide decorative elements */
+:root[data-trust="regulated"] [data-decorative] {
+  display: none;
+}
+
+/* ----------------------------------------------------------------------------
+ * Layer 4 — Tenant overrides
+ * Example: a Chase Bank customer activates this on their root.
+ * :root[data-tenant="chase"] { --color-primary: oklch(0.50 0.20 245); }
+ * ------------------------------------------------------------------------- */
+
+/* ----------------------------------------------------------------------------
+ * Base layer — reset + defaults
+ * ------------------------------------------------------------------------- */
+@layer base {
+  *, ::before, ::after { box-sizing: border-box; }
+  html { color-scheme: light dark; }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-family);
+    margin: 0;
+  }
+
+  /* Reduced-motion floor — library-wide safety net. Components may layer a
+     gentler `motion-reduce:` crossfade where instant feels broken; this
+     guarantees nothing is left mid-animation under prefers-reduced-motion. */
+  @media (prefers-reduced-motion: reduce) {
+    *, ::before, ::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* ----------------------------------------------------------------------------
+ * Motion primitives — shared, token-driven animation building blocks.
+ * Connected overlays opt in with `data-ax-overlay` + a `data-state` of
+ * "open"/"closed". This provides the ENTER animation + the data-state
+ * contract; EXIT orchestration (delayed OverlayRef disposal) lands in
+ * @axisui-ng/overlays-core in Phase 3. See docs/conventions/motion.md.
+ * ------------------------------------------------------------------------- */
+@layer components {
+  @keyframes ax-overlay-in {
+    from { opacity: 0; transform: scale(0.96) translateY(-2px); }
+    to   { opacity: 1; transform: none; }
+  }
+  @keyframes ax-overlay-out {
+    from { opacity: 1; transform: none; }
+    to   { opacity: 0; transform: scale(0.96) translateY(-2px); }
+  }
+  [data-ax-overlay][data-state="open"] {
+    animation: ax-overlay-in var(--duration) var(--ease-out-expo);
+  }
+  /* Exit: the trigger keeps the overlay mounted until this animation ends
+     (see animateOverlayClose in @axisui-ng/overlays-core). Faster + ease-in. */
+  [data-ax-overlay][data-state="closed"] {
+    animation: ax-overlay-out var(--duration-fast) var(--ease-in-quart);
+  }
+
+  /* Sheet / drawer edge slide — same data-state contract, but a per-side
+     transform (via --ax-sheet-from) lets one keyframe pair cover all 4 edges.
+     The data-side rules out-specify the default overlay fade above. */
+  @keyframes ax-sheet-in {
+    from { opacity: 0; transform: var(--ax-sheet-from); }
+    to   { opacity: 1; transform: none; }
+  }
+  @keyframes ax-sheet-out {
+    from { opacity: 1; transform: none; }
+    to   { opacity: 0; transform: var(--ax-sheet-from); }
+  }
+  [data-ax-overlay][data-side="end"]    { --ax-sheet-from: translateX(100%); }
+  [data-ax-overlay][data-side="start"]  { --ax-sheet-from: translateX(-100%); }
+  [data-ax-overlay][data-side="top"]    { --ax-sheet-from: translateY(-100%); }
+  [data-ax-overlay][data-side="bottom"] { --ax-sheet-from: translateY(100%); }
+  [dir="rtl"] [data-ax-overlay][data-side="end"]   { --ax-sheet-from: translateX(-100%); }
+  [dir="rtl"] [data-ax-overlay][data-side="start"] { --ax-sheet-from: translateX(100%); }
+  [data-ax-overlay][data-side][data-state="open"]   { animation: ax-sheet-in var(--duration) var(--ease-out-expo); }
+  [data-ax-overlay][data-side][data-state="closed"] { animation: ax-sheet-out var(--duration-fast) var(--ease-in-quart); }
+
+  /* Toast entrance — each new toast (added to the outlet list) rises + fades in. */
+  @keyframes ax-toast-in {
+    from { opacity: 0; transform: translateY(0.5rem); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  /* Stepper — the newly-active step's content fades + rises in on navigation. */
+  @keyframes ax-step-in {
+    from { opacity: 0; transform: translateY(0.25rem); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  /* Hierarchy — the diagram fades + settles in when it first lays out. */
+  @keyframes ax-hierarchy-in {
+    from { opacity: 0; transform: scale(0.98); }
+    to   { opacity: 1; transform: none; }
+  }
+}

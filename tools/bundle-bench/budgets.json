@@ -1,0 +1,69 @@
+{
+  "tolerancePct": 5,
+  "packages": {
+    "blocks": {
+      "maxGzip": 5632,
+      "maxBrotli": 5120
+    },
+    "buttons": {
+      "maxGzip": 11776,
+      "maxBrotli": 10240
+    },
+    "cdk": {
+      "maxGzip": 3584,
+      "maxBrotli": 3072
+    },
+    "data": {
+      "maxGzip": 21504,
+      "maxBrotli": 17920
+    },
+    "feedback": {
+      "maxGzip": 8192,
+      "maxBrotli": 6656
+    },
+    "flow": {
+      "maxGzip": 12288,
+      "maxBrotli": 10752
+    },
+    "forms": {
+      "maxGzip": 46592,
+      "maxBrotli": 36352
+    },
+    "icons": {
+      "maxGzip": 6656,
+      "maxBrotli": 5632
+    },
+    "layout": {
+      "maxGzip": 7168,
+      "maxBrotli": 6656
+    },
+    "misc": {
+      "maxGzip": 5120,
+      "maxBrotli": 4608
+    },
+    "navigation": {
+      "maxGzip": 15360,
+      "maxBrotli": 13312
+    },
+    "overlays": {
+      "maxGzip": 16896,
+      "maxBrotli": 14336
+    },
+    "overlays-core": {
+      "maxGzip": 2560,
+      "maxBrotli": 2304
+    },
+    "primitives": {
+      "maxGzip": 6656,
+      "maxBrotli": 5632
+    },
+    "pro": {
+      "maxGzip": 35840,
+      "maxBrotli": 30208
+    },
+    "tree": {
+      "maxGzip": 8192,
+      "maxBrotli": 7168
+    }
+  }
+}

@@ -1,0 +1,9 @@
+/* Zinc — cool gray, enterprise/technical */
+
+@import "../tokens.css";
+
+:root {
+  --color-primary:              oklch(0.40 0.005 250);
+  --color-primary-foreground:   oklch(0.99 0 0);
+  --color-ring:                 oklch(0.40 0.005 250);
+}

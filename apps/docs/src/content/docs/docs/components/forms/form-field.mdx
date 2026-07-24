@@ -1,0 +1,68 @@
+---
+title: FormField
+category: forms
+description: Label, helper text, and error chrome around a projected control, with auto a11y wiring.
+status: stable
+since: 0.1
+---
+
+# FormField
+
+`<ax-form-field>` renders the label / helper / error chrome around a form control. It does **not** wrap
+the control’s element — you project the control in. The label’s `for` comes from `forId`; set the
+projected control’s `id` to the same value. Helper and error get their own ids, and the field
+auto-wires `aria-describedby` (and `aria-invalid` when `error` is set) onto controls that implement
+`AX_FORM_FIELD_CONTROL` (Input, Textarea, Select, …).
+
+## Import
+
+```ts
+import { AxFormFieldComponent } from '@axisui-ng/forms';
+```
+
+## Usage
+
+```html
+<ax-form-field label="Email" forId="email" helper="We'll never share it." [error]="emailError()">
+  <ax-input id="email" type="email" [(value)]="email" />
+</ax-form-field>
+
+<!-- group mode for radios / checkboxes -->
+<ax-form-field label="Plan" [group]="true" groupRole="radiogroup" [error]="planError()">
+  <ax-radio-group [(value)]="plan" ariaLabel="Plan">
+    <ax-radio value="free">Free</ax-radio>
+    <ax-radio value="pro">Pro</ax-radio>
+  </ax-radio-group>
+</ax-form-field>
+```
+
+## Inputs
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `label` | `string \| null` | `null` | Field label text. |
+| `helper` | `string \| null` | `null` | Helper/hint text when there’s no error. |
+| `error` | `string \| null` | `null` | Error message; non-empty string shows error + `aria-invalid`. |
+| `required` | `boolean` | `false` | Visual asterisk; in group mode also sets `aria-required` on the host. |
+| `forId` | `string \| null` | `null` | `for` target; match the projected control’s `id` (single-control mode). |
+| `group` | `boolean` | `false` | Labelled group mode — no `<label for>`; description/invalid on the host. |
+| `groupRole` | `'group' \| 'radiogroup'` | `'group'` | Host `role` when `group` is true. |
+
+## Slots
+
+Default content is the projected control(s) between the label and the helper/error text.
+
+## Accessibility
+
+In single-control mode, associate the label by matching `forId` to the control’s `id`. Compatible
+controls receive `aria-describedby` / `aria-invalid` via the form-field control contract. In `group`
+mode, the host becomes a labelled `group` / `radiogroup` (`aria-labelledby`); description and invalid
+state apply to the group, and children self-label.
+
+## Storybook
+
+Interactive examples live in Storybook under **Forms / FormField**. Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `form-field` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/forms/src/lib/form-field/)

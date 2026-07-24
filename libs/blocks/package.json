@@ -1,0 +1,22 @@
+{
+  "name": "@axisui-ng/blocks",
+  "version": "0.0.1",
+  "description": "Pre-composed, preset-reactive section blocks for @axisui-ng/angular.",
+  "license": "MIT",
+  "private": false,
+  "publishConfig": { "access": "public" },
+  "sideEffects": false,
+  "peerDependencies": {
+    "@angular/core": "^20.0.0",
+    "@angular/common": "^20.0.0",
+    "@axisui-ng/data": "^0.0.1",
+    "@axisui-ng/forms": "^0.0.1",
+    "@axisui-ng/buttons": "^0.0.1",
+    "@axisui-ng/icons": "^0.0.1"
+  },
+  "dependencies": {
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^2.5.5"
+  }
+}

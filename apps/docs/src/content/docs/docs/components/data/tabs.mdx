@@ -1,0 +1,88 @@
+---
+title: Tabs
+category: data
+description: Presentational tab container with triggers and panels coordinated via DI; optional router sync.
+status: stable
+since: 0.1
+---
+
+# Tabs
+
+`<ax-tabs>` is a presentational tab container. It provides the active value to its children via
+dependency injection: `<ax-tab-trigger>` activates a value, and `<ax-tab-panel>` shows the matching
+content (hidden — not removed — when inactive, preserving DOM state). `<ax-tabs-list>` hosts the
+tablist, sliding indicator, and keyboard navigation.
+
+## Import
+
+```ts
+import {
+  AxTabsComponent,
+  AxTabsListComponent,
+  AxTabTriggerComponent,
+  AxTabPanelComponent,
+  AxRouterTabsDirective,
+} from '@axisui-ng/data';
+```
+
+## Usage
+
+```html
+<ax-tabs [(value)]="active">
+  <ax-tabs-list>
+    <ax-tab-trigger value="account">Account</ax-tab-trigger>
+    <ax-tab-trigger value="password">Password</ax-tab-trigger>
+  </ax-tabs-list>
+
+  <ax-tab-panel value="account">Account settings…</ax-tab-panel>
+  <ax-tab-panel value="password">Password settings…</ax-tab-panel>
+</ax-tabs>
+```
+
+## `ax-tabs` inputs & models
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `value` | `model<string \| null>` | `null` | The active tab's value. |
+
+`<ax-tabs-list>` has no inputs — it hosts the `tablist`, sliding indicator, and ←/→/Home/End roving focus.
+
+## `ax-tab-trigger` inputs
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `value` | `string` (required) | — | Value this trigger activates (must match a panel). |
+| `disabled` | `boolean` | `false` | Prevents activation. |
+
+## `ax-tab-panel` inputs
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `value` | `string` (required) | — | Value this panel belongs to. |
+
+## Router sync (`axRouterTabs`)
+
+Optional directive on `<ax-tabs>` that two-way binds the active value to a URL query parameter.
+Import only when Angular Router is present.
+
+```html
+<ax-tabs axRouterTabs="tab" [(value)]="active">…</ax-tabs>
+```
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `axRouterTabs` | `string` | `'tab'` | Query param name to bind (directive alias). |
+
+## Accessibility
+
+`<ax-tabs-list>` is `role="tablist"`. Triggers are `role="tab"` with `aria-selected`,
+`aria-controls`, and roving tabindex (←/→/Home/End). Panels are `role="tabpanel"` labelled by their
+trigger. Inactive panels stay in the DOM (`hidden`).
+
+## Storybook
+
+Interactive examples live in Storybook under **Data / Tabs**. Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `tabs` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/data/src/lib/tabs/)

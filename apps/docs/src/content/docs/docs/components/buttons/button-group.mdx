@@ -1,0 +1,61 @@
+---
+title: ButtonGroup
+category: buttons
+description: Visually joins a row or column of buttons, rounding outer corners and merging inner borders.
+status: stable
+since: 0.1
+---
+
+# ButtonGroup
+
+`[axButtonGroup]` is an **attribute directive-component** that visually joins a set of sibling buttons:
+it rounds the outer corners of the first/last children, sharpens the inner corners between siblings,
+and removes duplicate borders. It works with Button, IconButton, and Toggle children.
+
+## Import
+
+```ts
+import { AxButtonGroupComponent, AxButtonComponent } from '@axisui-ng/buttons';
+```
+
+## Usage
+
+```html
+<div axButtonGroup ariaLabel="Text alignment">
+  <ax-button>Left</ax-button>
+  <ax-button>Center</ax-button>
+  <ax-button>Right</ax-button>
+</div>
+
+<!-- vertical -->
+<div axButtonGroup orientation="vertical" ariaLabel="Sort">
+  <ax-button>Asc</ax-button>
+  <ax-button>Desc</ax-button>
+</div>
+```
+
+## Inputs
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Layout direction. |
+| `ariaLabel` | `string \| null` | `null` | Accessible label; required when the group has no visible heading. |
+
+## Slots
+
+| Slot / marker | Notes |
+|---|---|
+| Default | Sibling children (`ax-button`, `ax-icon-button`, `ax-toggle`, etc.). The group only styles corners/borders; children keep their own variants. |
+
+## Accessibility
+
+Applies `role="group"` with the optional `ariaLabel`. For a toolbar of toggles with selection and
+roving tabindex, prefer [ToggleGroup](/docs/components/buttons/toggle-group/).
+
+## Storybook
+
+Interactive examples live in Storybook under **Buttons / ButtonGroup**. Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `button-group` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/buttons/src/lib/button-group/)

@@ -1,0 +1,48 @@
+{
+  "name": "themes",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/themes/src",
+  "projectType": "library",
+  "tags": ["scope:shared", "type:lib", "role:addon", "license:mit"],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/themes",
+        "main": "libs/themes/src/index.ts",
+        "tsConfig": "libs/themes/tsconfig.lib.json",
+        "assets": [
+          { "input": "libs/themes/src", "glob": "**/*.css", "output": "src" }
+        ]
+      }
+    },
+    "build-assets": {
+      "executor": "nx:run-commands",
+      "outputs": ["{workspaceRoot}/dist/libs/themes"],
+      "options": {
+        "command": "node -e \"const fs=require('fs'),path=require('path');const src='libs/themes/src';const dst='dist/libs/themes';const copy=f=>{if(fs.statSync(f).isDirectory()){for(const x of fs.readdirSync(f))copy(path.join(f,x))}else{const rel=path.relative(src,f);const out=path.join(dst,rel);fs.mkdirSync(path.dirname(out),{recursive:true});fs.copyFileSync(f,out)}};copy(src)\"",
+        "cwd": "."
+      },
+      "dependsOn": ["build"]
+    },
+    "build-all": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["build", "build-assets"],
+      "options": {
+        "command": "echo 'themes build complete'"
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/themes/jest.config.js"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
+    }
+  }
+}

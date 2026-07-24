@@ -1,0 +1,4 @@
+/components/*   /docs/components/:splat   301
+/guides/*       /docs/guides/:splat       301
+/roadmap        /docs/roadmap             301
+/roadmap/*      /docs/roadmap/:splat      301

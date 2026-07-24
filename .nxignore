@@ -1,0 +1,4 @@
+# Claude Code tooling directory. Worktrees created here (.claude/worktrees/*)
+# are full copies of the workspace; without this, nx discovers every project in
+# "multiple locations" and fails to build the project graph.
+.claude

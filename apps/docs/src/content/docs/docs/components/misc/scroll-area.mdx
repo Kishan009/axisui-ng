@@ -1,0 +1,64 @@
+---
+title: ScrollArea
+category: misc
+description: Scroll container with consistent, token-themed scrollbars across browsers.
+status: stable
+since: 0.1
+---
+
+# ScrollArea
+
+`<ax-scroll-area>` is a scroll container with consistent, token-themed scrollbars across
+browsers — Firefox `scrollbar-*` plus WebKit `::-webkit-scrollbar` pseudo-elements, expressed
+as Tailwind arbitrary utilities so **no extra stylesheet is needed**. The host *is* the
+scrollport: give it a bounded size and project content into it.
+
+## Import
+
+```ts
+import { AxScrollAreaComponent } from '@axisui-ng/misc';
+```
+
+## Usage
+
+```html
+<!-- vertical (default) -->
+<ax-scroll-area class="h-72 w-full rounded-md border border-border p-3" ariaLabel="Activity">
+  …long content…
+</ax-scroll-area>
+
+<!-- horizontal -->
+<ax-scroll-area orientation="horizontal" class="w-96 rounded-md border border-border p-3">
+  <div class="flex gap-2">…wide content…</div>
+</ax-scroll-area>
+```
+
+## Inputs
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `orientation` | `'vertical' \| 'horizontal' \| 'both'` | `'vertical'` | Which axis scrolls. |
+| `ariaLabel` | `string \| null` | `null` | When set, exposes a labelled `region` landmark. |
+
+## Sizing
+
+The component does not impose a size — the consumer bounds the scrollport with utility classes
+(`h-72`, `max-h-96`, `w-full`, …). Without a bounded dimension on the scroll axis there is
+nothing to scroll.
+
+## Accessibility
+
+- The scrollport is focusable (`tabindex="0"`) so keyboard users can scroll it — this satisfies
+  axe's `scrollable-region-focusable` rule.
+- Pass `ariaLabel` to additionally expose it as a `region` landmark (skip it for purely
+  decorative scroll panes to avoid landmark noise).
+- Scrollbar colours resolve from `--color-border` / `--color-muted-foreground`, so they track
+  the active theme, density, and industry preset automatically.
+
+## Storybook
+
+Interactive examples live in Storybook under **Misc / ScrollArea**. Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `scroll-area` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/misc/src/lib/scroll-area/)

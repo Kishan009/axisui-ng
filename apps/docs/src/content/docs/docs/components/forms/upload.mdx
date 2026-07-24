@@ -1,0 +1,90 @@
+---
+title: Upload / Dropzone
+category: forms
+description: Drag-drop / browse zone with validation, image thumbnails, and optional auto-upload + progress.
+status: stable
+since: 0.2
+---
+
+# Upload
+
+`<ax-upload>` is a drag-drop / browse zone with a validating file list, image thumbnails, and
+optional auto-upload with per-file progress. It implements `ControlValueAccessor` over `File[]`
+(works with `[(ngModel)]` / `formControlName`) and exposes a two-way `[(value)]`.
+
+Without `uploadFn` it's a pure dropzone (files are collected). With `uploadFn` it drives uploads and
+shows a [`ax-progress`](/docs/components/feedback/progress) bar per file. Files that fail validation
+(wrong type, too large, over the count cap) are silently ignored.
+
+## Import
+
+```ts
+import { AxUploadComponent, type UploadFn } from '@axisui-ng/forms';
+```
+
+## Usage
+
+```html
+<!-- collect files (consumer uploads) -->
+<ax-upload [(value)]="files" accept="image/*" [multiple]="true" [maxSize]="2000000" ariaLabel="Photos" />
+
+<!-- auto-upload with progress -->
+<ax-upload accept=".pdf" [uploadFn]="upload" ariaLabel="Documents" />
+```
+
+```ts
+upload: UploadFn = (file, onProgress, signal) =>
+  new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    xhr.upload.onprogress = (e) => onProgress((e.loaded / e.total) * 100);
+    xhr.onload = () => (xhr.status < 400 ? resolve() : reject(new Error(xhr.statusText)));
+    xhr.onerror = () => reject(new Error('Network error'));
+    signal.addEventListener('abort', () => xhr.abort());
+    xhr.open('POST', '/api/upload');
+    const body = new FormData();
+    body.append('file', file);
+    xhr.send(body);
+  });
+```
+
+## Inputs & models
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `value` | `model<File[]>` | `[]` | Accepted files; two-way + CVA. |
+| `accept` | `string` | `''` | `"image/*,.pdf"` — sets `input[accept]` + validates. |
+| `multiple` | `boolean` | `false` | When false, a new selection replaces the current file. |
+| `maxFiles` | `number \| null` | `null` | Cap on count (ignored when `!multiple`). |
+| `maxSize` | `number \| null` | `null` | Per-file byte cap. |
+| `disabled` | `boolean` | `false` | Also set by `setDisabledState` from a form. |
+| `uploadFn` | `UploadFn \| null` | `null` | Optional auto-upload driver. |
+| `ariaLabel` | `string` | `'Upload files'` | Labels the dropzone file input. |
+
+## `UploadFn`
+
+```ts
+type UploadFn = (file: File, onProgress: (percent: number) => void, signal: AbortSignal) => Promise<void>;
+```
+
+Resolve on success, reject on failure (the rejection's `Error.message` is shown), report progress
+via `onProgress`, and honour `signal` for cancellation (removing a file aborts its upload).
+
+## Behaviour
+
+- **Image thumbnails** for `image/*` files (object URLs, revoked on remove/destroy).
+- **Drag-drop** highlights the zone; **browse** opens the native picker (the zone is a `<label>`
+  around a visually-hidden file input — one accessible control, keyboard included).
+- Each row shows a thumbnail/icon, name, size, the progress/status, and a labelled remove button.
+
+## Accessibility
+
+The zone is a `<label>` wrapping a visually-hidden, labelled `<input type="file">` (focusable +
+keyboard-operable); the file list is a `role="list"` with a labelled remove button per row.
+
+## Storybook
+
+Interactive examples live in Storybook under **Forms / Upload**. Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `upload` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/forms/src/lib/upload/)

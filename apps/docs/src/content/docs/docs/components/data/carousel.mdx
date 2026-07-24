@@ -1,0 +1,74 @@
+---
+title: Carousel
+category: data
+description: Scroll-snap slide container with arrows, indicators, keyboard, and autoplay.
+status: stable
+since: 0.2
+---
+
+# Carousel
+
+`<ax-carousel>` is a horizontally scroll-snapping slide container. It's built on native CSS
+scroll-snap, so touch/swipe works for free and there are no JS transforms (SSR-safe). It supports
+multiple slides per view, prev/next arrows, dot indicators, keyboard nav, and autoplay. Project
+`<ax-carousel-slide>` children.
+
+## Import
+
+```ts
+import { AxCarouselComponent, AxCarouselSlideComponent } from '@axisui-ng/data';
+```
+
+## Usage
+
+```html
+<ax-carousel ariaLabel="Highlights">
+  <ax-carousel-slide>Slide one</ax-carousel-slide>
+  <ax-carousel-slide>Slide two</ax-carousel-slide>
+  <ax-carousel-slide>Slide three</ax-carousel-slide>
+</ax-carousel>
+
+<!-- two per view, looping, autoplay off -->
+<ax-carousel [slidesPerView]="2" [loop]="true" [autoplay]="false" ariaLabel="Products">
+  <ax-carousel-slide>…</ax-carousel-slide>
+  <ax-carousel-slide>…</ax-carousel-slide>
+</ax-carousel>
+```
+
+## `ax-carousel` inputs & models
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `slidesPerView` | `number` | `1` | Visible slides per view (1–4 styled; others fall back to full width). |
+| `loop` | `boolean` | `false` | Wrap past the ends with the arrows. |
+| `autoplay` | `boolean` | `true` | Auto-advance (see Autoplay). |
+| `interval` | `number` | `5000` | Autoplay interval (ms). |
+| `showArrows` | `boolean` | `true` | Prev/next arrows. |
+| `showIndicators` | `boolean` | `true` | Dot indicators. |
+| `ariaLabel` | `string` | `''` | Accessible label for the carousel region. |
+| `currentSlide` | `model<number>` | `0` | Two-way leading slide index. |
+
+**Public methods:** `next()`, `previous()`, `goTo(index)`.
+
+`<ax-carousel-slide>` has no public inputs — the parent assigns index; content is projected.
+
+## Autoplay
+
+On by default. It starts only in the browser (`afterNextRender`), **pauses on hover/focus**, is
+**skipped entirely under `prefers-reduced-motion: reduce`**, and is cleared on destroy. A pause/play
+control appears when autoplay is active and there are more slides than `slidesPerView`. The viewport
+is `aria-live="off"` while autoplaying (and `polite` otherwise).
+
+## Accessibility
+
+Host `role="region"` `aria-roledescription="carousel"` + `aria-label` from `ariaLabel`; each slide is
+`role="group"` `aria-roledescription="slide"` `aria-label="{i} of {n}"`; arrows ("Previous/Next
+slide") and dots (`Go to slide {i}`) are labelled; ←/→ navigate. Prefer a non-empty `ariaLabel`.
+
+## Storybook
+
+Interactive examples live in Storybook under **Data / Carousel**. Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `carousel` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/data/src/lib/carousel/)

@@ -1,0 +1,56 @@
+---
+title: Gauge
+category: charts
+description: Radial arc meter for a single value. Fully angle-driven, token-themed.
+status: stable
+since: 0.2
+tier: pro
+---
+
+# Gauge
+
+`<ax-gauge>` is a **Pro** radial meter. Its geometry is driven by `startAngle` / `endAngle` (degrees,
+clockwise from 3 o'clock), so you can render any arc. Self-gates with a `PRO` watermark until licensed.
+
+## Import
+
+```ts
+import { AxGaugeComponent } from '@axisui-ng/charts';
+```
+
+## Usage
+
+```html
+<!-- bottom semicircle -->
+<ax-gauge [value]="72" [startAngle]="0" [endAngle]="180" label="Score" ariaLabel="Score" />
+
+<!-- speedometer (three-quarter) -->
+<ax-gauge [value]="48" [startAngle]="135" [endAngle]="405" label="Load" ariaLabel="Load" />
+```
+
+## Inputs
+
+| Input | Type | Default | Notes |
+|---|---|---|---|
+| `value` | `number` (required) | — | Current value. |
+| `min` | `number` | `0` | Value domain minimum. |
+| `max` | `number` | `100` | Value domain maximum. |
+| `startAngle` | `number` (required) | — | Arc start, degrees clockwise from 3 o'clock. |
+| `endAngle` | `number` (required) | — | Arc end, degrees. |
+| `colorIndex` | `number` | `1` | Clamped to 1–5 → value-arc `--color-chart-N`. |
+| `label` | `string` | `''` | Caption under the center value. |
+| `ariaLabel` | `string` | `''` | Meter name; empty falls back to `label`, then `'Gauge'`. |
+
+## Accessibility
+
+Host `role="meter"` with `aria-valuenow` / `min` / `max` and `aria-valuetext` as `"{value} of {max}"`.
+`aria-label` comes from `ariaLabel`, else `label`, else `'Gauge'`.
+
+
+## Storybook
+
+Interactive examples live in Storybook under **Pro / Gauge**. Run `pnpm storybook` to explore them.
+
+## Source
+
+[View the `gauge` source on GitHub ↗](https://github.com/Kishan009/UI-Library/tree/main/libs/charts/src/lib/gauge/)

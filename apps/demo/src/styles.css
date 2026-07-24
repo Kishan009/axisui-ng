@@ -1,0 +1,75 @@
+/* Demo app global styles — Tailwind v4 + design tokens.
+ * @source is required so utilities used in libs/* and this app's templates
+ * are generated (same pattern as apps/storybook/styles.src.css).
+ *
+ * Visual direction (ui-ux-pro-max): Swiss Modernism 2.0 — rational grid,
+ * modular type, clear hierarchy. Fonts override demo-only; colors stay on
+ * @axisui-ng/themes OKLCH tokens (presets / dark / density). */
+@import 'tailwindcss';
+@import '../../../libs/themes/src/tokens.css';
+
+@source '../../../libs/**/*.{ts,html}';
+@source './**/*.{ts,html}';
+
+:root {
+  --font-sans: 'Fira Sans', 'Geist', 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'Fira Code', 'Geist Mono', 'JetBrains Mono', 'SF Mono', 'Consolas', monospace;
+  --font-family: var(--font-sans);
+}
+
+/* Skip link — keyboard users bypass sticky sidebar/topbar */
+.demo-skip-link {
+  position: fixed;
+  inset-inline-start: 1rem;
+  top: 1rem;
+  z-index: 100;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-md, 0.375rem);
+  background: var(--color-primary);
+  color: var(--color-primary-foreground, var(--color-on-primary, white));
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: var(--shadow-md);
+  transform: translateY(-160%);
+  transition: transform var(--duration) var(--ease-out-quart);
+}
+
+.demo-skip-link:focus {
+  outline: 2px solid var(--color-ring);
+  outline-offset: 2px;
+  transform: translateY(0);
+}
+
+.demo-skip-link:focus-visible {
+  transform: translateY(0);
+}
+
+/* Swiss surface: consistent elevation + state transition on interactive cards */
+.demo-surface {
+  background: var(--color-card);
+  color: var(--color-card-foreground);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg, 0.5rem);
+  box-shadow: var(--shadow-sm);
+  transition:
+    box-shadow var(--duration-fast) var(--ease-out-quart),
+    border-color var(--duration-fast) var(--ease-out-quart);
+}
+
+.demo-surface-interactive:hover {
+  box-shadow: var(--shadow-md);
+}
+
+/* Tabular figures for dashboard metrics */
+.demo-tabular {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .demo-skip-link,
+  .demo-surface {
+    transition: none;
+  }
+}
