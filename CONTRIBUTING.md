@@ -1,91 +1,76 @@
-# Contributing to @axisui-ng/angular
+# Contributing to AxisUI
 
-Thanks for your interest in contributing! This library is built by a small team and the community, and we welcome PRs of all sizes.
+Thanks for your interest! AxisUI welcomes contributions of all sizes — bug fixes, new components, docs, and accessibility improvements.
 
-## Quick start
+## Prerequisites
+
+- **Node.js** >= 20
+- **pnpm** >= 11 (`npm i -g pnpm`)
+- The repo uses **Nx** — run tasks with `npx nx ...`
+
+## Setup
 
 ```bash
-# Fork the repo, then clone
-git clone <your-fork-url>
-cd axisui-angular
-
-# Install pnpm (if you don't have it)
-npm install -g pnpm
-
-# Install dependencies
+git clone https://github.com/Kishan009/axisui-ng
+cd axisui-ng
 pnpm install
-
-# Run the build
-pnpm build
-
-# Run tests
-pnpm test
-
-# Run the docs site
-pnpm docs
 ```
+
+## Common commands
+
+```bash
+npx nx run-many -t build          # build all libraries
+npx nx run-many -t test           # tests (Jest + @testing-library/angular + jest-axe)
+npx nx run-many -t lint           # lint
+npx nx dev docs                   # run the docs site locally
+npx nx run storybook:storybook    # run Storybook
+```
+
+Before opening a PR, make sure `npx nx affected -t lint test build` passes.
+
+## Conventions (enforced in CI)
+
+Every component follows these — checked by ESLint + `tools/session/check-conventions.sh`:
+
+- **Signals only** — `input()`, `input.required()`, `output()`, `model()`, `viewChild()`, `contentChild()`. Never `@Input()` / `@Output()` / `@ViewChild()`.
+- **Standalone + OnPush** — no `NgModule` in `libs/*`.
+- **Selector prefix `ax-`** (e.g. `ax-button`); class name `AxButtonComponent`.
+- **Class composition** via `cn()` (clsx + tailwind-merge) + `cva` for variants.
+- **Design tokens** — Tailwind v4 `@theme` tokens in `libs/themes/src/tokens.css` are the single source of truth. **OKLCH only**; no hex/rgb in component code.
+- **Logical CSS only** — `ms-`, `me-`, `start-`, `end-` (never `ml-`, `left-`, …).
+- **Accessibility** — WAI-ARIA pattern + keyboard nav + a `jest-axe` test for every component, in 3 modes (LTR / RTL / dark).
+- **SSR-safe** — no top-level `window` / `document` / `localStorage`; guard with `afterNextRender()` / `isPlatformBrowser()`.
+- **No `any`** — use `unknown` + type guards.
+
+The canonical reference is `libs/buttons/src/lib/button/` — copy that pattern when in doubt.
+
+## Adding a component
+
+1. Pick the category lib (`libs/buttons`, `libs/forms`, `libs/data`, …).
+2. Copy the structure from `libs/buttons/src/lib/button/`: `<name>.variants.ts`, `<name>.types.ts`, `<name>.component.ts`, `<name>.spec.ts`, `<name>.stories.ts`, `index.ts`.
+3. Re-export from the category barrel (`libs/<category>/src/index.ts`).
+4. Add a docs page under `apps/docs/src/content/docs/docs/components/<category>/`.
+5. Run `npx nx run <category>:test` and `npx nx run <category>:lint`.
+
+## Reporting issues
+
+- **Bugs** → [open an issue](https://github.com/Kishan009/axisui-ng/issues/new): include the AxisUI + Angular version, a minimal repro, and expected vs actual behavior.
+- **Feature / component requests** → the feature / component-request templates.
+- **Questions & ideas** → [GitHub Discussions](https://github.com/Kishan009/axisui-ng/discussions).
+- **Security** → see [SECURITY.md](SECURITY.md); please don't open a public issue.
+
+## Pull requests
+
+1. Fork + branch (`git checkout -b feat/my-thing`).
+2. Follow the conventions above; keep tests green.
+3. Ensure `npx nx affected -t lint test build` passes.
+4. Use [Conventional Commits](https://www.conventionalcommits.org/) for messages.
+5. Open the PR against `main`; CI must pass.
 
 ## Code of conduct
 
-By participating, you agree to abide by the [Contributor Covenant](CODE_OF_CONDUCT.md). Be kind, be patient, assume good faith.
-
-## How to contribute
-
-### Reporting bugs
-
-Open a GitHub issue using the **bug report** template. Include:
-- A clear, reproducible description
-- The library version (`pnpm list @axisui-ng/angular`)
-- The Angular version (`pnpm list @angular/core`)
-- A minimal code example
-
-### Suggesting features
-
-Open a GitHub issue using the **feature request** template. For new components, use the **component request** template — that feeds directly into the v0.2+ roadmap.
-
-### Submitting PRs
-
-1. Fork the repo
-2. Create a branch: `git checkout -b feature/my-feature`
-3. Make your changes — follow the conventions in [AGENTS.md](AGENTS.md) and [docs/conventions/components.md](docs/conventions/components.md)
-4. Add tests — every component has a 3-mode spec (LTR, RTL, dark)
-5. Add a changeset: `pnpm changeset`
-6. Run the full check: `pnpm affected -t lint test build`
-7. Push and open a PR
-
-## Adding a new component
-
-The full step-by-step is in [AGENTS.md](AGENTS.md#adding-a-new-component-do-this-in-order). TL;DR:
-
-1. Identify the right category lib
-2. Copy the canonical pattern from `libs/buttons/src/lib/button/`
-3. Read [docs/conventions/components.md](docs/conventions/components.md)
-4. Create the files (variants, types, component, spec, stories, index)
-5. Re-export from the category barrel
-6. Add a Storybook story + docs page
-7. Run tests in 3 modes + bundle bench
-
-## Adding a new MCP tool
-
-See [docs/conventions/mcp.md](docs/conventions/mcp.md). The pattern is in `libs/mcp/src/tools/get-component.ts`.
-
-## Code style
-
-- All conventions are enforced by the PreToolUse hook (`tools/session/check-conventions.sh`) — you can't merge code that violates them
-- TypeScript strict mode (no `any`)
-- Conventional Commits
-- Conventional Comments in PRs
-
-## Review SLA
-
-- **Bug fixes:** 1 week
-- **Feature requests:** best effort, prioritized by 👍 reactions
-- **Pro tier bugs:** 48-hour response on issues tagged `pro`
+By participating you agree to the [Contributor Covenant](CODE_OF_CONDUCT.md). Be kind, assume good faith.
 
 ## Recognition
 
-We maintain a [CONTRIBUTORS.md](CONTRIBUTORS.md) file with every contributor. Monthly "top contributor" callouts in the changelog. The "good first issue" label marks accessible entry points for new contributors.
-
-## Questions?
-
-Open a GitHub Discussion or ask in the Discord (link TBD).
+Contributors are listed in [CONTRIBUTORS.md](CONTRIBUTORS.md), and `good first issue` labels mark friendly entry points. Thank you!

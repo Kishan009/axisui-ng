@@ -1,31 +1,13 @@
-# CODEOWNERS — auto-assigns reviewers per area
-# One maintainer per area for v0.1 (solo founder).
-# Expand to multiple owners per area in v0.2+.
+# CODEOWNERS — auto-assigns reviewers per area.
 
 # Default owner for everything
-*       @kisha
+*                @Kishan009
 
-# Conventions (any change here needs explicit review)
-/AGENTS.md                        @kisha
-/docs/conventions/                @kisha
-/tools/session/                   @kisha
-/.claude/settings.json            @kisha
+# Tooling
+/tools/          @Kishan009
 
-# Per-category libraries
-/libs/primitives/                 @kisha
-/libs/buttons/                    @kisha
-/libs/forms/                      @kisha
-/libs/data/                       @kisha
-/libs/feedback/                   @kisha
-/libs/overlays/                   @kisha
-/libs/navigation/                 @kisha
-/libs/misc/                       @kisha
-/libs/icons/                      @kisha
-/libs/themes/                     @kisha
-/libs/pro/                        @kisha
-/libs/mcp/                        @kisha
+# Libraries
+/libs/           @Kishan009
 
-# Apps
-/apps/docs/                       @kisha
-/apps/storybook/                  @kisha
-/apps/demo/                       @kisha
+# Apps (docs site, Storybook, demo)
+/apps/           @Kishan009

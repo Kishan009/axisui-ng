@@ -1,0 +1,47 @@
+version: 2
+updates:
+  # npm / pnpm dependencies (root workspace)
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 10
+    labels:
+      - "dependencies"
+    commit-message:
+      prefix: "chore(deps)"
+    groups:
+      angular:
+        patterns:
+          - "@angular*"
+          - "ng-packagr"
+          - "zone.js"
+      nx:
+        patterns:
+          - "@nx/*"
+          - "nx"
+      storybook:
+        patterns:
+          - "@storybook/*"
+          - "storybook"
+      dev-dependencies:
+        dependency-type: "development"
+        exclude-patterns:
+          - "@angular*"
+          - "@nx/*"
+          - "nx"
+          - "@storybook/*"
+          - "storybook"
+
+  # GitHub Actions used in workflows
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    labels:
+      - "dependencies"
+      - "github-actions"
+    commit-message:
+      prefix: "chore(ci)"
