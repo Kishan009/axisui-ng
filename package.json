@@ -25,12 +25,12 @@
     "prepare": "husky"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^20.0.0",
-    "@angular-devkit/core": "20.3.27",
-    "@angular-devkit/schematics": "20.3.27",
-    "@angular/build": "^20.0.0",
-    "@angular/cli": "^20.0.0",
-    "@angular/compiler-cli": "^20.0.0",
+    "@angular-devkit/build-angular": "^22.0.8",
+    "@angular-devkit/core": "22.0.8",
+    "@angular-devkit/schematics": "22.0.8",
+    "@angular/build": "^22.0.8",
+    "@angular/cli": "^22.0.8",
+    "@angular/compiler-cli": "^22.0.8",
     "@astrojs/starlight": "^0.41.4",
     "@eslint/js": "^10.0.1",
     "@nx/angular": "^21.0.0",
@@ -68,18 +68,18 @@
     "typescript-eslint": "^8.61.1"
   },
   "dependencies": {
-    "@angular/animations": "^20.0.0",
-    "@angular/cdk": "^20.0.0",
-    "@angular/common": "^20.3.25",
-    "@angular/compiler": "^20.3.25",
-    "@angular/core": "^20.3.25",
-    "@angular/forms": "^20.0.0",
-    "@angular/platform-browser": "^20.0.0",
-    "@angular/platform-browser-dynamic": "^20.0.0",
-    "@angular/platform-server": "^20.0.0",
-    "@angular/router": "^20.0.0",
+    "@angular/animations": "^22.0.8",
+    "@angular/cdk": "^22.0.6",
+    "@angular/common": "^22.0.8",
+    "@angular/compiler": "^22.0.8",
+    "@angular/core": "^22.0.8",
+    "@angular/forms": "^22.0.8",
+    "@angular/platform-browser": "^22.0.8",
+    "@angular/platform-browser-dynamic": "^22.0.8",
+    "@angular/platform-server": "^22.0.8",
+    "@angular/router": "^22.0.8",
     "rxjs": "~7.8.0",
     "tslib": "^2.6.0",
-    "zone.js": "~0.15.0"
+    "zone.js": "~0.16.2"
   }
 }
