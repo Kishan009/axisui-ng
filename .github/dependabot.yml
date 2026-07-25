@@ -33,6 +33,24 @@ updates:
           - "nx"
           - "@storybook/*"
           - "storybook"
+    ignore:
+      # ng-packagr and zone.js track Angular's major version — never let them
+      # cross-major ahead of Angular (e.g. ng-packagr 22 on Angular 20 breaks
+      # the library build). They move deliberately when Angular is upgraded.
+      - dependency-name: "ng-packagr"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "zone.js"
+        update-types: ["version-update:semver-major"]
+      # Hold ESLint on 9.x — a major needs coordinated flat-config + plugin
+      # updates (typescript-eslint, angular-eslint), done deliberately.
+      - dependency-name: "eslint"
+        update-types: ["version-update:semver-major"]
+      # Nx majors are upgraded deliberately via `nx migrate` (config/executor
+      # migrations), never as an unattended bump.
+      - dependency-name: "nx"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@nx/*"
+        update-types: ["version-update:semver-major"]
 
   # GitHub Actions used in workflows
   - package-ecosystem: "github-actions"
