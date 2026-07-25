@@ -34,6 +34,12 @@ updates:
           - "@storybook/*"
           - "storybook"
     ignore:
+      # Angular framework majors (core/cli/build/devkit/cdk/…) are upgraded
+      # deliberately via `ng update`, never as an unattended Dependabot bump.
+      - dependency-name: "@angular*"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@schematics/*"
+        update-types: ["version-update:semver-major"]
       # ng-packagr and zone.js track Angular's major version — never let them
       # cross-major ahead of Angular (e.g. ng-packagr 22 on Angular 20 breaks
       # the library build). They move deliberately when Angular is upgraded.
