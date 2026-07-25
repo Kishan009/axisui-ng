@@ -30,7 +30,7 @@ jobs:
       - run: pnpm install --frozen-lockfile
 
       # Derive the base/head SHAs for `nx affected` on both push and PR.
-      - uses: nrwl/nx-set-shas@v4
+      - uses: nrwl/nx-set-shas@v5
 
       - name: Lint, test, build (affected)
         run: pnpm exec nx affected -t lint test build --parallel=3
