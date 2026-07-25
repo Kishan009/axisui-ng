@@ -45,6 +45,12 @@ updates:
       # updates (typescript-eslint, angular-eslint), done deliberately.
       - dependency-name: "eslint"
         update-types: ["version-update:semver-major"]
+      # Nx majors are upgraded deliberately via `nx migrate` (config/executor
+      # migrations), never as an unattended bump.
+      - dependency-name: "nx"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@nx/*"
+        update-types: ["version-update:semver-major"]
 
   # GitHub Actions used in workflows
   - package-ecosystem: "github-actions"
