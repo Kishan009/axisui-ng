@@ -18,11 +18,16 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  contentChild,
   input,
   output,
 } from '@angular/core';
 
 import { cn } from '../_utils/cn';
+import {
+  AxButtonLeadingDirective,
+  AxButtonTrailingDirective,
+} from '../_utils/icon-slot.directive';
 import { buttonVariants, type ButtonSize, type ButtonVariant } from './button.variants';
 
 /**
@@ -48,6 +53,7 @@ import { buttonVariants, type ButtonSize, type ButtonVariant } from './button.va
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [],
   host: {
+    class: 'inline-flex',
     '[class.ax-button]': 'true',
     '[attr.data-variant]': 'variant()',
     '[attr.data-size]': 'size()',
@@ -70,11 +76,19 @@ import { buttonVariants, type ButtonSize, type ButtonVariant } from './button.va
           </svg>
         </span>
       }
-      <span class="ax-button__leading" [hidden]="!hasLeading() || loading()">
+      <span
+        class="ax-button__leading inline-flex shrink-0 items-center"
+        [hidden]="!showLeading() || loading()"
+      >
         <ng-content select="[axButtonLeading]"></ng-content>
       </span>
-      <span class="ax-button__label"><ng-content></ng-content></span>
-      <span class="ax-button__trailing" [hidden]="!hasTrailing()">
+      <span class="ax-button__label inline-flex items-center gap-2">
+        <ng-content></ng-content>
+      </span>
+      <span
+        class="ax-button__trailing inline-flex shrink-0 items-center"
+        [hidden]="!showTrailing()"
+      >
         <ng-content select="[axButtonTrailing]"></ng-content>
       </span>
     </button>
@@ -96,10 +110,18 @@ export class AxButtonComponent {
    */
   loading = input<boolean>(false);
 
-  /** Whether a leading icon slot is present. Auto-detected via content projection. */
+  /**
+   * Force-show the leading icon slot. Prefer marking the icon with
+   * `axButtonLeading` — that is auto-detected via content projection.
+   * @default false
+   */
   hasLeading = input<boolean>(false);
 
-  /** Whether a trailing icon slot is present. Auto-detected via content projection. */
+  /**
+   * Force-show the trailing icon slot. Prefer marking the icon with
+   * `axButtonTrailing` — that is auto-detected via content projection.
+   * @default false
+   */
   hasTrailing = input<boolean>(false);
 
   /** Accessible label override. Use when the button has no visible text (icon-only). */
@@ -107,6 +129,19 @@ export class AxButtonComponent {
 
   /** Emitted on click. Payload: native MouseEvent. Suppressed if disabled or loading. */
   readonly clickEvent = output<MouseEvent>();
+
+  private readonly leadingSlot = contentChild(AxButtonLeadingDirective);
+  private readonly trailingSlot = contentChild(AxButtonTrailingDirective);
+
+  /** Leading slot visible when forced or when an `axButtonLeading` marker is projected. */
+  protected readonly showLeading = computed(
+    () => this.hasLeading() || !!this.leadingSlot(),
+  );
+
+  /** Trailing slot visible when forced or when an `axButtonTrailing` marker is projected. */
+  protected readonly showTrailing = computed(
+    () => this.hasTrailing() || !!this.trailingSlot(),
+  );
 
   /** Resolved class string — composed via cn() and cva. */
   protected readonly classes = computed(() =>

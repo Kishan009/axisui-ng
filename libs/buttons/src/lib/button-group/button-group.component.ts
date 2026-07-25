@@ -60,23 +60,23 @@ export class AxButtonGroupComponent {
    */
   protected readonly classes = computed(() => {
     const o = this.orientation();
+    // Target the inner <button> — ax-button / ax-icon-button wrap their
+    // visual surface, so host-level radius/border utilities would miss.
     if (o === 'horizontal') {
       return cn([
         'inline-flex',
-        // Sharp inner corners (start/end of each child except first/last)
-        '[&>*:not(:first-child):not(:last-child)]:rounded-none',
-        '[&>*:first-child]:rounded-e-none',
-        '[&>*:last-child]:rounded-s-none',
-        // Hide overlapping borders
-        '[&>*:not(:first-child)]:-ms-px',
+        '[&>*:not(:first-child):not(:last-child)_button]:rounded-none',
+        '[&>*:first-child_button]:rounded-e-none',
+        '[&>*:last-child_button]:rounded-s-none',
+        '[&>*:not(:first-child)_button]:-ms-px',
       ]);
     }
     return cn([
       'inline-flex flex-col',
-      '[&>*:not(:first-child):not(:last-child)]:rounded-none',
-      '[&>*:first-child]:rounded-b-none',
-      '[&>*:last-child]:rounded-t-none',
-      '[&>*:not(:first-child)]:-mt-px',
+      '[&>*:not(:first-child):not(:last-child)_button]:rounded-none',
+      '[&>*:first-child_button]:rounded-b-none',
+      '[&>*:last-child_button]:rounded-t-none',
+      '[&>*:not(:first-child)_button]:-mt-px',
     ]);
   });
 }

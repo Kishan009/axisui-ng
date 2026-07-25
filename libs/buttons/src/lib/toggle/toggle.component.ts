@@ -56,11 +56,11 @@ import { toggleVariants, type ToggleSize, type ToggleVariant } from './toggle.va
       [disabled]="disabled()"
       (click)="onClick($event)"
     >
-      <span class="ax-toggle__leading" [hidden]="!hasLeading()">
+      <span class="ax-toggle__leading inline-flex shrink-0 items-center" [hidden]="!hasLeading()">
         <ng-content select="[axButtonLeading]"></ng-content>
       </span>
-      <span class="ax-toggle__label"><ng-content></ng-content></span>
-      <span class="ax-toggle__trailing" [hidden]="!hasTrailing()">
+      <span class="ax-toggle__label inline-flex items-center gap-2"><ng-content></ng-content></span>
+      <span class="ax-toggle__trailing inline-flex shrink-0 items-center" [hidden]="!hasTrailing()">
         <ng-content select="[axButtonTrailing]"></ng-content>
       </span>
     </button>

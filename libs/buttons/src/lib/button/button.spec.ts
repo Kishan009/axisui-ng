@@ -10,6 +10,7 @@ import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { axe, toHaveNoViolations } from 'jest-axe';
 
+import { AxButtonLeadingDirective } from '../_utils/icon-slot.directive';
 import { AxButtonComponent } from './button.component';
 
 expect.extend(toHaveNoViolations);
@@ -76,6 +77,34 @@ describe('AxButtonComponent', () => {
       fixture.detectChanges();
       const results = await axe(fixture.nativeElement);
       expect(results).toHaveNoViolations();
+    });
+  });
+
+  describe('leading icon slot', () => {
+    @Component({
+      standalone: true,
+      imports: [AxButtonComponent, AxButtonLeadingDirective],
+      template: `
+        <ax-button>
+          <span axButtonLeading data-testid="lead">★</span>
+          Save
+        </ax-button>
+      `,
+    })
+    class LeadingHostComponent {}
+
+    it('auto-shows the leading slot when axButtonLeading is projected', () => {
+      const fixture = TestBed.createComponent(LeadingHostComponent);
+      fixture.detectChanges();
+      const leading = fixture.nativeElement.querySelector(
+        '.ax-button__leading',
+      ) as HTMLElement;
+      expect(leading.hasAttribute('hidden')).toBe(false);
+      expect(leading.querySelector('[data-testid="lead"]')).toBeTruthy();
+      const label = fixture.nativeElement.querySelector(
+        '.ax-button__label',
+      ) as HTMLElement;
+      expect(label.className).toContain('gap-2');
     });
   });
 
