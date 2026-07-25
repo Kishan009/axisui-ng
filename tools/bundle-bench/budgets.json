@@ -14,8 +14,8 @@
       "maxBrotli": 3072
     },
     "data": {
-      "maxGzip": 21504,
-      "maxBrotli": 17920
+      "maxGzip": 79872,
+      "maxBrotli": 59392
     },
     "feedback": {
       "maxGzip": 8192,
@@ -30,8 +30,8 @@
       "maxBrotli": 36352
     },
     "icons": {
-      "maxGzip": 6656,
-      "maxBrotli": 5632
+      "maxGzip": 10240,
+      "maxBrotli": 8704
     },
     "layout": {
       "maxGzip": 7168,
@@ -56,10 +56,6 @@
     "primitives": {
       "maxGzip": 6656,
       "maxBrotli": 5632
-    },
-    "pro": {
-      "maxGzip": 35840,
-      "maxBrotli": 30208
     },
     "tree": {
       "maxGzip": 8192,

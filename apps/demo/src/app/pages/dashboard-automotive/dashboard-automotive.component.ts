@@ -235,7 +235,7 @@ interface AlertRow {
                 />
               </div>
               <div axStack gap="2">
-                <label class="text-sm font-medium">Service time</label>
+                <span class="text-sm font-medium">Service time</span>
                 <ax-time-picker [(value)]="serviceTime" [use24]="false" />
               </div>
               <div axCluster gap="2">

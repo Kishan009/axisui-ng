@@ -77,11 +77,11 @@ import { DemoLayoutService } from '../../layout/layout.service';
           />
         </div>
         <div axStack gap="2">
-          <label class="text-sm font-medium">Skills</label>
+          <span class="text-sm font-medium">Skills</span>
           <ax-tag-input [(value)]="skills" placeholder="Add a skill…" [max]="10" ariaLabel="Skills" />
         </div>
         <div axStack gap="2">
-          <label class="text-sm font-medium">Avatar</label>
+          <span class="text-sm font-medium">Avatar</span>
           <ax-upload
             accept="image/*"
             [multiple]="false"

@@ -569,7 +569,7 @@ import { DemoConfirmDialogComponent } from './confirm-dialog.component';
           />
         </div>
         <div axStack gap="2">
-          <label class="text-sm font-medium">Skills</label>
+          <span class="text-sm font-medium">Skills</span>
           <ax-tag-input [(value)]="skills" placeholder="Add a skill…" [max]="8" ariaLabel="Skills" />
           <div axCluster gap="2" class="flex-wrap">
             <ax-chip>Angular</ax-chip>
@@ -577,7 +577,7 @@ import { DemoConfirmDialogComponent } from './confirm-dialog.component';
           </div>
         </div>
         <div axStack gap="2">
-          <label class="text-sm font-medium">Avatar upload</label>
+          <span class="text-sm font-medium">Avatar upload</span>
           <ax-upload
             accept="image/*"
             [multiple]="false"
@@ -727,7 +727,7 @@ import { DemoConfirmDialogComponent } from './confirm-dialog.component';
         <h3 class="text-sm font-semibold tracking-tight">Forms — combobox, OTP &amp; color</h3>
         <div class="grid gap-4 md:grid-cols-2">
           <div axStack gap="2">
-            <label class="text-sm font-medium">Assignee</label>
+            <span class="text-sm font-medium">Assignee</span>
             <ax-combobox
               [options]="assigneeOptions"
               [(value)]="assignee"
@@ -736,7 +736,7 @@ import { DemoConfirmDialogComponent } from './confirm-dialog.component';
             />
           </div>
           <div axStack gap="2">
-            <label class="text-sm font-medium">Verification code</label>
+            <span class="text-sm font-medium">Verification code</span>
             <ax-input-otp [length]="6" [(value)]="otp" (complete)="onOtp($event)" />
             @if (otpComplete()) {
               <p class="text-xs text-muted-foreground">Complete: {{ otpComplete() }}</p>
@@ -744,7 +744,7 @@ import { DemoConfirmDialogComponent } from './confirm-dialog.component';
           </div>
         </div>
         <div axStack gap="2">
-          <label class="text-sm font-medium">Brand accent (OKLCH)</label>
+          <span class="text-sm font-medium">Brand accent (OKLCH)</span>
           <div axCluster gap="3" class="items-center">
             <div class="h-10 w-10 shrink-0 rounded-md border border-border" [axSwatch]="brandColor()"></div>
             <p axText size="xs" tone="muted">AxSwatchDirective preview mirrors the picker value.</p>
@@ -889,9 +889,9 @@ import { DemoConfirmDialogComponent } from './confirm-dialog.component';
             </ax-radio-group>
           </div>
           <div axStack gap="2">
-            <label class="text-sm font-medium">Guests</label>
+            <span class="text-sm font-medium">Guests</span>
             <ax-input-number [(value)]="guests" [min]="1" [max]="20" ariaLabel="Guests" />
-            <label class="text-sm font-medium">Appointment time</label>
+            <span class="text-sm font-medium">Appointment time</span>
             <ax-time-picker [(value)]="appointmentTime" [use24]="false" />
           </div>
         </div>
