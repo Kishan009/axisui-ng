@@ -243,7 +243,7 @@ interface DelayRow {
             />
           </div>
           <div axStack gap="2">
-            <label class="text-sm font-medium">Time</label>
+            <span class="text-sm font-medium">Time</span>
             <ax-time-picker [(value)]="rescheduleTime" [use24]="true" />
           </div>
         </div>

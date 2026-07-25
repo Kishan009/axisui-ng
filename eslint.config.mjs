@@ -109,13 +109,13 @@ export default tseslint.config(
     },
   },
   {
-    // The demo app uses the standard `app` prefix, not the library `ui` prefix.
+    // The demo app uses the `demo` prefix (with `app` also allowed), not the library `ax` prefix.
     // Excludes specs/stories so it only layers onto the (plugin-registering) production block.
     files: ['apps/demo/**/*.ts'],
     ignores: ['**/*.spec.ts', '**/*.stories.ts'],
     rules: {
-      '@angular-eslint/component-selector': ['error', { type: 'element', prefix: 'app', style: 'kebab-case' }],
-      '@angular-eslint/directive-selector': ['error', { type: 'attribute', prefix: 'app', style: 'camelCase' }],
+      '@angular-eslint/component-selector': ['error', { type: 'element', prefix: ['demo', 'app'], style: 'kebab-case' }],
+      '@angular-eslint/directive-selector': ['error', { type: 'attribute', prefix: ['demo', 'app'], style: 'camelCase' }],
     },
   },
   {

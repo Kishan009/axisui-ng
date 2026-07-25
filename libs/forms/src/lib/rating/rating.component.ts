@@ -52,8 +52,8 @@ const SIZE_PX: Record<RatingSize, number> = { sm: 16, md: 20, lg: 24 };
   },
   template: `
     @for (i of stars(); track i) {
-      <!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events, @angular-eslint/template/interactive-supports-focus -- keyboard is handled on the host role="slider" (arrows/Home/End); the stars are mouse targets only -->
       <!-- Touch target (S3): star icon stays 16–24px; ::before expands each star's pressable area to ≥44px. -->
+      <!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events, @angular-eslint/template/interactive-supports-focus -- keyboard is handled on the host role="slider" (arrows/Home/End); the stars are mouse targets only -->
       <span
         class="relative inline-flex leading-none before:absolute before:inset-[-12px] before:content-[''] transition-transform duration-[var(--duration-fast)] ease-out-quart active:scale-[0.98]"
         [class.cursor-pointer]="interactive()"

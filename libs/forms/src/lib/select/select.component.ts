@@ -104,7 +104,7 @@ let selectSeq = 0;
         class="z-50 max-h-60 w-full overflow-auto rounded-[var(--radius-field)] border border-border bg-popover p-1 text-popover-foreground shadow-md"
       >
         @for (opt of options(); track opt.value; let i = $index) {
-          <!-- listbox uses aria-activedescendant: trigger stays focused; options are pointer targets -->
+          <!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events, @angular-eslint/template/interactive-supports-focus -- listbox uses aria-activedescendant: trigger stays focused; options are pointer targets -->
           <div
             role="option"
             #optionEl
