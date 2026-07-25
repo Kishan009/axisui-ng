@@ -24,10 +24,22 @@ const TAILWIND_DEPS: ReadonlyArray<{ name: string; version: string }> = [
   { name: "@tailwindcss/postcss", version: "^4.0.0" },
 ];
 
+/**
+ * Runtime peer dependencies AxisUI components import but that npm will not
+ * auto-install (they are peers of transitive `@axisui-ng/*` packages). Several
+ * categories — forms, overlays, overlays-core, navigation — import from
+ * `@angular/cdk`, so without this a production build fails to resolve
+ * `@angular/cdk/{overlay,portal,bidi,a11y}`.
+ */
+const RUNTIME_DEPS: ReadonlyArray<{ name: string; version: string }> = [
+  { name: "@angular/cdk", version: "^20.0.0" },
+];
+
 /** `ng add @axisui-ng/angular` — wire Tailwind v4 + AxisUI tokens into the app. */
 export function ngAdd(options: Schema): Rule {
   return chain([
     addTailwindDependencies(),
+    addRuntimeDependencies(),
     addPostcssConfig(),
     wireGlobalStyles(options),
     scheduleInstallAndReport(),
@@ -44,6 +56,21 @@ function addTailwindDependencies(): Rule {
         overwrite: false,
       });
       context.logger.info(`Added devDependency ${dep.name}@${dep.version}`);
+    }
+    return tree;
+  };
+}
+
+function addRuntimeDependencies(): Rule {
+  return (tree: Tree, context: SchematicContext) => {
+    for (const dep of RUNTIME_DEPS) {
+      addPackageJsonDependency(tree, {
+        type: NodeDependencyType.Default,
+        name: dep.name,
+        version: dep.version,
+        overwrite: false,
+      });
+      context.logger.info(`Added dependency ${dep.name}@${dep.version}`);
     }
     return tree;
   };
