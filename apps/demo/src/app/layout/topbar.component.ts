@@ -1,7 +1,10 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router } from '@angular/router';
-import { AxButtonComponent } from '@axisui-ng/buttons';
+import {
+  AxButtonComponent,
+  AxButtonLeadingDirective,
+} from '@axisui-ng/buttons';
 import { AxIconComponent } from '@axisui-ng/icons';
 import { AxKbdComponent } from '@axisui-ng/misc';
 import { AxClusterDirective } from '@axisui-ng/primitives';
@@ -32,7 +35,13 @@ const TITLES: Record<string, string> = {
 @Component({
   selector: 'demo-topbar',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [AxButtonComponent, AxClusterDirective, AxIconComponent, AxKbdComponent],
+  imports: [
+    AxButtonComponent,
+    AxButtonLeadingDirective,
+    AxClusterDirective,
+    AxIconComponent,
+    AxKbdComponent,
+  ],
   template: `
     <header
       class="sticky top-0 z-20 flex h-14 items-center justify-between gap-4 border-b border-border bg-background/85 px-4 backdrop-blur-md sm:px-6"
@@ -62,7 +71,7 @@ const TITLES: Record<string, string> = {
           ariaLabel="Open command palette"
           (clickEvent)="layout.openCommand()"
         >
-          <ax-icon name="search" [size]="16" />
+          <ax-icon axButtonLeading name="search" [size]="16" />
           <span class="hidden sm:inline">Search</span>
           <ax-kbd keys="mod+k" ariaLabel="modifier plus K" />
         </ax-button>
@@ -72,7 +81,11 @@ const TITLES: Record<string, string> = {
           [ariaLabel]="layout.dark() ? 'Switch to light mode' : 'Switch to dark mode'"
           (clickEvent)="layout.toggleDark()"
         >
-          <ax-icon [name]="layout.dark() ? 'eye' : 'eye-off'" [size]="16" />
+          <ax-icon
+            axButtonLeading
+            [name]="layout.dark() ? 'eye' : 'eye-off'"
+            [size]="16"
+          />
           <span class="hidden md:inline">{{ layout.dark() ? 'Dark' : 'Light' }}</span>
         </ax-button>
         <ax-button
@@ -81,7 +94,7 @@ const TITLES: Record<string, string> = {
           ariaLabel="Open theme configurator"
           (clickEvent)="layout.openConfigurator()"
         >
-          <ax-icon name="settings" [size]="16" />
+          <ax-icon axButtonLeading name="settings" [size]="16" />
           Theme
         </ax-button>
       </div>

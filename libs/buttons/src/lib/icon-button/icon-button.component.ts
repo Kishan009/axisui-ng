@@ -40,6 +40,7 @@ import { iconButtonVariants, type IconButtonShape, type IconButtonSize, type Ico
   selector: 'ax-icon-button',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
+    class: 'inline-flex',
     '[class.ax-icon-button]': 'true',
     '[attr.data-variant]': 'variant()',
     '[attr.data-size]': 'size()',
@@ -61,7 +62,7 @@ import { iconButtonVariants, type IconButtonShape, type IconButtonSize, type Ico
           <path d="M21 12a9 9 0 0 0-9-9" stroke="currentColor" stroke-width="3" stroke-linecap="round" />
         </svg>
       } @else {
-        <span class="ax-icon-button__icon">
+        <span class="ax-icon-button__icon inline-flex size-full items-center justify-center leading-none">
           <ng-content></ng-content>
         </span>
       }

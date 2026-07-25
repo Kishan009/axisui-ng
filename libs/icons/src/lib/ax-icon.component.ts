@@ -96,7 +96,7 @@ export class AxIconComponent {
   });
 
   /** Resolved class string for the host element. */
-  protected readonly classes = computed(() => cn('inline-block shrink-0', this.class()));
+  protected readonly classes = computed(() => cn('inline-flex shrink-0 leading-none', this.class()));
 
   private readonly sanitizer = inject(DomSanitizer);
 

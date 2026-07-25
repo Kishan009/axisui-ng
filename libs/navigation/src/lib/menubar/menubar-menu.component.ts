@@ -104,6 +104,10 @@ export class AxMenubarMenuComponent {
   private attach(): void {
     if (this.overlayRef) return;
     const trigger = (this.hostRef.nativeElement as HTMLElement).querySelector('button') as HTMLElement;
+    // Drive the dropdown's open model before attach so the panel paints with
+    // data-state="open" (ax-overlay-in). Leaving open=false kept data-state="closed"
+    // and ran ax-overlay-out on every open — visible blink/flicker.
+    this.menu().open.set(true);
     this.overlayRef = createConnectedOverlayRef(this.overlay, this.dir, trigger, normalizePlacement('bottom-start'));
     this.overlayRef.attach(new TemplatePortal(this.menu().contentTemplate(), this.vcr));
     // Trigger is outside the overlay pane. Without this guard, the same click that
@@ -114,6 +118,11 @@ export class AxMenubarMenuComponent {
       if (target instanceof Node && trigger.contains(target)) return;
       this.ctx.setOpen(null);
     });
+    // Escape inside the panel flips dropdown open→false but does not emit closed();
+    // collapse the menubar so we detach instead of leaving a closed-animated panel up.
+    this.overlayRef.keydownEvents().subscribe((e) => {
+      if (e.key === 'Escape') this.ctx.setOpen(null);
+    });
     // Selecting an item closes the projected dropdown (close()): reset the
     // menubar so this menu collapses and the next trigger opens fresh.
     this.closedSub = outputToObservable(this.menu().closed).subscribe(() => this.ctx.setOpen(null));
@@ -123,9 +132,12 @@ export class AxMenubarMenuComponent {
   private detach(): void {
     this.closedSub?.unsubscribe();
     this.closedSub = null;
+    if (!this.overlayRef) return;
+    // Keep dropdown open model in sync (data-state + submenu teardown).
+    this.menu().open.set(false);
     // Animate the exit (the attached dropdown panel carries the data-ax-overlay
     // contract) instead of disposing instantly.
-    if (this.overlayRef) animateOverlayClose(this.overlayRef);
+    animateOverlayClose(this.overlayRef);
     this.overlayRef = null;
   }
 }

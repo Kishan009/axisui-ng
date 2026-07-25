@@ -108,6 +108,21 @@ describe('AxMenubar', () => {
     expect(overlayRoot().querySelector('[role="menu"]')).toBeNull();
   });
 
+  it('sets data-state="open" on the attached dropdown panel', () => {
+    const fixture = TestBed.createComponent(HostComponent);
+    fixture.detectChanges();
+    const fileTrigger = fixture.nativeElement.querySelectorAll('[role="menuitem"]')[0] as HTMLElement;
+
+    fileTrigger.click();
+    fixture.detectChanges();
+
+    // Regression: menubar used to attach without flipping dropdown open, so the
+    // panel stayed data-state="closed" and played ax-overlay-out (blink).
+    const panel = overlayRoot().querySelector('[data-ax-overlay]') as HTMLElement | null;
+    expect(panel).toBeTruthy();
+    expect(panel?.getAttribute('data-state')).toBe('open');
+  });
+
   it('has no a11y violations', async () => {
     const fixture = TestBed.createComponent(HostComponent);
     fixture.detectChanges();
