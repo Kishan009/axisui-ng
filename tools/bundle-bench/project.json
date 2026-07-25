@@ -7,7 +7,7 @@
   "targets": {
     "check": {
       "executor": "nx:run-commands",
-      "dependsOn": ["^build"],
+      "dependsOn": [{ "projects": "tag:type:lib", "target": "build" }],
       "options": { "command": "node tools/bundle-bench/bench.mjs check" }
     },
     "update": {
