@@ -59,7 +59,7 @@
     "jest-axe": "^9.0.0",
     "jest-preset-angular": "^14.5.0",
     "ng-packagr": "^20.0.0",
-    "nx": "^21.0.0",
+    "nx": "^22.7.2",
     "storybook": "^10.4.4",
     "tailwind-merge": "^3.6.0",
     "tailwindcss": "^4.0.0",
